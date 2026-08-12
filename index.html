@@ -4,9 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SkillProof</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .tagline {
+      font-size: 18px;
+      color: #6b7280;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      padding: 28px 22px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #111827;
+      color: white;
+    }
+
+    .secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>SkillProof</h1>
-  <p>Verified skills. Trusted workers.</p>
+  <div class="container">
+    <div class="logo">SkillProof</div>
+
+    <div class="tagline">
+      Verified skills. Trusted workers.
+    </div>
+
+    <div class="card">
+      <h2>Welcome to SkillProof</h2>
+
+      <p>
+        Connect skilled workers with trusted employers
+        through verified work experience.
+      </p>
+
+      <button>I'm a Worker</button>
+      <button class="secondary">I'm an Employer</button>
+    </div>
+  </div>
 </body>
 </html>
