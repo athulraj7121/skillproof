@@ -92,9 +92,25 @@
         through verified work experience.
       </p>
 
-      <button>I'm a Worker</button>
-      <button class="secondary">I'm an Employer</button>
+      <div class="button-group">
+
+  <button onclick="selectRole('worker')">I'm a Worker</button>
+
+  <button class="secondary" onclick="selectRole('employer')">I'm an Employer</button>
+
+</div>
+  
+    
     </div>
   </div>
 </body>
+<script>
+  function selectRole(role) {
+    if (role === "worker") {
+      alert("Worker account selected");
+    } else {
+      alert("Employer account selected");
+    }
+  }
+</script>
 </html>
