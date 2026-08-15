@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SkillProof</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -73,18 +74,41 @@
       background: #e5e7eb;
       color: #111827;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .back {
+      background: transparent;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
   </style>
 </head>
 
 <body>
+
   <div class="container">
+
     <div class="logo">SkillProof</div>
 
     <div class="tagline">
       Verified skills. Trusted workers.
     </div>
 
-    <div class="card">
+    <!-- Welcome Screen -->
+    <div class="card" id="welcomeScreen">
+
       <h2>Welcome to SkillProof</h2>
 
       <p>
@@ -92,26 +116,95 @@
         through verified work experience.
       </p>
 
-      <div class="button-group">
+      <button onclick="selectRole('worker')">
+        I'm a Worker
+      </button>
 
-  <button onclick="selectRole('worker')">I'm a Worker</button>
+      <button class="secondary" onclick="selectRole('employer')">
+        I'm an Employer
+      </button>
 
-  <button class="secondary" onclick="selectRole('employer')">I'm an Employer</button>
-
-</div>
-  
-    
     </div>
+
+    <!-- Worker Screen -->
+    <div class="card hidden" id="workerScreen">
+
+      <h2>Worker Account</h2>
+
+      <p>
+        Create your professional worker profile.
+      </p>
+
+      <input type="text" placeholder="Your name">
+
+      <input type="text" placeholder="Your skill (e.g. Painter)">
+
+      <input type="text" placeholder="Current or past company">
+
+      <button onclick="createProfile('worker')">
+        Continue
+      </button>
+
+      <button class="back" onclick="goBack()">
+        Back
+      </button>
+
+    </div>
+
+    <!-- Employer Screen -->
+    <div class="card hidden" id="employerScreen">
+
+      <h2>Employer Account</h2>
+
+      <p>
+        Find skilled and experienced workers.
+      </p>
+
+      <input type="text" placeholder="Company name">
+
+      <input type="text" placeholder="What worker do you need?">
+
+      <button onclick="createProfile('employer')">
+        Continue
+      </button>
+
+      <button class="back" onclick="goBack()">
+        Back
+      </button>
+
+    </div>
+
   </div>
-</body>
-<script>
-  function selectRole(role) {
-    if (role === "worker") {
-      alert("Worker account selected");
-    } else if (role === "employer") {
-      alert("Employer account selected");
+
+  <script>
+    function selectRole(role) {
+      document.getElementById("welcomeScreen").classList.add("hidden");
+
+      if (role === "worker") {
+        document.getElementById("workerScreen").classList.remove("hidden");
+      }
+
+      if (role === "employer") {
+        document.getElementById("employerScreen").classList.remove("hidden");
+      }
     }
-  }
-</script>
+
+    function goBack() {
+      document.getElementById("workerScreen").classList.add("hidden");
+      document.getElementById("employerScreen").classList.add("hidden");
+      document.getElementById("welcomeScreen").classList.remove("hidden");
+    }
+
+    function createProfile(role) {
+      if (role === "worker") {
+        alert("Worker profile setup started.");
+      }
+
+      if (role === "employer") {
+        alert("Employer profile setup started.");
+      }
+    }
+  </script>
+
 </body>
 </html>
