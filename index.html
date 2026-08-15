@@ -15,15 +15,13 @@
       font-family: Arial, sans-serif;
       background: #f5f7fa;
       color: #111827;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
     }
 
     .container {
       width: 100%;
       max-width: 420px;
+      margin: auto;
       padding: 32px 24px;
       text-align: center;
     }
@@ -75,23 +73,31 @@
       color: #111827;
     }
 
+    .back {
+      background: transparent;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
+
     .hidden {
       display: none;
     }
 
-    input {
+    input,
+    select {
       width: 100%;
       padding: 14px;
       margin-top: 12px;
       border: 1px solid #d1d5db;
       border-radius: 10px;
       font-size: 16px;
+      background: white;
     }
 
-    .back {
-      background: transparent;
-      color: #111827;
-      border: 1px solid #d1d5db;
+    .section-title {
+      text-align: left;
+      margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -106,7 +112,7 @@
       Verified skills. Trusted workers.
     </div>
 
-    <!-- Welcome Screen -->
+    <!-- Welcome -->
     <div class="card" id="welcomeScreen">
 
       <h2>Welcome to SkillProof</h2>
@@ -126,22 +132,55 @@
 
     </div>
 
-    <!-- Worker Screen -->
+    <!-- Worker -->
     <div class="card hidden" id="workerScreen">
 
-      <h2>Worker Account</h2>
+      <h2>Worker Profile</h2>
 
       <p>
         Create your professional worker profile.
       </p>
 
-      <input type="text" placeholder="Your name">
+      <input
+        type="text"
+        id="workerName"
+        placeholder="Full name"
+      >
 
-      <input type="text" placeholder="Your skill (e.g. Painter)">
+      <select id="workerSkill">
+        <option value="">Select your skill</option>
+        <option>Painter</option>
+        <option>Electrician</option>
+        <option>Plumber</option>
+        <option>Carpenter</option>
+        <option>Mason</option>
+        <option>Welder</option>
+        <option>Mechanic</option>
+        <option>Engineer</option>
+        <option>Other</option>
+      </select>
 
-      <input type="text" placeholder="Current or past company">
+      <input
+        type="text"
+        id="workerCompany"
+        placeholder="Current or past company"
+      >
 
-      <button onclick="createProfile('worker')">
+      <input
+        type="text"
+        id="workerDuration"
+        placeholder="Duration (e.g. 2 years)"
+      >
+
+      <div class="section-title">
+        Work verification
+      </div>
+
+      <p>
+        You can add supporting verification later.
+      </p>
+
+      <button onclick="createWorkerProfile()">
         Continue
       </button>
 
@@ -151,20 +190,35 @@
 
     </div>
 
-    <!-- Employer Screen -->
+    <!-- Employer -->
     <div class="card hidden" id="employerScreen">
 
-      <h2>Employer Account</h2>
+      <h2>Employer Profile</h2>
 
       <p>
         Find skilled and experienced workers.
       </p>
 
-      <input type="text" placeholder="Company name">
+      <input
+        type="text"
+        id="companyName"
+        placeholder="Company name"
+      >
 
-      <input type="text" placeholder="What worker do you need?">
+      <select id="requiredSkill">
+        <option value="">Select required skill</option>
+        <option>Painter</option>
+        <option>Electrician</option>
+        <option>Plumber</option>
+        <option>Carpenter</option>
+        <option>Mason</option>
+        <option>Welder</option>
+        <option>Mechanic</option>
+        <option>Engineer</option>
+        <option>Other</option>
+      </select>
 
-      <button onclick="createProfile('employer')">
+      <button onclick="createEmployerProfile()">
         Continue
       </button>
 
@@ -177,33 +231,73 @@
   </div>
 
   <script>
+
     function selectRole(role) {
-      document.getElementById("welcomeScreen").classList.add("hidden");
+
+      document
+        .getElementById("welcomeScreen")
+        .classList.add("hidden");
 
       if (role === "worker") {
-        document.getElementById("workerScreen").classList.remove("hidden");
+        document
+          .getElementById("workerScreen")
+          .classList.remove("hidden");
       }
 
       if (role === "employer") {
-        document.getElementById("employerScreen").classList.remove("hidden");
+        document
+          .getElementById("employerScreen")
+          .classList.remove("hidden");
       }
     }
 
     function goBack() {
-      document.getElementById("workerScreen").classList.add("hidden");
-      document.getElementById("employerScreen").classList.add("hidden");
-      document.getElementById("welcomeScreen").classList.remove("hidden");
+
+      document
+        .getElementById("workerScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("employerScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("welcomeScreen")
+        .classList.remove("hidden");
     }
 
-    function createProfile(role) {
-      if (role === "worker") {
-        alert("Worker profile setup started.");
+    function createWorkerProfile() {
+
+      const name =
+        document.getElementById("workerName").value;
+
+      const skill =
+        document.getElementById("workerSkill").value;
+
+      if (name === "" || skill === "") {
+        alert("Please enter your name and select your skill.");
+        return;
       }
 
-      if (role === "employer") {
-        alert("Employer profile setup started.");
-      }
+      alert("Worker profile created successfully.");
     }
+
+    function createEmployerProfile() {
+
+      const company =
+        document.getElementById("companyName").value;
+
+      const skill =
+        document.getElementById("requiredSkill").value;
+
+      if (company === "" || skill === "") {
+        alert("Please enter your company name and required skill.");
+        return;
+      }
+
+      alert("Employer profile created successfully.");
+    }
+
   </script>
 
 </body>
