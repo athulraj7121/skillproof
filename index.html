@@ -299,6 +299,29 @@
     }
 
   </script>
+<section class="search-section">
+  <h2>Find Skilled Workers</h2>
 
+  <input
+    type="text"
+    id="skillSearch"
+    placeholder="Search by skill (Painter, Electrician, Plumber...)"
+  />
+
+  <select id="stateSelect">
+    <option value="">Select State</option>
+    <option value="Kerala">Kerala</option>
+    <option value="Karnataka">Karnataka</option>
+    <option value="Tamil Nadu">Tamil Nadu</option>
+  </select>
+
+  <select id="districtSelect">
+    <option value="">Select District</option>
+  </select>
+
+  <button onclick="searchWorkers()">Search Workers</button>
+
+  <div id="searchResults"></div>
+</section>
 </body>
 </html>
