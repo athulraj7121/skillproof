@@ -324,6 +324,54 @@
   <div id="searchResults"></div>
 </section>
 <script>
+const districts = {
+  Kerala: [
+    "Kasargod",
+    "Kannur",
+    "Kozhikode",
+    "Wayanad",
+    "Malappuram",
+    "Palakkad",
+    "Thrissur",
+    "Ernakulam",
+    "Idukki",
+    "Kottayam",
+    "Alappuzha",
+    "Pathanamthitta",
+    "Kollam",
+    "Thiruvananthapuram"
+  ],
+  Karnataka: [
+    "Bengaluru Urban",
+    "Mysuru",
+    "Mangaluru",
+    "Kodagu",
+    "Udupi"
+  ],
+  "Tamil Nadu": [
+    "Chennai",
+    "Coimbatore",
+    "Madurai",
+    "Salem",
+    "Tiruchirappalli"
+  ]
+};
+
+document.getElementById("stateSelect").addEventListener("change", function () {
+  const districtSelect = document.getElementById("districtSelect");
+  const selectedState = this.value;
+
+  districtSelect.innerHTML = '<option value="">Select District</option>';
+
+  if (districts[selectedState]) {
+    districts[selectedState].forEach(function (district) {
+      const option = document.createElement("option");
+      option.value = district;
+      option.textContent = district;
+      districtSelect.appendChild(option);
+    });
+  }
+});
 function searchWorkers() {
   const skill = document.getElementById("skillSearch").value.trim();
   const state = document.getElementById("stateSelect").value;
