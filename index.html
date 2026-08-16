@@ -323,5 +323,29 @@
 
   <div id="searchResults"></div>
 </section>
+<script>
+function searchWorkers() {
+  const skill = document.getElementById("skillSearch").value.trim();
+  const state = document.getElementById("stateSelect").value;
+  const district = document.getElementById("districtSelect").value;
+
+  const results = document.getElementById("searchResults");
+
+  if (!skill && !state && !district) {
+    results.innerHTML = "<p>Please select a skill or location.</p>";
+    return;
+  }
+
+  results.innerHTML = `
+    <div class="worker-card">
+      <h3>Search Ready</h3>
+      <p>Skill: ${skill || "Any"}</p>
+      <p>State: ${state || "Any"}</p>
+      <p>District: ${district || "Any"}</p>
+      <p>Worker profiles will appear here.</p>
+    </div>
+  `;
+}
+</script>
 </body>
 </html>
