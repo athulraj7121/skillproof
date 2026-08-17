@@ -23,26 +23,29 @@
       max-width: 420px;
       margin: auto;
       padding: 32px 24px;
-      text-align: center;
     }
 
     .logo {
+      text-align: center;
       font-size: 42px;
       font-weight: 800;
       margin-bottom: 12px;
     }
 
     .tagline {
+      text-align: center;
       font-size: 18px;
       color: #6b7280;
       margin-bottom: 40px;
     }
 
-    .card {
+    .card,
+    .search-section {
       background: white;
       padding: 28px 22px;
       border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 24px;
     }
 
     h2 {
@@ -99,26 +102,33 @@
       margin-top: 20px;
       font-weight: bold;
     }
-    .search-section {
-  background: white;
-  padding: 28px 22px;
-  margin-top: 24px;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-}
 
-.search-section h2 {
-  margin-top: 0;
-}
+    .search-section h2 {
+      text-align: center;
+    }
 
-.worker-card {
-  margin-top: 18px;
-  padding: 18px;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  text-align: left;
-  background: #f9fafb;
-}
+    .worker-card {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      text-align: left;
+      background: #f9fafb;
+    }
+
+    .worker-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .worker-card p {
+      margin: 6px 0;
+    }
+
+    .no-results {
+      text-align: center;
+      margin-top: 18px;
+    }
   </style>
 </head>
 
@@ -132,7 +142,7 @@
       Verified skills. Trusted workers.
     </div>
 
-    <!-- Welcome -->
+    <!-- Welcome Screen -->
     <div class="card" id="welcomeScreen">
 
       <h2>Welcome to SkillProof</h2>
@@ -152,7 +162,7 @@
 
     </div>
 
-    <!-- Worker -->
+    <!-- Worker Screen -->
     <div class="card hidden" id="workerScreen">
 
       <h2>Worker Profile</h2>
@@ -210,7 +220,7 @@
 
     </div>
 
-    <!-- Employer -->
+    <!-- Employer Screen -->
     <div class="card hidden" id="employerScreen">
 
       <h2>Employer Profile</h2>
@@ -248,14 +258,56 @@
 
     </div>
 
+    <!-- Search Workers -->
+    <div class="search-section">
+
+      <h2>Find Skilled Workers</h2>
+
+      <input
+        type="text"
+        id="skillSearch"
+        placeholder="Search by skill"
+      >
+
+      <select id="stateSelect">
+        <option value="">Select State</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Tamil Nadu">Tamil Nadu</option>
+      </select>
+
+      <select id="districtSelect">
+        <option value="">Select District</option>
+      </select>
+
+      <button onclick="searchWorkers()">
+        Search Workers
+      </button>
+
+      <div id="searchResults"></div>
+
+    </div>
+
   </div>
 
   <script>
+
+    /* -----------------------------
+       ROLE SELECTION
+    ----------------------------- */
 
     function selectRole(role) {
 
       document
         .getElementById("welcomeScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("workerScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("employerScreen")
         .classList.add("hidden");
 
       if (role === "worker") {
@@ -270,6 +322,11 @@
           .classList.remove("hidden");
       }
     }
+
+
+    /* -----------------------------
+       BACK BUTTON
+    ----------------------------- */
 
     function goBack() {
 
@@ -286,193 +343,302 @@
         .classList.remove("hidden");
     }
 
+
+    /* -----------------------------
+       WORKER PROFILE
+    ----------------------------- */
+
     function createWorkerProfile() {
 
       const name =
-        document.getElementById("workerName").value;
+        document.getElementById("workerName").value.trim();
 
       const skill =
         document.getElementById("workerSkill").value;
 
       if (name === "" || skill === "") {
-        alert("Please enter your name and select your skill.");
+
+        alert(
+          "Please enter your name and select your skill."
+        );
+
         return;
       }
 
-      alert("Worker profile created successfully.");
+      alert(
+        "Worker profile created successfully."
+      );
     }
+
+
+    /* -----------------------------
+       EMPLOYER PROFILE
+    ----------------------------- */
 
     function createEmployerProfile() {
 
       const company =
-        document.getElementById("companyName").value;
+        document.getElementById("companyName").value.trim();
 
       const skill =
         document.getElementById("requiredSkill").value;
 
       if (company === "" || skill === "") {
-        alert("Please enter your company name and required skill.");
+
+        alert(
+          "Please enter your company name and required skill."
+        );
+
         return;
       }
 
-      alert("Employer profile created successfully.");
+      alert(
+        "Employer profile created successfully."
+      );
+    }
+
+
+    /* -----------------------------
+       DISTRICTS
+    ----------------------------- */
+
+    const districts = {
+
+      Kerala: [
+        "Kasargod",
+        "Kannur",
+        "Kozhikode",
+        "Wayanad",
+        "Malappuram",
+        "Palakkad",
+        "Thrissur",
+        "Ernakulam",
+        "Idukki",
+        "Kottayam",
+        "Alappuzha",
+        "Pathanamthitta",
+        "Kollam",
+        "Thiruvananthapuram"
+      ],
+
+      Karnataka: [
+        "Bengaluru Urban",
+        "Mysuru",
+        "Mangaluru",
+        "Kodagu",
+        "Udupi"
+      ],
+
+      "Tamil Nadu": [
+        "Chennai",
+        "Coimbatore",
+        "Madurai",
+        "Salem",
+        "Tiruchirappalli"
+      ]
+    };
+
+
+    /* -----------------------------
+       STATE → DISTRICT
+    ----------------------------- */
+
+    document
+      .getElementById("stateSelect")
+      .addEventListener("change", function () {
+
+        const districtSelect =
+          document.getElementById("districtSelect");
+
+        const selectedState =
+          this.value;
+
+        districtSelect.innerHTML =
+          '<option value="">Select District</option>';
+
+        if (districts[selectedState]) {
+
+          districts[selectedState].forEach(
+            function (district) {
+
+              const option =
+                document.createElement("option");
+
+              option.value = district;
+              option.textContent = district;
+
+              districtSelect.appendChild(option);
+            }
+          );
+        }
+      });
+
+
+    /* -----------------------------
+       DEMO WORKERS
+    ----------------------------- */
+
+    const workers = [
+
+      {
+        name: "Arun",
+        skill: "Painter",
+        state: "Kerala",
+        district: "Kasargod",
+        experience: "5 years",
+        company: "ABC Painting Works"
+      },
+
+      {
+        name: "Vishnu",
+        skill: "Electrician",
+        state: "Kerala",
+        district: "Kannur",
+        experience: "4 years",
+        company: "Kannur Electricals"
+      },
+
+      {
+        name: "Rahul",
+        skill: "Mechanic",
+        state: "Kerala",
+        district: "Ernakulam",
+        experience: "6 years",
+        company: "City Auto Works"
+      },
+
+      {
+        name: "Shameer",
+        skill: "Mason",
+        state: "Kerala",
+        district: "Kozhikode",
+        experience: "7 years",
+        company: "BuildPro"
+      },
+
+      {
+        name: "Manu",
+        skill: "Painter",
+        state: "Kerala",
+        district: "Kannur",
+        experience: "3 years",
+        company: "Perfect Paints"
+      },
+
+      {
+        name: "Suresh",
+        skill: "Electrician",
+        state: "Karnataka",
+        district: "Mangaluru",
+        experience: "8 years",
+        company: "Mangalore Electricals"
+      }
+
+    ];
+
+
+    /* -----------------------------
+       SEARCH WORKERS
+    ----------------------------- */
+
+    function searchWorkers() {
+
+      const skill =
+        document
+          .getElementById("skillSearch")
+          .value
+          .trim()
+          .toLowerCase();
+
+      const state =
+        document
+          .getElementById("stateSelect")
+          .value;
+
+      const district =
+        document
+          .getElementById("districtSelect")
+          .value;
+
+      const results =
+        document.getElementById("searchResults");
+
+
+      const filteredWorkers =
+        workers.filter(function (worker) {
+
+          const skillMatch =
+            !skill ||
+            worker.skill
+              .toLowerCase()
+              .includes(skill);
+
+          const stateMatch =
+            !state ||
+            worker.state === state;
+
+          const districtMatch =
+            !district ||
+            worker.district === district;
+
+          return (
+            skillMatch &&
+            stateMatch &&
+            districtMatch
+          );
+        });
+
+
+      if (filteredWorkers.length === 0) {
+
+        results.innerHTML = `
+          <div class="no-results">
+            <p>No workers found.</p>
+          </div>
+        `;
+
+        return;
+      }
+
+
+      results.innerHTML =
+        filteredWorkers
+          .map(function (worker) {
+
+            return `
+              <div class="worker-card">
+
+                <h3>${worker.name}</h3>
+
+                <p>
+                  <strong>Skill:</strong>
+                  ${worker.skill}
+                </p>
+
+                <p>
+                  <strong>Experience:</strong>
+                  ${worker.experience}
+                </p>
+
+                <p>
+                  <strong>Company:</strong>
+                  ${worker.company}
+                </p>
+
+                <p>
+                  <strong>Location:</strong>
+                  ${worker.district},
+                  ${worker.state}
+                </p>
+
+              </div>
+            `;
+
+          })
+          .join("");
     }
 
   </script>
-  <div class="container">
-<section class="search-section">
-  <h2>Find Skilled Workers</h2>
 
-  <input
-    type="text"
-    id="skillSearch"
-    placeholder="Search by skill (Painter, Electrician, Plumber...)"
-  />
-
-  <select id="stateSelect">
-    <option value="">Select State</option>
-    <option value="Kerala">Kerala</option>
-    <option value="Karnataka">Karnataka</option>
-    <option value="Tamil Nadu">Tamil Nadu</option>
-  </select>
-
-  <select id="districtSelect">
-    <option value="">Select District</option>
-  </select>
-
-  <button onclick="searchWorkers()">Search Workers</button>
-
-  <div id="searchResults"></div>
-</section>
-</div>
-<script>
-const districts = {
-  Kerala: [
-    "Kasargod",
-    "Kannur",
-    "Kozhikode",
-    "Wayanad",
-    "Malappuram",
-    "Palakkad",
-    "Thrissur",
-    "Ernakulam",
-    "Idukki",
-    "Kottayam",
-    "Alappuzha",
-    "Pathanamthitta",
-    "Kollam",
-    "Thiruvananthapuram"
-  ],
-  Karnataka: [
-    "Bengaluru Urban",
-    "Mysuru",
-    "Mangaluru",
-    "Kodagu",
-    "Udupi"
-  ],
-  "Tamil Nadu": [
-    "Chennai",
-    "Coimbatore",
-    "Madurai",
-    "Salem",
-    "Tiruchirappalli"
-  ]
-};
-
-document.getElementById("stateSelect").addEventListener("change", function () {
-  const districtSelect = document.getElementById("districtSelect");
-  const selectedState = this.value;
-
-  districtSelect.innerHTML = '<option value="">Select District</option>';
-
-  if (districts[selectedState]) {
-    districts[selectedState].forEach(function (district) {
-      const option = document.createElement("option");
-      option.value = district;
-      option.textContent = district;
-      districtSelect.appendChild(option);
-    });
-  }
-});
-function searchWorkers() {
-  const skill = document.getElementById("skillSearch").value.trim().toLowerCase();
-  const state = document.getElementById("stateSelect").value;
-  const district = document.getElementById("districtSelect").value;
-
-  const results = document.getElementById("searchResults");
-
-  const workers = [
-    {
-      name: "Arun",
-      skill: "Painter",
-      state: "Kerala",
-      district: "Kasargod",
-      experience: "5 years"
-    },
-    {
-      name: "Vishnu",
-      skill: "Electrician",
-      state: "Kerala",
-      district: "Kannur",
-      experience: "4 years"
-    },
-    {
-      name: "Rahul",
-      skill: "Mechanic",
-      state: "Kerala",
-      district: "Ernakulam",
-      experience: "6 years"
-    },
-    {
-      name: "Shameer",
-      skill: "Mason",
-      state: "Kerala",
-      district: "Kozhikode",
-      experience: "7 years"
-    }
-  ];
-
-  const filteredWorkers = workers.filter(function(worker) {
-
-    const skillMatch =
-      !skill || worker.skill.toLowerCase().includes(skill);
-
-    const stateMatch =
-      !state || worker.state === state;
-
-    const districtMatch =
-      !district || worker.district === district;
-
-    return skillMatch && stateMatch && districtMatch;
-  });
-
-  if (filteredWorkers.length === 0) {
-    results.innerHTML = "<p>No workers found.</p>";
-    return;
-  }
-
-  results.innerHTML = filteredWorkers.map(function(worker) {
-    return `
-      <div class="worker-card">
-        <h3>${worker.name}</h3>
-        <p><strong>Skill:</strong> ${worker.skill}</p>
-        <p><strong>Experience:</strong> ${worker.experience}</p>
-        <p><strong>Location:</strong> ${worker.district}, ${worker.state}</p>
-      </div>
-    `;
-  }).join("");
-}
-
-  results.innerHTML = `
-    <div class="worker-card">
-      <h3>Search Ready</h3>
-      <p>Skill: ${skill || "Any"}</p>
-      <p>State: ${state || "Any"}</p>
-      <p>District: ${district || "Any"}</p>
-      <p>Worker profiles will appear here.</p>
-    </div>
-  `;
-}
-</script>
 </body>
 </html>
