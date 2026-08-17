@@ -395,16 +395,73 @@ document.getElementById("stateSelect").addEventListener("change", function () {
   }
 });
 function searchWorkers() {
-  const skill = document.getElementById("skillSearch").value.trim();
+  const skill = document.getElementById("skillSearch").value.trim().toLowerCase();
   const state = document.getElementById("stateSelect").value;
   const district = document.getElementById("districtSelect").value;
 
   const results = document.getElementById("searchResults");
 
-  if (!skill && !state && !district) {
-    results.innerHTML = "<p>Please select a skill or location.</p>";
+  const workers = [
+    {
+      name: "Arun",
+      skill: "Painter",
+      state: "Kerala",
+      district: "Kasargod",
+      experience: "5 years"
+    },
+    {
+      name: "Vishnu",
+      skill: "Electrician",
+      state: "Kerala",
+      district: "Kannur",
+      experience: "4 years"
+    },
+    {
+      name: "Rahul",
+      skill: "Mechanic",
+      state: "Kerala",
+      district: "Ernakulam",
+      experience: "6 years"
+    },
+    {
+      name: "Shameer",
+      skill: "Mason",
+      state: "Kerala",
+      district: "Kozhikode",
+      experience: "7 years"
+    }
+  ];
+
+  const filteredWorkers = workers.filter(function(worker) {
+
+    const skillMatch =
+      !skill || worker.skill.toLowerCase().includes(skill);
+
+    const stateMatch =
+      !state || worker.state === state;
+
+    const districtMatch =
+      !district || worker.district === district;
+
+    return skillMatch && stateMatch && districtMatch;
+  });
+
+  if (filteredWorkers.length === 0) {
+    results.innerHTML = "<p>No workers found.</p>";
     return;
   }
+
+  results.innerHTML = filteredWorkers.map(function(worker) {
+    return `
+      <div class="worker-card">
+        <h3>${worker.name}</h3>
+        <p><strong>Skill:</strong> ${worker.skill}</p>
+        <p><strong>Experience:</strong> ${worker.experience}</p>
+        <p><strong>Location:</strong> ${worker.district}, ${worker.state}</p>
+      </div>
+    `;
+  }).join("");
+}
 
   results.innerHTML = `
     <div class="worker-card">
