@@ -3,639 +3,509 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>SkillProof</title>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f5f7fa;
+      background: #f4f7fb;
       color: #111827;
-      min-height: 100vh;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 420px;
-      margin: auto;
-      padding: 32px 24px;
-    }
-
-    .logo {
-      text-align: center;
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .tagline {
-      text-align: center;
-      font-size: 18px;
-      color: #6b7280;
-      margin-bottom: 40px;
-    }
-
-    .card,
-    .search-section {
-      background: white;
-      padding: 28px 22px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      margin-bottom: 24px;
-    }
-
-    h2 {
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #6b7280;
       line-height: 1.5;
     }
 
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #22c55e;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      font-size: 18px;
+      color: #d1d5db;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
     button {
-      width: 100%;
-      padding: 15px;
-      margin-top: 12px;
       border: none;
-      border-radius: 12px;
-      font-size: 16px;
+      border-radius: 10px;
+      padding: 13px 20px;
+      font-size: 15px;
       font-weight: bold;
       cursor: pointer;
-      background: #111827;
+    }
+
+    .primary {
+      background: #22c55e;
       color: white;
     }
 
     .secondary {
-      background: #e5e7eb;
+      background: white;
       color: #111827;
     }
 
-    .back {
-      background: transparent;
-      color: #111827;
-      border: 1px solid #d1d5db;
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
     }
 
-    .hidden {
-      display: none;
+    .section-title {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .search-box {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
     }
 
     input,
     select {
       width: 100%;
-      padding: 14px;
-      margin-top: 12px;
+      padding: 13px;
       border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 16px;
+      border-radius: 9px;
+      font-size: 15px;
       background: white;
     }
 
-    .section-title {
-      text-align: left;
-      margin-top: 20px;
-      font-weight: bold;
+    .search-button {
+      margin-top: 18px;
+      width: 100%;
+      background: #111827;
+      color: white;
     }
 
-    .search-section h2 {
-      text-align: center;
+    .results {
+      margin-top: 25px;
+      display: none;
     }
 
     .worker-card {
-      margin-top: 18px;
-      padding: 18px;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      text-align: left;
-      background: #f9fafb;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 12px;
+      border-left: 5px solid #22c55e;
     }
 
-    .worker-card h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
+    .verified {
+      color: #16a34a;
+      font-weight: bold;
     }
 
-    .worker-card p {
-      margin: 6px 0;
+    .profile {
+      display: none;
     }
 
-    .no-results {
+    .profile-box {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .profile-box input,
+    .profile-box select {
+      margin-bottom: 14px;
+    }
+
+    .back {
+      margin-top: 15px;
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    footer {
+      background: #111827;
+      color: #d1d5db;
       text-align: center;
-      margin-top: 18px;
+      padding: 25px 15px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero {
+        padding: 55px 18px;
+      }
+
+      .container {
+        padding: 30px 15px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
-
-    <div class="logo">SkillProof</div>
-
-    <div class="tagline">
-      Verified skills. Trusted workers.
+  <header>
+    <div class="nav">
+      <div class="logo">Skill<span>Proof</span></div>
+      <button class="primary" onclick="showProfile()">Create Profile</button>
     </div>
+  </header>
 
-    <!-- Welcome Screen -->
-    <div class="card" id="welcomeScreen">
+  <section class="hero">
+    <h1>Verified Skills. Trusted Workers.</h1>
 
-      <h2>Welcome to SkillProof</h2>
+    <p>
+      SkillProof connects skilled workers with employers
+      through professional profiles and verified work experience.
+    </p>
 
-      <p>
-        Connect skilled workers with trusted employers
-        through verified work experience.
-      </p>
-
-      <button onclick="selectRole('worker')">
-        I'm a Worker
-      </button>
-
-      <button class="secondary" onclick="selectRole('employer')">
-        I'm an Employer
-      </button>
-
+    <div class="buttons">
+      <button class="primary" onclick="showProfile()">I'm a Worker</button>
+      <button class="secondary" onclick="showSearch()">I'm an Employer</button>
     </div>
+  </section>
 
-    <!-- Worker Screen -->
-    <div class="card hidden" id="workerScreen">
+  <section class="container">
 
-      <h2>Worker Profile</h2>
+    <h2 class="section-title">Find Skilled Workers</h2>
 
-      <p>
-        Create your professional worker profile.
-      </p>
+    <div class="search-box">
 
-      <input
-        type="text"
-        id="workerName"
-        placeholder="Full name"
-      >
+      <div class="form-grid">
 
-      <select id="workerSkill">
-        <option value="">Select your skill</option>
-        <option>Painter</option>
-        <option>Electrician</option>
-        <option>Plumber</option>
-        <option>Carpenter</option>
-        <option>Mason</option>
-        <option>Welder</option>
-        <option>Mechanic</option>
-        <option>Engineer</option>
-        <option>Other</option>
-      </select>
+        <div>
+          <label>Skill / Trade</label>
+          <select id="searchSkill">
+            <option value="">All Skills</option>
+            <option>Painter</option>
+            <option>Welder</option>
+            <option>Plumber</option>
+            <option>Electrician</option>
+            <option>Carpenter</option>
+            <option>Mason</option>
+            <option>Mechanic</option>
+            <option>AC Technician</option>
+            <option>Tile Worker</option>
+            <option>Fabricator</option>
+            <option>Driver</option>
+          </select>
+        </div>
 
-      <input
-        type="text"
-        id="workerCompany"
-        placeholder="Current or past company"
-      >
+        <div>
+          <label>District</label>
+          <select id="searchDistrict">
+            <option value="">All Districts</option>
+            <option>Kasargod</option>
+            <option>Kannur</option>
+            <option>Wayanad</option>
+            <option>Kozhikode</option>
+            <option>Malappuram</option>
+            <option>Palakkad</option>
+            <option>Thrissur</option>
+            <option>Ernakulam</option>
+            <option>Idukki</option>
+            <option>Kottayam</option>
+            <option>Alappuzha</option>
+            <option>Pathanamthitta</option>
+            <option>Kollam</option>
+            <option>Thiruvananthapuram</option>
+          </select>
+        </div>
 
-      <input
-        type="text"
-        id="workerDuration"
-        placeholder="Duration (e.g. 2 years)"
-      >
+        <div>
+          <label>Company / Employer</label>
+          <input
+            type="text"
+            id="searchCompany"
+            placeholder="Enter company name">
+        </div>
 
-      <div class="section-title">
-        Work verification
       </div>
 
-      <p>
-        You can add supporting verification later.
-      </p>
-
-      <button onclick="createWorkerProfile()">
-        Continue
-      </button>
-
-      <button class="back" onclick="goBack()">
-        Back
-      </button>
-
-    </div>
-
-    <!-- Employer Screen -->
-    <div class="card hidden" id="employerScreen">
-
-      <h2>Employer Profile</h2>
-
-      <p>
-        Find skilled and experienced workers.
-      </p>
-
-      <input
-        type="text"
-        id="companyName"
-        placeholder="Company name"
-      >
-
-      <select id="requiredSkill">
-        <option value="">Select required skill</option>
-        <option>Painter</option>
-        <option>Electrician</option>
-        <option>Plumber</option>
-        <option>Carpenter</option>
-        <option>Mason</option>
-        <option>Welder</option>
-        <option>Mechanic</option>
-        <option>Engineer</option>
-        <option>Other</option>
-      </select>
-
-      <button onclick="createEmployerProfile()">
-        Continue
-      </button>
-
-      <button class="back" onclick="goBack()">
-        Back
-      </button>
-
-    </div>
-
-    <!-- Search Workers -->
-    <div class="search-section">
-
-      <h2>Find Skilled Workers</h2>
-
-      <input
-        type="text"
-        id="skillSearch"
-        placeholder="Search by skill"
-      >
-
-      <select id="stateSelect">
-        <option value="">Select State</option>
-        <option value="Kerala">Kerala</option>
-        <option value="Karnataka">Karnataka</option>
-        <option value="Tamil Nadu">Tamil Nadu</option>
-      </select>
-
-      <select id="districtSelect">
-        <option value="">Select District</option>
-      </select>
-
-      <button onclick="searchWorkers()">
+      <button class="search-button" onclick="searchWorkers()">
         Search Workers
       </button>
 
-      <div id="searchResults"></div>
+      <div class="results" id="results">
+
+        <h3>Search Results</h3>
+
+        <div class="worker-card">
+          <h3>Sample Painter</h3>
+          <p>Painter • 5 Years Experience</p>
+          <p>District: Kasargod</p>
+          <p>Company: Sample Construction</p>
+          <p class="verified">✓ Experience Verified</p>
+        </div>
+
+        <div class="worker-card">
+          <h3>Sample Welder</h3>
+          <p>Welder • 4 Years Experience</p>
+          <p>District: Kannur</p>
+          <p>Company: Sample Engineering</p>
+          <p class="verified">✓ Experience Verified</p>
+        </div>
+
+      </div>
 
     </div>
 
-  </div>
+  </section>
+
+  <section class="container">
+
+    <h2 class="section-title">Why SkillProof?</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>🧑‍🔧 Worker Profiles</h3>
+        <p>
+          Workers can create professional profiles
+          showing their skills and experience.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>✓ Work Verification</h3>
+        <p>
+          Work experience can be supported with
+          verification from previous employers.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🔎 Easy Search</h3>
+        <p>
+          Employers can search workers by skill,
+          district and company.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>📍 Location Based</h3>
+        <p>
+          Find skilled workers based on their
+          location and district.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="container profile" id="profileSection">
+
+    <h2 class="section-title">Create Your Worker Profile</h2>
+
+    <div class="profile-box">
+
+      <input
+        type="text"
+        id="fullName"
+        placeholder="Full Name">
+
+      <select id="profileSkill">
+        <option value="">Select Your Skill</option>
+        <option>Painter</option>
+        <option>Welder</option>
+        <option>Plumber</option>
+        <option>Electrician</option>
+        <option>Carpenter</option>
+        <option>Mason</option>
+        <option>Mechanic</option>
+        <option>AC Technician</option>
+        <option>Tile Worker</option>
+        <option>Fabricator</option>
+        <option>Driver</option>
+      </select>
+
+      <select id="profileDistrict">
+        <option value="">Select District</option>
+        <option>Kasargod</option>
+        <option>Kannur</option>
+        <option>Wayanad</option>
+        <option>Kozhikode</option>
+        <option>Malappuram</option>
+        <option>Palakkad</option>
+        <option>Thrissur</option>
+        <option>Ernakulam</option>
+        <option>Idukki</option>
+        <option>Kottayam</option>
+        <option>Alappuzha</option>
+        <option>Pathanamthitta</option>
+        <option>Kollam</option>
+        <option>Thiruvananthapuram</option>
+      </select>
+
+      <input
+        type="text"
+        id="company"
+        placeholder="Current or Past Company">
+
+      <input
+        type="text"
+        id="duration"
+        placeholder="Experience (e.g. 3 years)">
+
+      <button
+        class="primary"
+        style="width:100%;"
+        onclick="saveProfile()">
+        Save Profile
+      </button>
+
+      <button
+        class="back"
+        style="width:100%;"
+        onclick="hideProfile()">
+        Back
+      </button>
+
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2026 SkillProof — Verified skills. Trusted workers.</p>
+  </footer>
 
   <script>
 
-    /* -----------------------------
-       ROLE SELECTION
-    ----------------------------- */
+    function showProfile() {
+      document.getElementById("profileSection").style.display = "block";
 
-    function selectRole(role) {
-
-      document
-        .getElementById("welcomeScreen")
-        .classList.add("hidden");
-
-      document
-        .getElementById("workerScreen")
-        .classList.add("hidden");
-
-      document
-        .getElementById("employerScreen")
-        .classList.add("hidden");
-
-      if (role === "worker") {
-        document
-          .getElementById("workerScreen")
-          .classList.remove("hidden");
-      }
-
-      if (role === "employer") {
-        document
-          .getElementById("employerScreen")
-          .classList.remove("hidden");
-      }
-    }
-
-
-    /* -----------------------------
-       BACK BUTTON
-    ----------------------------- */
-
-    function goBack() {
-
-      document
-        .getElementById("workerScreen")
-        .classList.add("hidden");
-
-      document
-        .getElementById("employerScreen")
-        .classList.add("hidden");
-
-      document
-        .getElementById("welcomeScreen")
-        .classList.remove("hidden");
-    }
-
-
-    /* -----------------------------
-       WORKER PROFILE
-    ----------------------------- */
-
-    function createWorkerProfile() {
-
-      const name =
-        document.getElementById("workerName").value.trim();
-
-      const skill =
-        document.getElementById("workerSkill").value;
-
-      if (name === "" || skill === "") {
-
-        alert(
-          "Please enter your name and select your skill."
-        );
-
-        return;
-      }
-
-      alert(
-        "Worker profile created successfully."
-      );
-    }
-
-
-    /* -----------------------------
-       EMPLOYER PROFILE
-    ----------------------------- */
-
-    function createEmployerProfile() {
-
-      const company =
-        document.getElementById("companyName").value.trim();
-
-      const skill =
-        document.getElementById("requiredSkill").value;
-
-      if (company === "" || skill === "") {
-
-        alert(
-          "Please enter your company name and required skill."
-        );
-
-        return;
-      }
-
-      alert(
-        "Employer profile created successfully."
-      );
-    }
-
-
-    /* -----------------------------
-       DISTRICTS
-    ----------------------------- */
-
-    const districts = {
-
-      Kerala: [
-        "Kasargod",
-        "Kannur",
-        "Kozhikode",
-        "Wayanad",
-        "Malappuram",
-        "Palakkad",
-        "Thrissur",
-        "Ernakulam",
-        "Idukki",
-        "Kottayam",
-        "Alappuzha",
-        "Pathanamthitta",
-        "Kollam",
-        "Thiruvananthapuram"
-      ],
-
-      Karnataka: [
-        "Bengaluru Urban",
-        "Mysuru",
-        "Mangaluru",
-        "Kodagu",
-        "Udupi"
-      ],
-
-      "Tamil Nadu": [
-        "Chennai",
-        "Coimbatore",
-        "Madurai",
-        "Salem",
-        "Tiruchirappalli"
-      ]
-    };
-
-
-    /* -----------------------------
-       STATE → DISTRICT
-    ----------------------------- */
-
-    document
-      .getElementById("stateSelect")
-      .addEventListener("change", function () {
-
-        const districtSelect =
-          document.getElementById("districtSelect");
-
-        const selectedState =
-          this.value;
-
-        districtSelect.innerHTML =
-          '<option value="">Select District</option>';
-
-        if (districts[selectedState]) {
-
-          districts[selectedState].forEach(
-            function (district) {
-
-              const option =
-                document.createElement("option");
-
-              option.value = district;
-              option.textContent = district;
-
-              districtSelect.appendChild(option);
-            }
-          );
-        }
+      window.scrollTo({
+        top: document.getElementById("profileSection").offsetTop - 70,
+        behavior: "smooth"
       });
+    }
 
+    function hideProfile() {
+      document.getElementById("profileSection").style.display = "none";
+    }
 
-    /* -----------------------------
-       DEMO WORKERS
-    ----------------------------- */
-
-    const workers = [
-
-      {
-        name: "Arun",
-        skill: "Painter",
-        state: "Kerala",
-        district: "Kasargod",
-        experience: "5 years",
-        company: "ABC Painting Works"
-      },
-
-      {
-        name: "Vishnu",
-        skill: "Electrician",
-        state: "Kerala",
-        district: "Kannur",
-        experience: "4 years",
-        company: "Kannur Electricals"
-      },
-
-      {
-        name: "Rahul",
-        skill: "Mechanic",
-        state: "Kerala",
-        district: "Ernakulam",
-        experience: "6 years",
-        company: "City Auto Works"
-      },
-
-      {
-        name: "Shameer",
-        skill: "Mason",
-        state: "Kerala",
-        district: "Kozhikode",
-        experience: "7 years",
-        company: "BuildPro"
-      },
-
-      {
-        name: "Manu",
-        skill: "Painter",
-        state: "Kerala",
-        district: "Kannur",
-        experience: "3 years",
-        company: "Perfect Paints"
-      },
-
-      {
-        name: "Suresh",
-        skill: "Electrician",
-        state: "Karnataka",
-        district: "Mangaluru",
-        experience: "8 years",
-        company: "Mangalore Electricals"
-      }
-
-    ];
-
-
-    /* -----------------------------
-       SEARCH WORKERS
-    ----------------------------- */
+    function showSearch() {
+      window.scrollTo({
+        top: document.querySelector(".search-box").offsetTop - 80,
+        behavior: "smooth"
+      });
+    }
 
     function searchWorkers() {
 
-      const skill =
-        document
-          .getElementById("skillSearch")
-          .value
-          .trim()
-          .toLowerCase();
+      const results = document.getElementById("results");
 
-      const state =
-        document
-          .getElementById("stateSelect")
-          .value;
+      results.style.display = "block";
 
-      const district =
-        document
-          .getElementById("districtSelect")
-          .value;
+      results.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
 
-      const results =
-        document.getElementById("searchResults");
+    function saveProfile() {
 
+      const name = document.getElementById("fullName").value;
+      const skill = document.getElementById("profileSkill").value;
+      const district = document.getElementById("profileDistrict").value;
+      const company = document.getElementById("company").value;
+      const duration = document.getElementById("duration").value;
 
-      const filteredWorkers =
-        workers.filter(function (worker) {
-
-          const skillMatch =
-            !skill ||
-            worker.skill
-              .toLowerCase()
-              .includes(skill);
-
-          const stateMatch =
-            !state ||
-            worker.state === state;
-
-          const districtMatch =
-            !district ||
-            worker.district === district;
-
-          return (
-            skillMatch &&
-            stateMatch &&
-            districtMatch
-          );
-        });
-
-
-      if (filteredWorkers.length === 0) {
-
-        results.innerHTML = `
-          <div class="no-results">
-            <p>No workers found.</p>
-          </div>
-        `;
-
+      if (
+        name === "" ||
+        skill === "" ||
+        district === "" ||
+        company === "" ||
+        duration === ""
+      ) {
+        alert("Please complete all profile fields.");
         return;
       }
 
-
-      results.innerHTML =
-        filteredWorkers
-          .map(function (worker) {
-
-            return `
-              <div class="worker-card">
-
-                <h3>${worker.name}</h3>
-
-                <p>
-                  <strong>Skill:</strong>
-                  ${worker.skill}
-                </p>
-
-                <p>
-                  <strong>Experience:</strong>
-                  ${worker.experience}
-                </p>
-
-                <p>
-                  <strong>Company:</strong>
-                  ${worker.company}
-                </p>
-
-                <p>
-                  <strong>Location:</strong>
-                  ${worker.district},
-                  ${worker.state}
-                </p>
-
-              </div>
-            `;
-
-          })
-          .join("");
+      alert(
+        "Profile created successfully!\\n\\n" +
+        "Name: " + name + "\\n" +
+        "Skill: " + skill + "\\n" +
+        "District: " + district + "\\n" +
+        "Company: " + company + "\\n" +
+        "Experience: " + duration
+      );
     }
 
   </script>
