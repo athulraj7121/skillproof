@@ -24,8 +24,6 @@
       line-height: 1.5;
     }
 
-    /* HEADER */
-
     header {
       background: #111827;
       color: white;
@@ -39,6 +37,7 @@
       max-width: 1100px;
       margin: auto;
       display: flex;
+      justify-content: space-between;
       align-items: center;
     }
 
@@ -51,7 +50,16 @@
       color: #22c55e;
     }
 
-    /* HERO */
+    .create-profile-btn {
+      background: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
     .hero {
       min-height: 620px;
@@ -103,16 +111,6 @@
       color: #111827;
     }
 
-    .primary:hover {
-      background: #16a34a;
-    }
-
-    .secondary:hover {
-      background: #e5e7eb;
-    }
-
-    /* WHY SKILLPROOF */
-
     .container {
       max-width: 1100px;
       margin: auto;
@@ -147,8 +145,6 @@
       font-size: 14px;
     }
 
-    /* PRIVACY */
-
     .privacy-section {
       background: #eefdf3;
       border-top: 1px solid #d1fae5;
@@ -174,7 +170,65 @@
       margin-bottom: 12px;
     }
 
-    /* FOOTER */
+    /* ACCOUNT SCREEN */
+
+    .account-screen {
+      display: none;
+      min-height: calc(100vh - 76px);
+      background: #f4f7fb;
+      padding: 60px 20px;
+    }
+
+    .account-box {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 35px 25px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .account-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .account-box h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .account-box .role-text {
+      color: #6b7280;
+      margin-bottom: 28px;
+    }
+
+    .account-button {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .sign-in {
+      background: #111827;
+      color: white;
+    }
+
+    .back-home {
+      width: 100%;
+      margin-top: 18px;
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .account-note {
+      margin-top: 22px;
+      padding: 12px;
+      border-radius: 9px;
+      background: #f0fdf4;
+      color: #166534;
+      font-size: 13px;
+    }
 
     footer {
       background: #111827;
@@ -192,20 +246,20 @@
       font-size: 13px;
     }
 
-    /* MOBILE */
-
     @media (max-width: 800px) {
-
       .cards {
         grid-template-columns: repeat(2, 1fr);
       }
-
     }
 
     @media (max-width: 600px) {
-
       .logo {
         font-size: 22px;
+      }
+
+      .create-profile-btn {
+        padding: 10px 12px;
+        font-size: 13px;
       }
 
       .hero {
@@ -224,6 +278,7 @@
       .buttons {
         width: 100%;
         flex-direction: column;
+        align-items: center;
       }
 
       .buttons button {
@@ -243,6 +298,13 @@
         grid-template-columns: 1fr;
       }
 
+      .account-screen {
+        padding: 40px 15px;
+      }
+
+      .account-box {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
@@ -251,7 +313,7 @@
 
   <!-- HEADER -->
 
-  <header>
+  <header id="mainHeader">
 
     <div class="nav">
 
@@ -259,141 +321,220 @@
         Skill<span>Proof</span>
       </div>
 
+      <button
+        class="create-profile-btn"
+        onclick="openAccount('profile')">
+
+        Create Profile
+
+      </button>
+
     </div>
 
   </header>
 
 
-  <!-- HOME / HERO -->
+  <!-- HOME PAGE -->
 
-  <section class="hero">
+  <main id="homePage">
 
-    <h1>
-      Verified Skills. Trusted Workers.
-    </h1>
+    <section class="hero">
 
-    <p>
-      SkillProof connects skilled workers with employers
-      through professional profiles and verified work experience.
-    </p>
+      <h1>
+        Verified Skills. Trusted Workers.
+      </h1>
 
-    <div class="buttons">
+      <p>
+        SkillProof connects skilled workers with employers
+        through professional profiles and verified work experience.
+      </p>
 
-      <button
-        class="primary"
-        onclick="workerComingSoon()">
+      <div class="buttons">
 
-        I'm a Worker
+        <button
+          class="primary"
+          onclick="openAccount('worker')">
 
-      </button>
+          I'm a Worker
 
-      <button
-        class="secondary"
-        onclick="employerComingSoon()">
+        </button>
 
-        I'm an Employer
+        <button
+          class="secondary"
+          onclick="openAccount('employer')">
 
-      </button>
+          I'm an Employer
 
-    </div>
-
-  </section>
-
-
-  <!-- WHY SKILLPROOF -->
-
-  <section class="container">
-
-    <h2 class="section-title">
-      Why SkillProof?
-    </h2>
-
-    <div class="cards">
-
-      <div class="card">
-
-        <h3>
-          🧑‍🔧 Worker Profiles
-        </h3>
-
-        <p>
-          Workers can build professional profiles
-          that showcase their skills and experience.
-        </p>
+        </button>
 
       </div>
 
-
-      <div class="card">
-
-        <h3>
-          ✓ Work Verification
-        </h3>
-
-        <p>
-          Work experience can be supported with
-          verification from previous employers.
-        </p>
-
-      </div>
+    </section>
 
 
-      <div class="card">
+    <!-- WHY SKILLPROOF -->
 
-        <h3>
-          🔎 Easy Search
-        </h3>
+    <section class="container">
 
-        <p>
-          Employers can discover skilled workers
-          using skills, districts and company history.
-        </p>
+      <h2 class="section-title">
+        Why SkillProof?
+      </h2>
 
-      </div>
+      <div class="cards">
 
+        <div class="card">
 
-      <div class="card">
+          <h3>
+            🧑‍🔧 Worker Profiles
+          </h3>
 
-        <h3>
-          🔒 Privacy First
-        </h3>
+          <p>
+            Workers can build professional profiles
+            that showcase their skills and experience.
+          </p>
 
-        <p>
-          Workers should have control over what
-          professional information they choose to share.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- PRIVACY -->
-
-  <section class="privacy-section">
-
-    <div class="container">
-
-      <div class="privacy-box">
-
-        <div class="privacy-icon">
-          🔐
         </div>
 
-        <h2>
-          Your Information. Your Control.
-        </h2>
 
-        <p>
-          SkillProof is designed with privacy in mind.
-          Personal and professional information will be
-          shared according to user permissions and
-          secure access rules.
-        </p>
+        <div class="card">
+
+          <h3>
+            ✓ Work Verification
+          </h3>
+
+          <p>
+            Work experience can be supported with
+            verification from previous employers.
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>
+            🔎 Easy Search
+          </h3>
+
+          <p>
+            Employers can discover skilled workers
+            using skills, districts and company history.
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>
+            🔒 Privacy First
+          </h3>
+
+          <p>
+            Workers should have control over what
+            professional information they choose to share.
+          </p>
+
+        </div>
 
       </div>
+
+    </section>
+
+
+    <!-- PRIVACY -->
+
+    <section class="privacy-section">
+
+      <div class="container">
+
+        <div class="privacy-box">
+
+          <div class="privacy-icon">
+            🔐
+          </div>
+
+          <h2>
+            Your Information. Your Control.
+          </h2>
+
+          <p>
+            SkillProof is designed with privacy in mind.
+            Personal and professional information will be
+            shared according to user permissions and
+            secure access rules.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ACCOUNT SCREEN -->
+
+  <section
+    class="account-screen"
+    id="accountScreen">
+
+    <div class="account-box">
+
+      <div
+        class="account-icon"
+        id="accountIcon">
+        👤
+      </div>
+
+      <h2>
+        Welcome to SkillProof
+      </h2>
+
+      <p
+        class="role-text"
+        id="roleText">
+
+        Continue to your account
+
+      </p>
+
+
+      <button
+        class="primary account-button"
+        onclick="createAccount()">
+
+        Create Account
+
+      </button>
+
+
+      <button
+        class="sign-in account-button"
+        onclick="signIn()">
+
+        Sign In
+
+      </button>
+
+
+      <div class="account-note">
+
+        🔐 Your account and personal information
+        will be protected by secure authentication
+        when the real account system is connected.
+
+      </div>
+
+
+      <button
+        class="back-home"
+        onclick="goHome()">
+
+        ← Back to Home
+
+      </button>
 
     </div>
 
@@ -402,7 +543,7 @@
 
   <!-- FOOTER -->
 
-  <footer>
+  <footer id="mainFooter">
 
     <p>
       © 2026 SkillProof — Verified skills. Trusted workers.
@@ -417,20 +558,145 @@
 
   <script>
 
-    function workerComingSoon() {
+    let selectedRole = "";
 
-      alert(
-        "Worker section is coming next. 🔧"
-      );
+
+    function openAccount(role) {
+
+      selectedRole = role;
+
+      const homePage =
+        document.getElementById("homePage");
+
+      const accountScreen =
+        document.getElementById("accountScreen");
+
+      const footer =
+        document.getElementById("mainFooter");
+
+      const roleText =
+        document.getElementById("roleText");
+
+      const accountIcon =
+        document.getElementById("accountIcon");
+
+
+      homePage.style.display = "none";
+
+      footer.style.display = "none";
+
+      accountScreen.style.display = "block";
+
+
+      if (role === "worker") {
+
+        accountIcon.textContent = "👷";
+
+        roleText.textContent =
+          "Worker Account — Create your professional profile or sign in.";
+
+      }
+
+      else if (role === "employer") {
+
+        accountIcon.textContent = "🏢";
+
+        roleText.textContent =
+          "Employer Account — Find skilled workers or sign in.";
+
+      }
+
+      else {
+
+        accountIcon.textContent = "👤";
+
+        roleText.textContent =
+          "Create or access your SkillProof account.";
+
+      }
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
 
     }
 
 
-    function employerComingSoon() {
+    function goHome() {
 
-      alert(
-        "Employer section is coming next. 🔎"
-      );
+      document.getElementById("accountScreen").style.display =
+        "none";
+
+      document.getElementById("homePage").style.display =
+        "block";
+
+      document.getElementById("mainFooter").style.display =
+        "block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function createAccount() {
+
+      if (selectedRole === "worker") {
+
+        alert(
+          "Worker account creation will be connected next. 👷"
+        );
+
+      }
+
+      else if (selectedRole === "employer") {
+
+        alert(
+          "Employer account creation will be connected next. 🏢"
+        );
+
+      }
+
+      else {
+
+        alert(
+          "Account creation will be connected next."
+        );
+
+      }
+
+    }
+
+
+    function signIn() {
+
+      if (selectedRole === "worker") {
+
+        alert(
+          "Worker Sign In will be connected next. 🔐"
+        );
+
+      }
+
+      else if (selectedRole === "employer") {
+
+        alert(
+          "Employer Sign In will be connected next. 🔐"
+        );
+
+      }
+
+      else {
+
+        alert(
+          "Sign In will be connected next. 🔐"
+        );
+
+      }
 
     }
 
