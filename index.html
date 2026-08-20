@@ -21,7 +21,7 @@
     header {
       background: #111827;
       color: white;
-      padding: 20px;
+      padding: 22px 18px;
       text-align: center;
     }
 
@@ -38,7 +38,7 @@
     .container {
       width: 92%;
       max-width: 900px;
-      margin: 30px auto;
+      margin: 28px auto;
     }
 
     .card {
@@ -53,22 +53,26 @@
       margin-top: 0;
     }
 
+    p {
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
     input,
-    select,
-    textarea {
+    select {
       width: 100%;
       padding: 13px;
       margin-top: 7px;
-      margin-bottom: 15px;
       border: 1px solid #d1d5db;
       border-radius: 9px;
       font-size: 15px;
       background: white;
-    }
-
-    label {
-      font-weight: bold;
-      font-size: 14px;
     }
 
     button {
@@ -81,52 +85,50 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 15px;
     }
 
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .secondary {
+    button.secondary {
       background: #2563eb;
     }
 
-    .success {
-      color: #15803d;
-      font-weight: bold;
-      margin-top: 12px;
-    }
-
-    .error {
-      color: #dc2626;
-      font-weight: bold;
-      margin-top: 12px;
+    button.light {
+      background: #e5e7eb;
+      color: #111827;
     }
 
     .hidden {
       display: none;
     }
 
-    .worker-card {
-      border: 1px solid #e5e7eb;
-      padding: 18px;
-      border-radius: 12px;
+    .message {
       margin-top: 15px;
-      background: #fafafa;
+      font-weight: bold;
+    }
+
+    .success {
+      color: #15803d;
+    }
+
+    .error {
+      color: #dc2626;
+    }
+
+    .worker-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 15px;
     }
 
     .worker-card h3 {
       margin-top: 0;
+      margin-bottom: 8px;
     }
 
-    .tag {
-      display: inline-block;
-      background: #e5e7eb;
-      padding: 5px 9px;
-      border-radius: 20px;
-      margin: 3px;
-      font-size: 12px;
+    .worker-card p {
+      margin: 7px 0;
     }
 
     .verified {
@@ -134,9 +136,47 @@
       font-weight: bold;
     }
 
-    .not-verified {
+    .pending {
       color: #b45309;
       font-weight: bold;
+    }
+
+    .notverified {
+      color: #6b7280;
+      font-weight: bold;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #3730a3;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+    }
+
+    .hero {
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 26px;
+    }
+
+    .hero p {
+      color: #4b5563;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #6b7280;
     }
   </style>
 </head>
@@ -151,7 +191,8 @@
 <div class="container">
 
   <!-- HOME -->
-  <div id="homeSection" class="card">
+  <section id="home" class="card hero">
+
     <h2>Welcome to SkillProof</h2>
 
     <p>
@@ -159,31 +200,37 @@
       through verified work experience.
     </p>
 
-    <button onclick="showWorkerForm()">
+    <button onclick="showWorker()">
       I'm a Worker
     </button>
 
-    <button class="secondary" onclick="showEmployerSection()">
+    <button class="secondary" onclick="showEmployer()">
       I'm an Employer
     </button>
-  </div>
+
+  </section>
 
 
-  <!-- WORKER FORM -->
-  <div id="workerSection" class="card hidden">
+  <!-- WORKER -->
+  <section id="worker" class="card hidden">
 
-    <h2>Create Worker Profile</h2>
+    <h2>Create Your Professional Worker Profile</h2>
 
-    <label>Full Name</label>
+    <p class="small">
+      Add your skills and work experience so employers
+      can find you.
+    </p>
+
+    <label for="fullName">Full Name</label>
     <input
-      type="text"
       id="fullName"
+      type="text"
       placeholder="Enter your full name"
     >
 
-    <label>Skills</label>
+    <label for="skills">Select Your Skills</label>
     <select id="skills">
-      <option value="">Select your skill</option>
+      <option value="">Select a skill</option>
       <option value="Painter">Painter</option>
       <option value="Welder">Welder</option>
       <option value="Plumber">Plumber</option>
@@ -194,38 +241,42 @@
       <option value="Tile Worker">Tile Worker</option>
       <option value="AC Technician">AC Technician</option>
       <option value="Driver">Driver</option>
+      <option value="Fabricator">Fabricator</option>
+      <option value="Machine Operator">Machine Operator</option>
+      <option value="CNC Operator">CNC Operator</option>
+      <option value="Auto Painter">Auto Painter</option>
       <option value="Other">Other</option>
     </select>
 
-    <label>Company Name</label>
+    <label for="companyName">Current or Past Company</label>
     <input
-      type="text"
       id="companyName"
-      placeholder="Current or past company"
+      type="text"
+      placeholder="Enter company or employer name"
     >
 
-    <label>Job Role</label>
+    <label for="jobRole">Job Role</label>
     <input
-      type="text"
       id="jobRole"
-      placeholder="Example: Senior Painter"
+      type="text"
+      placeholder="Example: Painter"
     >
 
-    <label>Duration</label>
+    <label for="duration">Duration</label>
     <input
-      type="text"
       id="duration"
+      type="text"
       placeholder="Example: 3 years"
     >
 
-    <label>Location</label>
+    <label for="location">Location</label>
     <input
-      type="text"
       id="location"
-      placeholder="Example: Kasaragod"
+      type="text"
+      placeholder="Enter your location"
     >
 
-    <label>District</label>
+    <label for="district">District</label>
     <select id="district">
       <option value="">Select District</option>
       <option value="Alappuzha">Alappuzha</option>
@@ -244,7 +295,7 @@
       <option value="Wayanad">Wayanad</option>
     </select>
 
-    <label>Verification</label>
+    <label for="verification">Work Verification</label>
     <select id="verification">
       <option value="Not Verified">Not Verified</option>
       <option value="Pending">Pending</option>
@@ -255,24 +306,26 @@
       Create Worker Profile
     </button>
 
-    <button
-      class="secondary"
-      onclick="goHome()"
-    >
+    <button class="light" onclick="goHome()">
       Back
     </button>
 
-    <div id="workerMessage"></div>
+    <div id="workerMessage" class="message"></div>
 
-  </div>
+  </section>
 
 
-  <!-- EMPLOYER SECTION -->
-  <div id="employerSection" class="card hidden">
+  <!-- EMPLOYER -->
+  <section id="employer" class="card hidden">
 
     <h2>Find Skilled Workers</h2>
 
-    <label>Search by Skill</label>
+    <p class="small">
+      Search workers by skill and district.
+    </p>
+
+    <label for="searchSkill">Skill</label>
+
     <select id="searchSkill">
       <option value="">All Skills</option>
       <option value="Painter">Painter</option>
@@ -285,10 +338,15 @@
       <option value="Tile Worker">Tile Worker</option>
       <option value="AC Technician">AC Technician</option>
       <option value="Driver">Driver</option>
+      <option value="Fabricator">Fabricator</option>
+      <option value="Machine Operator">Machine Operator</option>
+      <option value="CNC Operator">CNC Operator</option>
+      <option value="Auto Painter">Auto Painter</option>
       <option value="Other">Other</option>
     </select>
 
-    <label>Search by District</label>
+    <label for="searchDistrict">District</label>
+
     <select id="searchDistrict">
       <option value="">All Districts</option>
       <option value="Alappuzha">Alappuzha</option>
@@ -308,19 +366,16 @@
     </select>
 
     <button onclick="searchWorkers()">
-      Find Workers
+      Find Skilled Workers
     </button>
 
-    <button
-      class="secondary"
-      onclick="goHome()"
-    >
+    <button class="light" onclick="goHome()">
       Back
     </button>
 
-    <div id="workerResults"></div>
+    <div id="results"></div>
 
-  </div>
+  </section>
 
 </div>
 
@@ -328,83 +383,70 @@
 <script>
 
   /*
-    ============================================
-    SUPABASE CONFIGURATION
-    ============================================
+   * ==========================================
+   * SUPABASE CONNECTION
+   * ==========================================
+   *
+   * Put your own Supabase Project URL and
+   * Publishable/Anon key here.
+   */
 
-    Replace ONLY these two values with your
-    actual Supabase project values.
-  */
+  const SUPABASE_URL =
+    "YOUR_SUPABASE_PROJECT_URL";
 
-  const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-
-  const SUPABASE_KEY = "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY";
+  const SUPABASE_KEY =
+    "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY";
 
 
   /*
-    ============================================
-    PAGE NAVIGATION
-    ============================================
-  */
+   * ==========================================
+   * NAVIGATION
+   * ==========================================
+   */
 
-  function showWorkerForm() {
-
-    document.getElementById("homeSection")
-      .classList.add("hidden");
-
-    document.getElementById("employerSection")
-      .classList.add("hidden");
-
-    document.getElementById("workerSection")
-      .classList.remove("hidden");
+  function hideAll() {
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("worker").classList.add("hidden");
+    document.getElementById("employer").classList.add("hidden");
   }
 
 
-  function showEmployerSection() {
+  function showWorker() {
+    hideAll();
+    document.getElementById("worker").classList.remove("hidden");
+  }
 
-    document.getElementById("homeSection")
-      .classList.add("hidden");
 
-    document.getElementById("workerSection")
-      .classList.add("hidden");
-
-    document.getElementById("employerSection")
-      .classList.remove("hidden");
+  function showEmployer() {
+    hideAll();
+    document.getElementById("employer").classList.remove("hidden");
   }
 
 
   function goHome() {
-
-    document.getElementById("homeSection")
-      .classList.remove("hidden");
-
-    document.getElementById("workerSection")
-      .classList.add("hidden");
-
-    document.getElementById("employerSection")
-      .classList.add("hidden");
+    hideAll();
+    document.getElementById("home").classList.remove("hidden");
   }
 
 
   /*
-    ============================================
-    SUPABASE REQUEST HELPER
-    ============================================
-  */
+   * ==========================================
+   * SUPABASE API
+   * ==========================================
+   */
 
-  async function supabaseRequest(endpoint, options = {}) {
+  async function supabaseRequest(path, options = {}) {
 
     if (
       SUPABASE_URL === "YOUR_SUPABASE_PROJECT_URL" ||
-      SUPABASE_KEY === "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY"
+      SUPABASE_KEY ===
+      "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY"
     ) {
-      throw new Error(
-        "Supabase URL and key are not configured yet."
-      );
+      throw new Error("Supabase credentials are not configured.");
     }
 
     const response = await fetch(
-      SUPABASE_URL + "/rest/v1/" + endpoint,
+      SUPABASE_URL + "/rest/v1/" + path,
       {
         ...options,
 
@@ -420,10 +462,8 @@
     );
 
     if (!response.ok) {
-
-      const errorText = await response.text();
-
-      throw new Error(errorText);
+      const error = await response.text();
+      throw new Error(error);
     }
 
     return response.json();
@@ -431,18 +471,19 @@
 
 
   /*
-    ============================================
-    SAVE WORKER
-    ============================================
-  */
+   * ==========================================
+   * SAVE WORKER
+   * ==========================================
+   */
 
   async function saveWorker() {
 
     const message =
       document.getElementById("workerMessage");
 
-    message.className = "";
-    message.innerHTML = "";
+    message.className = "message";
+    message.textContent = "Saving...";
+
 
     const fullName =
       document.getElementById("fullName").value.trim();
@@ -469,18 +510,20 @@
       document.getElementById("verification").value;
 
 
-    if (!fullName ||
-        !skills ||
-        !companyName ||
-        !jobRole ||
-        !duration ||
-        !location ||
-        !district) {
+    if (
+      !fullName ||
+      !skills ||
+      !companyName ||
+      !jobRole ||
+      !duration ||
+      !location ||
+      !district
+    ) {
 
-      message.className = "error";
+      message.className = "message error";
 
-      message.innerHTML =
-        "Please fill in all required fields.";
+      message.textContent =
+        "Please complete all required fields.";
 
       return;
     }
@@ -507,10 +550,11 @@
       );
 
 
-      message.className = "success";
+      message.className =
+        "message success";
 
-      message.innerHTML =
-        "Worker profile created successfully!";
+      message.textContent =
+        "Profile created successfully!";
 
 
       document.getElementById("fullName").value = "";
@@ -523,33 +567,32 @@
       document.getElementById("verification").value =
         "Not Verified";
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
       console.error(error);
 
-      message.className = "error";
+      message.className =
+        "message error";
 
-      message.innerHTML =
-        "Unable to save profile. Please check the Supabase connection.";
+      message.textContent =
+        "Could not save profile. Check the Supabase connection.";
     }
   }
 
 
   /*
-    ============================================
-    SEARCH WORKERS
-    ============================================
-  */
+   * ==========================================
+   * SEARCH WORKERS
+   * ==========================================
+   */
 
   async function searchWorkers() {
 
     const results =
-      document.getElementById("workerResults");
+      document.getElementById("results");
 
     results.innerHTML =
-      "<p>Searching workers...</p>";
+      "<p class='empty'>Searching...</p>";
 
 
     const skill =
@@ -561,13 +604,13 @@
 
     try {
 
-      let endpoint =
+      let query =
         "Workers?select=*";
 
 
       if (skill) {
 
-        endpoint +=
+        query +=
           "&skills=eq." +
           encodeURIComponent(skill);
       }
@@ -575,20 +618,20 @@
 
       if (district) {
 
-        endpoint +=
+        query +=
           "&district=eq." +
           encodeURIComponent(district);
       }
 
 
       const workers =
-        await supabaseRequest(endpoint);
+        await supabaseRequest(query);
 
 
-      if (!workers.length) {
+      if (!workers || workers.length === 0) {
 
         results.innerHTML =
-          "<p>No workers found.</p>";
+          "<p class='empty'>No skilled workers found.</p>";
 
         return;
       }
@@ -606,50 +649,65 @@
           "worker-card";
 
 
-        const verificationClass =
-          worker.verification === "Verified"
-            ? "verified"
-            : "not-verified";
+        let verificationClass =
+          "notverified";
+
+
+        if (
+          worker.verification ===
+          "Verified"
+        ) {
+
+          verificationClass =
+            "verified";
+
+        } else if (
+          worker.verification ===
+          "Pending"
+        ) {
+
+          verificationClass =
+            "pending";
+        }
 
 
         card.innerHTML = `
 
           <h3>
-            ${escapeHtml(worker.full_name || "Worker")}
+            ${safe(worker.full_name)}
           </h3>
 
-          <p>
-            <strong>Skill:</strong>
-            ${escapeHtml(worker.skills || "-")}
-          </p>
+          <div class="badge">
+            ${safe(worker.skills)}
+          </div>
 
           <p>
             <strong>Job Role:</strong>
-            ${escapeHtml(worker.job_role || "-")}
+            ${safe(worker.job_role)}
           </p>
 
           <p>
             <strong>Company:</strong>
-            ${escapeHtml(worker.company_name || "-")}
+            ${safe(worker.company_name)}
           </p>
 
           <p>
             <strong>Experience:</strong>
-            ${escapeHtml(worker.duration || "-")}
+            ${safe(worker.duration)}
           </p>
 
           <p>
             <strong>Location:</strong>
-            ${escapeHtml(worker.location || "-")}
+            ${safe(worker.location)}
           </p>
 
           <p>
             <strong>District:</strong>
-            ${escapeHtml(worker.district || "-")}
+            ${safe(worker.district)}
           </p>
 
           <p class="${verificationClass}">
-            ${escapeHtml(worker.verification || "Not Verified")}
+            ${safe(worker.verification)}
           </p>
 
         `;
@@ -658,25 +716,31 @@
         results.appendChild(card);
       });
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
       console.error(error);
 
       results.innerHTML =
-        "<p class='error'>Unable to load workers. Please check the Supabase connection.</p>";
+        "<p class='empty error'>" +
+        "Unable to load workers. " +
+        "Please check the Supabase connection." +
+        "</p>";
     }
   }
 
 
   /*
-    ============================================
-    SECURITY HELPER
-    ============================================
-  */
+   * ==========================================
+   * SECURITY
+   * ==========================================
+   */
 
-  function escapeHtml(value) {
+  function safe(value) {
+
+    if (value === null || value === undefined) {
+      return "";
+    }
 
     return String(value)
       .replace(/&/g, "&amp;")
