@@ -4,19 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SkillProof</title>
+  <title>KredVouch</title>
+
+  <meta
+    name="description"
+    content="KredVouch connects skilled workers with trusted employers through work experience and verification."
+  >
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
       background: #f5f7fa;
       color: #111827;
+      line-height: 1.5;
     }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ==========================================
+       HEADER
+       ========================================== */
 
     header {
       background: #111827;
@@ -28,12 +64,25 @@
     header h1 {
       margin: 0;
       font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
 
     header p {
       margin: 8px 0 0;
       color: #d1d5db;
+      font-size: 15px;
     }
+
+    .brand-credit {
+      margin-top: 7px;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+
+    /* ==========================================
+       MAIN CONTAINER
+       ========================================== */
 
     .container {
       width: 92%;
@@ -41,15 +90,90 @@
       margin: 28px auto;
     }
 
+    /* ==========================================
+       CARDS
+       ========================================== */
+
     .card {
       background: white;
       padding: 24px;
       border-radius: 16px;
       margin-bottom: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
+    /* ==========================================
+       HERO
+       ========================================== */
+
+    .hero {
+      text-align: center;
+      padding: 32px 24px;
+    }
+
+    .hero h2 {
+      font-size: 30px;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      color: #4b5563;
+      max-width: 650px;
+      margin: 0 auto 20px;
+    }
+
+    .hero-tagline {
+      display: inline-block;
+      background: #eef2ff;
+      color: #3730a3;
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    /* ==========================================
+       HOME FEATURES
+       ========================================== */
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .feature {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 15px 12px;
+      background: #fafafa;
+      text-align: center;
+    }
+
+    .feature strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .feature span {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    /* ==========================================
+       HEADINGS
+       ========================================== */
+
     h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    h3 {
       margin-top: 0;
     }
 
@@ -57,11 +181,20 @@
       line-height: 1.5;
     }
 
+    .small {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    /* ==========================================
+       FORM ELEMENTS
+       ========================================== */
+
     label {
       display: block;
-      font-weight: bold;
+      font-weight: 700;
       font-size: 14px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
     input,
@@ -73,7 +206,19 @@
       border-radius: 9px;
       font-size: 15px;
       background: white;
+      color: #111827;
+      outline: none;
     }
+
+    input:focus,
+    select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    /* ==========================================
+       BUTTONS
+       ========================================== */
 
     button {
       width: 100%;
@@ -83,13 +228,28 @@
       background: #111827;
       color: white;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 700;
       cursor: pointer;
       margin-top: 15px;
+      transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+    }
+
+    button:hover {
+      opacity: 0.94;
+    }
+
+    button:active {
+      transform: scale(0.99);
     }
 
     button.secondary {
       background: #2563eb;
+    }
+
+    button.success-button {
+      background: #15803d;
     }
 
     button.light {
@@ -97,13 +257,13 @@
       color: #111827;
     }
 
-    .hidden {
-      display: none;
-    }
+    /* ==========================================
+       MESSAGES
+       ========================================== */
 
     .message {
       margin-top: 15px;
-      font-weight: bold;
+      font-weight: 700;
     }
 
     .success {
@@ -114,17 +274,26 @@
       color: #dc2626;
     }
 
+    .warning {
+      color: #b45309;
+    }
+
+    /* ==========================================
+       WORKER CARDS
+       ========================================== */
+
     .worker-card {
       background: #ffffff;
       border: 1px solid #e5e7eb;
       border-radius: 14px;
       padding: 18px;
       margin-top: 15px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
     }
 
     .worker-card h3 {
-      margin-top: 0;
       margin-bottom: 8px;
+      font-size: 20px;
     }
 
     .worker-card p {
@@ -133,17 +302,17 @@
 
     .verified {
       color: #15803d;
-      font-weight: bold;
+      font-weight: 800;
     }
 
     .pending {
       color: #b45309;
-      font-weight: bold;
+      font-weight: 800;
     }
 
     .notverified {
       color: #6b7280;
-      font-weight: bold;
+      font-weight: 800;
     }
 
     .badge {
@@ -154,6 +323,29 @@
       border-radius: 20px;
       font-size: 12px;
       margin-top: 5px;
+      font-weight: 700;
+    }
+
+    .verified-badge {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-left: 5px;
+      font-weight: 700;
+    }
+
+    .pending-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-left: 5px;
+      font-weight: 700;
     }
 
     .empty {
@@ -162,595 +354,1338 @@
       color: #6b7280;
     }
 
-    .hero {
+    /* ==========================================
+       SECTION HEADER
+       ========================================== */
+
+    .section-header {
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 15px;
+      margin-bottom: 18px;
+    }
+
+    /* ==========================================
+       FOOTER
+       ========================================== */
+
+    footer {
       text-align: center;
-    }
-
-    .hero h2 {
-      font-size: 26px;
-    }
-
-    .hero p {
-      color: #4b5563;
-    }
-
-    .small {
-      font-size: 13px;
+      padding: 30px 15px 40px;
       color: #6b7280;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: #111827;
+    }
+
+    /* ==========================================
+       RESPONSIVE
+       ========================================== */
+
+    @media (max-width: 700px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h2 {
+        font-size: 26px;
+      }
+
+      .card {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>SkillProof</h1>
-  <p>Verified skills. Trusted workers.</p>
-</header>
+  <!-- ==========================================
+       HEADER
+       ========================================== -->
 
-<div class="container">
+  <header>
 
-  <!-- HOME -->
-  <section id="home" class="card hero">
-
-    <h2>Welcome to SkillProof</h2>
+    <h1>KredVouch</h1>
 
     <p>
-      Connect skilled workers with trusted employers
-      through verified work experience.
+      Find skilled people. Trust their experience.
     </p>
 
-    <button onclick="showWorker()">
-      I'm a Worker
-    </button>
+    <div class="brand-credit">
+      Created by Athul Raj
+    </div>
 
-    <button class="secondary" onclick="showEmployer()">
-      I'm an Employer
-    </button>
-
-  </section>
+  </header>
 
 
-  <!-- WORKER -->
-  <section id="worker" class="card hidden">
+  <div class="container">
 
-    <h2>Create Your Professional Worker Profile</h2>
+    <!-- ==========================================
+         HOME
+         ========================================== -->
 
-    <p class="small">
-      Add your skills and work experience so employers
-      can find you.
-    </p>
+    <section id="home" class="card hero">
 
-    <label for="fullName">Full Name</label>
-    <input
-      id="fullName"
-      type="text"
-      placeholder="Enter your full name"
+      <div class="hero-tagline">
+        Skills • Experience • Trust
+      </div>
+
+      <h2>
+        Welcome to KredVouch
+      </h2>
+
+      <p>
+        Connect skilled workers with trusted employers
+        through real work experience and verification.
+      </p>
+
+
+      <div class="feature-grid">
+
+        <div class="feature">
+          <strong>Skilled Workers</strong>
+          <span>
+            Create a professional work profile.
+          </span>
+        </div>
+
+        <div class="feature">
+          <strong>Work Experience</strong>
+          <span>
+            Show your real company and experience history.
+          </span>
+        </div>
+
+        <div class="feature">
+          <strong>Trusted Connections</strong>
+          <span>
+            Help employers find suitable workers.
+          </span>
+        </div>
+
+      </div>
+
+
+      <button onclick="showWorker()">
+        I'm a Worker
+      </button>
+
+
+      <button
+        class="secondary"
+        onclick="showEmployer()"
+      >
+        I'm an Employer
+      </button>
+
+
+      <button
+        class="success-button"
+        onclick="showEmployer()"
+      >
+        Find Skilled Workers
+      </button>
+
+    </section>
+
+
+    <!-- ==========================================
+         WORKER PROFILE
+         ========================================== -->
+
+    <section
+      id="worker"
+      class="card hidden"
     >
 
-    <label for="skills">Select Your Skills</label>
-    <select id="skills">
-      <option value="">Select a skill</option>
-      <option value="Painter">Painter</option>
-      <option value="Welder">Welder</option>
-      <option value="Plumber">Plumber</option>
-      <option value="Electrician">Electrician</option>
-      <option value="Carpenter">Carpenter</option>
-      <option value="Mason">Mason</option>
-      <option value="Mechanic">Mechanic</option>
-      <option value="Tile Worker">Tile Worker</option>
-      <option value="AC Technician">AC Technician</option>
-      <option value="Driver">Driver</option>
-      <option value="Fabricator">Fabricator</option>
-      <option value="Machine Operator">Machine Operator</option>
-      <option value="CNC Operator">CNC Operator</option>
-      <option value="Auto Painter">Auto Painter</option>
-      <option value="Other">Other</option>
-    </select>
+      <div class="section-header">
 
-    <label for="companyName">Current or Past Company</label>
-    <input
-      id="companyName"
-      type="text"
-      placeholder="Enter company or employer name"
+        <h2>
+          Create Your Professional Worker Profile
+        </h2>
+
+        <p class="small">
+          Add your skills and work experience so employers
+          can find you.
+        </p>
+
+      </div>
+
+
+      <!-- FULL NAME -->
+
+      <label for="fullName">
+        Full Name
+      </label>
+
+      <input
+        id="fullName"
+        type="text"
+        placeholder="Enter your full name"
+        autocomplete="name"
+      >
+
+
+      <!-- SKILLS -->
+
+      <label for="skills">
+        Select Your Skills
+      </label>
+
+      <select id="skills">
+
+        <option value="">
+          Select a skill
+        </option>
+
+        <option value="Painter">
+          Painter
+        </option>
+
+        <option value="Welder">
+          Welder
+        </option>
+
+        <option value="Plumber">
+          Plumber
+        </option>
+
+        <option value="Electrician">
+          Electrician
+        </option>
+
+        <option value="Carpenter">
+          Carpenter
+        </option>
+
+        <option value="Mason">
+          Mason
+        </option>
+
+        <option value="Mechanic">
+          Mechanic
+        </option>
+
+        <option value="Tile Worker">
+          Tile Worker
+        </option>
+
+        <option value="AC Technician">
+          AC Technician
+        </option>
+
+        <option value="Driver">
+          Driver
+        </option>
+
+        <option value="Fabricator">
+          Fabricator
+        </option>
+
+        <option value="Machine Operator">
+          Machine Operator
+        </option>
+
+        <option value="CNC Operator">
+          CNC Operator
+        </option>
+
+        <option value="Auto Painter">
+          Auto Painter
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+
+      <!-- COMPANY -->
+
+      <label for="companyName">
+        Current or Past Company
+      </label>
+
+      <input
+        id="companyName"
+        type="text"
+        placeholder="Enter company or employer name"
+      >
+
+
+      <!-- JOB ROLE -->
+
+      <label for="jobRole">
+        Job Role
+      </label>
+
+      <input
+        id="jobRole"
+        type="text"
+        placeholder="Example: Painter"
+      >
+
+
+      <!-- DURATION -->
+
+      <label for="duration">
+        Duration
+      </label>
+
+      <input
+        id="duration"
+        type="text"
+        placeholder="Example: 3 years"
+      >
+
+
+      <!-- LOCATION -->
+
+      <label for="location">
+        Location
+      </label>
+
+      <input
+        id="location"
+        type="text"
+        placeholder="Enter your location"
+      >
+
+
+      <!-- DISTRICT -->
+
+      <label for="district">
+        District
+      </label>
+
+      <select id="district">
+
+        <option value="">
+          Select District
+        </option>
+
+        <option value="Alappuzha">
+          Alappuzha
+        </option>
+
+        <option value="Ernakulam">
+          Ernakulam
+        </option>
+
+        <option value="Idukki">
+          Idukki
+        </option>
+
+        <option value="Kannur">
+          Kannur
+        </option>
+
+        <option value="Kasaragod">
+          Kasaragod
+        </option>
+
+        <option value="Kollam">
+          Kollam
+        </option>
+
+        <option value="Kottayam">
+          Kottayam
+        </option>
+
+        <option value="Kozhikode">
+          Kozhikode
+        </option>
+
+        <option value="Malappuram">
+          Malappuram
+        </option>
+
+        <option value="Palakkad">
+          Palakkad
+        </option>
+
+        <option value="Pathanamthitta">
+          Pathanamthitta
+        </option>
+
+        <option value="Thiruvananthapuram">
+          Thiruvananthapuram
+        </option>
+
+        <option value="Thrissur">
+          Thrissur
+        </option>
+
+        <option value="Wayanad">
+          Wayanad
+        </option>
+
+      </select>
+
+
+      <!-- VERIFICATION -->
+
+      <label for="verification">
+        Work Verification
+      </label>
+
+      <select id="verification">
+
+        <option value="Not Verified">
+          Not Verified
+        </option>
+
+        <option value="Pending">
+          Pending
+        </option>
+
+        <option value="Verified">
+          Verified
+        </option>
+
+      </select>
+
+
+      <!-- SAVE -->
+
+      <button
+        onclick="saveWorker()"
+      >
+        Create Worker Profile
+      </button>
+
+
+      <!-- BACK -->
+
+      <button
+        class="light"
+        onclick="goHome()"
+      >
+        Back
+      </button>
+
+
+      <div
+        id="workerMessage"
+        class="message"
+      ></div>
+
+    </section>
+
+
+    <!-- ==========================================
+         EMPLOYER
+         ========================================== -->
+
+    <section
+      id="employer"
+      class="card hidden"
     >
 
-    <label for="jobRole">Job Role</label>
-    <input
-      id="jobRole"
-      type="text"
-      placeholder="Example: Painter"
-    >
+      <div class="section-header">
 
-    <label for="duration">Duration</label>
-    <input
-      id="duration"
-      type="text"
-      placeholder="Example: 3 years"
-    >
+        <h2>
+          Find Skilled Workers
+        </h2>
 
-    <label for="location">Location</label>
-    <input
-      id="location"
-      type="text"
-      placeholder="Enter your location"
-    >
+        <p class="small">
+          Search workers by skill and district.
+        </p>
 
-    <label for="district">District</label>
-    <select id="district">
-      <option value="">Select District</option>
-      <option value="Alappuzha">Alappuzha</option>
-      <option value="Ernakulam">Ernakulam</option>
-      <option value="Idukki">Idukki</option>
-      <option value="Kannur">Kannur</option>
-      <option value="Kasaragod">Kasaragod</option>
-      <option value="Kollam">Kollam</option>
-      <option value="Kottayam">Kottayam</option>
-      <option value="Kozhikode">Kozhikode</option>
-      <option value="Malappuram">Malappuram</option>
-      <option value="Palakkad">Palakkad</option>
-      <option value="Pathanamthitta">Pathanamthitta</option>
-      <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-      <option value="Thrissur">Thrissur</option>
-      <option value="Wayanad">Wayanad</option>
-    </select>
-
-    <label for="verification">Work Verification</label>
-    <select id="verification">
-      <option value="Not Verified">Not Verified</option>
-      <option value="Pending">Pending</option>
-      <option value="Verified">Verified</option>
-    </select>
-
-    <button onclick="saveWorker()">
-      Create Worker Profile
-    </button>
-
-    <button class="light" onclick="goHome()">
-      Back
-    </button>
-
-    <div id="workerMessage" class="message"></div>
-
-  </section>
+      </div>
 
 
-  <!-- EMPLOYER -->
-  <section id="employer" class="card hidden">
+      <!-- SEARCH SKILL -->
 
-    <h2>Find Skilled Workers</h2>
+      <label for="searchSkill">
+        Skill
+      </label>
 
-    <p class="small">
-      Search workers by skill and district.
-    </p>
+      <select id="searchSkill">
 
-    <label for="searchSkill">Skill</label>
+        <option value="">
+          All Skills
+        </option>
 
-    <select id="searchSkill">
-      <option value="">All Skills</option>
-      <option value="Painter">Painter</option>
-      <option value="Welder">Welder</option>
-      <option value="Plumber">Plumber</option>
-      <option value="Electrician">Electrician</option>
-      <option value="Carpenter">Carpenter</option>
-      <option value="Mason">Mason</option>
-      <option value="Mechanic">Mechanic</option>
-      <option value="Tile Worker">Tile Worker</option>
-      <option value="AC Technician">AC Technician</option>
-      <option value="Driver">Driver</option>
-      <option value="Fabricator">Fabricator</option>
-      <option value="Machine Operator">Machine Operator</option>
-      <option value="CNC Operator">CNC Operator</option>
-      <option value="Auto Painter">Auto Painter</option>
-      <option value="Other">Other</option>
-    </select>
+        <option value="Painter">
+          Painter
+        </option>
 
-    <label for="searchDistrict">District</label>
+        <option value="Welder">
+          Welder
+        </option>
 
-    <select id="searchDistrict">
-      <option value="">All Districts</option>
-      <option value="Alappuzha">Alappuzha</option>
-      <option value="Ernakulam">Ernakulam</option>
-      <option value="Idukki">Idukki</option>
-      <option value="Kannur">Kannur</option>
-      <option value="Kasaragod">Kasaragod</option>
-      <option value="Kollam">Kollam</option>
-      <option value="Kottayam">Kottayam</option>
-      <option value="Kozhikode">Kozhikode</option>
-      <option value="Malappuram">Malappuram</option>
-      <option value="Palakkad">Palakkad</option>
-      <option value="Pathanamthitta">Pathanamthitta</option>
-      <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-      <option value="Thrissur">Thrissur</option>
-      <option value="Wayanad">Wayanad</option>
-    </select>
+        <option value="Plumber">
+          Plumber
+        </option>
 
-    <button onclick="searchWorkers()">
-      Find Skilled Workers
-    </button>
+        <option value="Electrician">
+          Electrician
+        </option>
 
-    <button class="light" onclick="goHome()">
-      Back
-    </button>
+        <option value="Carpenter">
+          Carpenter
+        </option>
 
-    <div id="results"></div>
+        <option value="Mason">
+          Mason
+        </option>
 
-  </section>
+        <option value="Mechanic">
+          Mechanic
+        </option>
 
-</div>
+        <option value="Tile Worker">
+          Tile Worker
+        </option>
 
+        <option value="AC Technician">
+          AC Technician
+        </option>
 
-<script>
+        <option value="Driver">
+          Driver
+        </option>
 
-  /*
-   * ==========================================
-   * SUPABASE CONNECTION
-   * ==========================================
-   *
-   * Put your own Supabase Project URL and
-   * Publishable/Anon key here.
-   */
+        <option value="Fabricator">
+          Fabricator
+        </option>
 
-  const SUPABASE_URL =
-    "YOUR_SUPABASE_PROJECT_URL";
+        <option value="Machine Operator">
+          Machine Operator
+        </option>
 
-  const SUPABASE_KEY =
-    "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY";
+        <option value="CNC Operator">
+          CNC Operator
+        </option>
+
+        <option value="Auto Painter">
+          Auto Painter
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
 
 
-  /*
-   * ==========================================
-   * NAVIGATION
-   * ==========================================
-   */
+      <!-- SEARCH DISTRICT -->
 
-  function hideAll() {
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("worker").classList.add("hidden");
-    document.getElementById("employer").classList.add("hidden");
-  }
+      <label for="searchDistrict">
+        District
+      </label>
+
+      <select id="searchDistrict">
+
+        <option value="">
+          All Districts
+        </option>
+
+        <option value="Alappuzha">
+          Alappuzha
+        </option>
+
+        <option value="Ernakulam">
+          Ernakulam
+        </option>
+
+        <option value="Idukki">
+          Idukki
+        </option>
+
+        <option value="Kannur">
+          Kannur
+        </option>
+
+        <option value="Kasaragod">
+          Kasaragod
+        </option>
+
+        <option value="Kollam">
+          Kollam
+        </option>
+
+        <option value="Kottayam">
+          Kottayam
+        </option>
+
+        <option value="Kozhikode">
+          Kozhikode
+        </option>
+
+        <option value="Malappuram">
+          Malappuram
+        </option>
+
+        <option value="Palakkad">
+          Palakkad
+        </option>
+
+        <option value="Pathanamthitta">
+          Pathanamthitta
+        </option>
+
+        <option value="Thiruvananthapuram">
+          Thiruvananthapuram
+        </option>
+
+        <option value="Thrissur">
+          Thrissur
+        </option>
+
+        <option value="Wayanad">
+          Wayanad
+        </option>
+
+      </select>
 
 
-  function showWorker() {
-    hideAll();
-    document.getElementById("worker").classList.remove("hidden");
-  }
+      <!-- SEARCH BUTTON -->
+
+      <button
+        onclick="searchWorkers()"
+      >
+        Find Skilled Workers
+      </button>
 
 
-  function showEmployer() {
-    hideAll();
-    document.getElementById("employer").classList.remove("hidden");
-  }
+      <!-- BACK -->
+
+      <button
+        class="light"
+        onclick="goHome()"
+      >
+        Back
+      </button>
 
 
-  function goHome() {
-    hideAll();
-    document.getElementById("home").classList.remove("hidden");
-  }
+      <!-- RESULTS -->
+
+      <div id="results"></div>
+
+    </section>
+
+  </div>
 
 
-  /*
-   * ==========================================
-   * SUPABASE API
-   * ==========================================
-   */
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
 
-  async function supabaseRequest(path, options = {}) {
+  <footer>
 
-    if (
-      SUPABASE_URL === "https://ohpehdqjlvvqlihhgqgv.supabase.co"||
-      SUPABASE_KEY ===
-      "sb_publishable_4vIhXmmLasNH_C18XYupwg_KyYpzopL"
-    ) {
-      throw new Error("Supabase credentials are not configured.");
+    <div>
+      © 2026 <strong>KredVouch</strong>
+    </div>
+
+    <div>
+      Created by <strong>Athul Raj</strong>
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    /*
+     * ==========================================
+     * KREDVOUCH
+     * SUPABASE CONNECTION
+     * ==========================================
+     *
+     * IMPORTANT:
+     * Keep your existing Supabase Project URL
+     * and Publishable/Anon key here.
+     *
+     * Do NOT put a Supabase service_role key here.
+     */
+
+    const SUPABASE_URL =
+      "YOUR_SUPABASE_PROJECT_URL";
+
+    const SUPABASE_KEY =
+      "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY";
+
+
+    /*
+     * ==========================================
+     * NAVIGATION
+     * ==========================================
+     */
+
+    function hideAll() {
+
+      document
+        .getElementById("home")
+        .classList
+        .add("hidden");
+
+      document
+        .getElementById("worker")
+        .classList
+        .add("hidden");
+
+      document
+        .getElementById("employer")
+        .classList
+        .add("hidden");
+
     }
 
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/" + path,
-      {
-        ...options,
 
-        headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization": "Bearer " + SUPABASE_KEY,
-          "Content-Type": "application/json",
-          "Prefer": "return=representation",
+    function showWorker() {
 
-          ...(options.headers || {})
-        }
+      hideAll();
+
+      document
+        .getElementById("worker")
+        .classList
+        .remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function showEmployer() {
+
+      hideAll();
+
+      document
+        .getElementById("employer")
+        .classList
+        .remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function goHome() {
+
+      hideAll();
+
+      document
+        .getElementById("home")
+        .classList
+        .remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    /*
+     * ==========================================
+     * SUPABASE API
+     * ==========================================
+     */
+
+    async function supabaseRequest(
+      path,
+      options = {}
+    ) {
+
+      if (
+        SUPABASE_URL ===
+        "https://ohpehdqjlvvqlihhgqgv.supabase.co"
+        ||
+        SUPABASE_KEY ===
+        "sb_publishable_4vIhXmmLasNH_C18XYupwg_KyYpzopL"
+      ) {
+
+        throw new Error(
+          "Supabase credentials are not configured."
+        );
+
       }
-    );
-
-    if (!response.ok) {
-      const error = await response.text();
-      throw new Error(error);
-    }
-
-    return response.json();
-  }
 
 
-  /*
-   * ==========================================
-   * SAVE WORKER
-   * ==========================================
-   */
+      const response = await fetch(
 
-  async function saveWorker() {
+        SUPABASE_URL +
+        "/rest/v1/" +
+        path,
 
-    const message =
-      document.getElementById("workerMessage");
-
-    message.className = "message";
-    message.textContent = "Saving...";
-
-
-    const fullName =
-      document.getElementById("fullName").value.trim();
-
-    const skills =
-      document.getElementById("skills").value;
-
-    const companyName =
-      document.getElementById("companyName").value.trim();
-
-    const jobRole =
-      document.getElementById("jobRole").value.trim();
-
-    const duration =
-      document.getElementById("duration").value.trim();
-
-    const location =
-      document.getElementById("location").value.trim();
-
-    const district =
-      document.getElementById("district").value;
-
-    const verification =
-      document.getElementById("verification").value;
-
-
-    if (
-      !fullName ||
-      !skills ||
-      !companyName ||
-      !jobRole ||
-      !duration ||
-      !location ||
-      !district
-    ) {
-
-      message.className = "message error";
-
-      message.textContent =
-        "Please complete all required fields.";
-
-      return;
-    }
-
-
-    try {
-
-      await supabaseRequest(
-        "Workers",
         {
-          method: "POST",
 
-          body: JSON.stringify({
-            full_name: fullName,
-            skills: skills,
-            company_name: companyName,
-            job_role: jobRole,
-            duration: duration,
-            location: location,
-            district: district,
-            verification: verification
-          })
+          ...options,
+
+          headers: {
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=representation",
+
+            ...(options.headers || {})
+
+          }
+
         }
+
       );
 
 
-      message.className =
-        "message success";
+      if (!response.ok) {
 
-      message.textContent =
-        "Profile created successfully!";
+        const error =
+          await response.text();
+
+        throw new Error(error);
+
+      }
 
 
-      document.getElementById("fullName").value = "";
-      document.getElementById("skills").value = "";
-      document.getElementById("companyName").value = "";
-      document.getElementById("jobRole").value = "";
-      document.getElementById("duration").value = "";
-      document.getElementById("location").value = "";
-      document.getElementById("district").value = "";
-      document.getElementById("verification").value =
-        "Not Verified";
+      const text =
+        await response.text();
 
-    } catch (error) {
 
-      console.error(error);
+      if (!text) {
+        return [];
+      }
 
-      message.className =
-        "message error";
 
-      message.textContent =
-        "Could not save profile. Check the Supabase connection.";
+      return JSON.parse(text);
+
     }
-  }
 
 
-  /*
-   * ==========================================
-   * SEARCH WORKERS
-   * ==========================================
-   */
+    /*
+     * ==========================================
+     * SAVE WORKER PROFILE
+     * ==========================================
+     */
 
-  async function searchWorkers() {
+    async function saveWorker() {
 
-    const results =
-      document.getElementById("results");
-
-    results.innerHTML =
-      "<p class='empty'>Searching...</p>";
-
-
-    const skill =
-      document.getElementById("searchSkill").value;
-
-    const district =
-      document.getElementById("searchDistrict").value;
+      const message =
+        document.getElementById(
+          "workerMessage"
+        );
 
 
-    try {
+      message.className =
+        "message";
 
-      let query =
-        "Workers?select=*";
-
-
-      if (skill) {
-
-        query +=
-          "&skills=eq." +
-          encodeURIComponent(skill);
-      }
+      message.textContent =
+        "Saving...";
 
 
-      if (district) {
+      /*
+       * GET FORM VALUES
+       */
 
-        query +=
-          "&district=eq." +
-          encodeURIComponent(district);
-      }
+      const fullName =
+        document
+          .getElementById("fullName")
+          .value
+          .trim();
 
 
-      const workers =
-        await supabaseRequest(query);
+      const skills =
+        document
+          .getElementById("skills")
+          .value;
 
 
-      if (!workers || workers.length === 0) {
+      const companyName =
+        document
+          .getElementById("companyName")
+          .value
+          .trim();
 
-        results.innerHTML =
-          "<p class='empty'>No skilled workers found.</p>";
+
+      const jobRole =
+        document
+          .getElementById("jobRole")
+          .value
+          .trim();
+
+
+      const duration =
+        document
+          .getElementById("duration")
+          .value
+          .trim();
+
+
+      const location =
+        document
+          .getElementById("location")
+          .value
+          .trim();
+
+
+      const district =
+        document
+          .getElementById("district")
+          .value;
+
+
+      const verification =
+        document
+          .getElementById("verification")
+          .value;
+
+
+      /*
+       * VALIDATION
+       */
+
+      if (
+        !fullName ||
+        !skills ||
+        !companyName ||
+        !jobRole ||
+        !duration ||
+        !location ||
+        !district
+      ) {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Please complete all required fields.";
 
         return;
+
       }
 
 
-      results.innerHTML = "";
+      /*
+       * SAVE TO SUPABASE
+       */
+
+      try {
+
+        await supabaseRequest(
+
+          "Workers",
+
+          {
+
+            method: "POST",
+
+            body: JSON.stringify({
+
+              full_name:
+                fullName,
+
+              skills:
+                skills,
+
+              company_name:
+                companyName,
+
+              job_role:
+                jobRole,
+
+              duration:
+                duration,
+
+              location:
+                location,
+
+              district:
+                district,
+
+              verification:
+                verification
+
+            })
+
+          }
+
+        );
 
 
-      workers.forEach(worker => {
+        /*
+         * SUCCESS
+         */
 
-        const card =
-          document.createElement("div");
+        message.className =
+          "message success";
 
-        card.className =
-          "worker-card";
-
-
-        let verificationClass =
-          "notverified";
+        message.textContent =
+          "Profile created successfully!";
 
 
-        if (
-          worker.verification ===
-          "Verified"
-        ) {
+        /*
+         * RESET FORM
+         */
 
-          verificationClass =
-            "verified";
+        document
+          .getElementById("fullName")
+          .value = "";
 
-        } else if (
-          worker.verification ===
-          "Pending"
-        ) {
 
-          verificationClass =
-            "pending";
+        document
+          .getElementById("skills")
+          .value = "";
+
+
+        document
+          .getElementById("companyName")
+          .value = "";
+
+
+        document
+          .getElementById("jobRole")
+          .value = "";
+
+
+        document
+          .getElementById("duration")
+          .value = "";
+
+
+        document
+          .getElementById("location")
+          .value = "";
+
+
+        document
+          .getElementById("district")
+          .value = "";
+
+
+        document
+          .getElementById("verification")
+          .value =
+          "Not Verified";
+
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Could not save profile. Check the Supabase connection.";
+
+      }
+
+    }
+
+
+    /*
+     * ==========================================
+     * SEARCH WORKERS
+     * ==========================================
+     */
+
+    async function searchWorkers() {
+
+      const results =
+        document.getElementById(
+          "results"
+        );
+
+
+      results.innerHTML =
+        "<p class='empty'>Searching...</p>";
+
+
+      const skill =
+        document
+          .getElementById("searchSkill")
+          .value;
+
+
+      const district =
+        document
+          .getElementById("searchDistrict")
+          .value;
+
+
+      try {
+
+        /*
+         * BASE QUERY
+         */
+
+        let query =
+          "Workers?select=*";
+
+
+        /*
+         * FILTER BY SKILL
+         */
+
+        if (skill) {
+
+          query +=
+            "&skills=eq." +
+            encodeURIComponent(skill);
+
         }
 
 
-        card.innerHTML = `
+        /*
+         * FILTER BY DISTRICT
+         */
 
-          <h3>
-            ${safe(worker.full_name)}
-          </h3>
+        if (district) {
 
-          <div class="badge">
-            ${safe(worker.skills)}
-          </div>
+          query +=
+            "&district=eq." +
+            encodeURIComponent(district);
 
-          <p>
-            <strong>Job Role:</strong>
-            ${safe(worker.job_role)}
-          </p>
-
-          <p>
-            <strong>Company:</strong>
-            ${safe(worker.company_name)}
-          </p>
-
-          <p>
-            <strong>Experience:</strong>
-            ${safe(worker.duration)}
-          </p>
-
-          <p>
-            <strong>Location:</strong>
-            ${safe(worker.location)}
-          </p>
-
-          <p>
-            <strong>District:</strong>
-            ${safe(worker.district)}
-          </p>
-
-          <p class="${verificationClass}">
-            ${safe(worker.verification)}
-          </p>
-
-        `;
+        }
 
 
-        results.appendChild(card);
-      });
+        /*
+         * GET WORKERS
+         */
+
+        const workers =
+          await supabaseRequest(
+            query
+          );
 
 
-    } catch (error) {
+        /*
+         * NO RESULTS
+         */
 
-      console.error(error);
+        if (
+          !workers ||
+          workers.length === 0
+        ) {
 
-      results.innerHTML =
-        "<p class='empty error'>" +
-        "Unable to load workers. " +
-        "Please check the Supabase connection." +
-        "</p>";
+          results.innerHTML =
+            "<p class='empty'>" +
+            "No skilled workers found." +
+            "</p>";
+
+          return;
+
+        }
+
+
+        /*
+         * CLEAR OLD RESULTS
+         */
+
+        results.innerHTML = "";
+
+
+        /*
+         * CREATE WORKER CARDS
+         */
+
+        workers.forEach(
+          worker => {
+
+            const card =
+              document.createElement(
+                "div"
+              );
+
+
+            card.className =
+              "worker-card";
+
+
+            /*
+             * VERIFICATION STYLE
+             */
+
+            let verificationClass =
+              "notverified";
+
+
+            let verificationBadge =
+              "";
+
+
+            if (
+              worker.verification ===
+              "Verified"
+            ) {
+
+              verificationClass =
+                "verified";
+
+              verificationBadge =
+                "<span class='verified-badge'>" +
+                "✓ Verified" +
+                "</span>";
+
+            }
+
+            else if (
+              worker.verification ===
+              "Pending"
+            ) {
+
+              verificationClass =
+                "pending";
+
+              verificationBadge =
+                "<span class='pending-badge'>" +
+                "Pending" +
+                "</span>";
+
+            }
+
+
+            /*
+             * WORKER CARD
+             */
+
+            card.innerHTML = `
+
+              <h3>
+                ${safe(worker.full_name)}
+              </h3>
+
+              <div class="badge">
+                ${safe(worker.skills)}
+              </div>
+
+              ${verificationBadge}
+
+              <p>
+                <strong>Job Role:</strong>
+                ${safe(worker.job_role)}
+              </p>
+
+              <p>
+                <strong>Company:</strong>
+                ${safe(worker.company_name)}
+              </p>
+
+              <p>
+                <strong>Experience:</strong>
+                ${safe(worker.duration)}
+              </p>
+
+              <p>
+                <strong>Location:</strong>
+                ${safe(worker.location)}
+              </p>
+
+              <p>
+                <strong>District:</strong>
+                ${safe(worker.district)}
+              </p>
+
+              <p class="${verificationClass}">
+                ${safe(worker.verification)}
+              </p>
+
+            `;
+
+
+            results.appendChild(
+              card
+            );
+
+          }
+        );
+
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        results.innerHTML =
+
+          "<p class='empty error'>" +
+
+          "Unable to load workers. " +
+
+          "Please check the Supabase connection." +
+
+          "</p>";
+
+      }
+
     }
-  }
 
 
-  /*
-   * ==========================================
-   * SECURITY
-   * ==========================================
-   */
+    /*
+     * ==========================================
+     * SECURITY
+     * ==========================================
+     *
+     * Prevent user-entered text from being
+     * interpreted as HTML when worker cards
+     * are displayed.
+     */
 
-  function safe(value) {
+    function safe(value) {
 
-    if (value === null || value === undefined) {
-      return "";
+      if (
+        value === null ||
+        value === undefined
+      ) {
+
+        return "";
+
+      }
+
+
+      return String(value)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
     }
 
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-</script>
+  </script>
 
 </body>
 </html>
