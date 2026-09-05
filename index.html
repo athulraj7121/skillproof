@@ -2,13 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#6d28d9">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#6D4AFF">
+<meta name="description" content="KredVouch — Find skilled people. Trust their experience.">
+
 <title>KredVouch — Skills • Experience • Trust</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
 <style>
+:root{
+  --purple:#6d4aff;
+  --purple-dark:#5033d7;
+  --lavender:#f4f1ff;
+  --lavender-2:#ebe6ff;
+  --green:#1e9b67;
+  --green-soft:#e9f8f1;
+  --text:#17152a;
+  --muted:#6f6b7d;
+  --border:#e8e5ef;
+  --white:#ffffff;
+  --bg:#faf9fd;
+  --danger:#c83d54;
+  --shadow:0 18px 50px rgba(49,35,105,.10);
+  --radius:22px;
+}
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -20,136 +46,80 @@ html{
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:
-    radial-gradient(circle at 10% 5%,rgba(124,58,237,.09),transparent 28%),
-    radial-gradient(circle at 90% 85%,rgba(34,197,94,.07),transparent 30%),
-    linear-gradient(135deg,#f7f5ff,#fff,#f5fff8);
-  color:#172033;
+  font-family:"DM Sans",sans-serif;
+  background:var(--bg);
+  color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
 }
 
-button,input,select,textarea{
+button,
+input,
+select,
+textarea{
   font:inherit;
 }
 
 button{
   cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
 }
 
 .app{
-  width:100%;
-  max-width:900px;
-  margin:auto;
   min-height:100vh;
-  position:relative;
 }
 
 /* =========================
    INTRO
 ========================= */
 
-.intro{
+#intro{
   position:fixed;
   inset:0;
   z-index:9999;
+  background:linear-gradient(145deg,#ffffff 0%,#f4f1ff 100%);
   display:flex;
   align-items:center;
   justify-content:center;
-  background:
-    radial-gradient(circle at center,rgba(124,58,237,.16),transparent 35%),
-    linear-gradient(135deg,#faf8ff,#ffffff,#f6fff9);
-  pointer-events:none;
-  animation:introFade 1s ease 2.9s forwards;
+  transition:opacity .65s ease, visibility .65s ease;
 }
 
-.intro-brand{
+#intro.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.intro-inner{
   text-align:center;
-  animation:
-    introCenter 1.15s cubic-bezier(.22,1,.36,1) .15s forwards,
-    introShrink 1.05s cubic-bezier(.22,1,.36,1) 1.25s forwards;
+  animation:introIn 1s cubic-bezier(.22,1,.36,1);
 }
 
-.intro-k{
-  width:82px;
-  height:82px;
-  margin:0 auto 17px;
-  border-radius:27px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-size:42px;
-  font-weight:900;
-  background:linear-gradient(135deg,#8b5cf6,#5b21b6,#4f46e5);
-  box-shadow:
-    0 25px 70px rgba(109,40,217,.30),
-    0 0 0 10px rgba(124,58,237,.05);
-  animation:introGlow 1.3s ease-in-out infinite alternate;
+.intro-logo{
+  font-family:"Plus Jakarta Sans",sans-serif;
+  font-size:clamp(38px,11vw,66px);
+  font-weight:800;
+  letter-spacing:-2.8px;
+  color:var(--text);
 }
 
-.intro-title{
-  font-size:42px;
-  font-weight:900;
-  letter-spacing:-2px;
-  color:#241447;
+.intro-logo span{
+  color:var(--purple);
 }
 
-.intro-title span{
-  color:#6d28d9;
+.intro-tagline{
+  margin-top:12px;
+  color:var(--muted);
+  font-size:14px;
+  letter-spacing:.3px;
 }
 
-.intro-sub{
-  margin-top:7px;
-  font-size:12px;
-  letter-spacing:2px;
-  color:#73788a;
-  text-transform:uppercase;
-}
-
-@keyframes introCenter{
+@keyframes introIn{
   from{
     opacity:0;
-    transform:scale(.75);
+    transform:translateY(18px) scale(.96);
   }
   to{
     opacity:1;
-    transform:scale(1);
-  }
-}
-
-@keyframes introShrink{
-  0%{
-    transform:scale(1);
-  }
-  100%{
-    transform:scale(.52) translateY(-38vh);
-    opacity:0;
-  }
-}
-
-@keyframes introGlow{
-  from{
-    box-shadow:0 20px 55px rgba(109,40,217,.23);
-  }
-  to{
-    box-shadow:
-      0 28px 75px rgba(109,40,217,.35),
-      0 0 0 12px rgba(124,58,237,.05);
-  }
-}
-
-@keyframes introFade{
-  to{
-    opacity:0;
-    visibility:hidden;
+    transform:none;
   }
 }
 
@@ -157,946 +127,763 @@ button:disabled{
    HEADER
 ========================= */
 
-header{
+.header{
   position:sticky;
   top:0;
-  z-index:50;
-  background:rgba(255,255,255,.90);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid #ebe7f5;
-  padding:14px 18px;
+  z-index:1000;
+  background:rgba(250,249,253,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(232,229,239,.75);
 }
 
 .header-inner{
+  max-width:1120px;
+  margin:auto;
+  padding:16px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
+  gap:14px;
 }
 
-.logo{
+.brand{
+  border:0;
+  background:none;
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:9px;
+  color:var(--text);
 }
 
-.logo-icon{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.brand-mark{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:linear-gradient(145deg,#7658ff,#5839dc);
+  display:grid;
+  place-items:center;
   color:white;
-  font-size:22px;
+  font-family:"Plus Jakarta Sans";
   font-weight:800;
-  background:linear-gradient(135deg,#7c3aed,#4f46e5);
-  box-shadow:0 8px 22px rgba(109,40,217,.25);
-  transition:.3s;
+  box-shadow:0 8px 22px rgba(109,74,255,.24);
 }
 
-.logo-icon:hover{
-  transform:rotate(-4deg) scale(1.04);
-}
-
-.logo-text{
-  font-size:21px;
+.brand-name{
+  font-family:"Plus Jakarta Sans";
+  font-size:18px;
   font-weight:800;
   letter-spacing:-.5px;
 }
 
-.logo-sub{
-  font-size:10px;
-  color:#6b7280;
-  margin-top:2px;
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
 }
 
-.header-badge{
-  background:#f3e8ff;
-  color:#6d28d9;
-  padding:8px 11px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:700;
+.language-select{
+  border:1px solid var(--border);
+  background:white;
+  color:var(--text);
+  border-radius:12px;
+  padding:9px 10px;
+  outline:none;
+}
+
+.icon-button{
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:white;
+  color:var(--text);
 }
 
 /* =========================
-   MAIN / SCREEN
+   SCREEN SYSTEM
 ========================= */
 
-main{
-  padding:20px 16px 45px;
+#screenRoot{
+  position:relative;
+  min-height:calc(100vh - 71px);
 }
 
 .screen{
-  display:none;
+  width:100%;
+  min-height:calc(100vh - 71px);
+  padding:26px 18px 50px;
 }
 
-.screen.active{
-  display:block;
-  animation:screenForward .45s cubic-bezier(.22,1,.36,1);
+.screen-inner{
+  max-width:920px;
+  margin:auto;
 }
 
-.screen.back-enter{
-  animation:screenBack .45s cubic-bezier(.22,1,.36,1);
+.screen.enter-forward{
+  animation:forwardIn .42s cubic-bezier(.22,1,.36,1);
 }
 
-@keyframes screenForward{
+.screen.enter-back{
+  animation:backIn .42s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes forwardIn{
   from{
     opacity:0;
-    transform:translateX(24px) translateY(8px) scale(.985);
+    transform:translateX(34px);
   }
   to{
     opacity:1;
-    transform:translateX(0) translateY(0) scale(1);
+    transform:none;
   }
 }
 
-@keyframes screenBack{
+@keyframes backIn{
   from{
     opacity:0;
-    transform:translateX(-24px) translateY(8px) scale(.985);
+    transform:translateX(-34px);
   }
   to{
     opacity:1;
-    transform:translateX(0) translateY(0) scale(1);
+    transform:none;
   }
 }
 
 /* =========================
-   HERO
+   HOME
 ========================= */
 
 .hero{
+  max-width:900px;
+  margin:0 auto;
+  padding:65px 0 25px;
   text-align:center;
-  padding:34px 10px 25px;
 }
 
-.hero-icon{
-  width:82px;
-  height:82px;
-  margin:0 auto 18px;
-  border-radius:27px;
-  display:flex;
+.eyebrow{
+  display:inline-flex;
   align-items:center;
-  justify-content:center;
-  font-size:42px;
-  background:linear-gradient(135deg,#ede9fe,#ddd6fe);
-  box-shadow:0 15px 40px rgba(109,40,217,.13);
-  animation:heroFloat 4s ease-in-out infinite;
+  gap:7px;
+  padding:8px 13px;
+  border-radius:999px;
+  background:var(--green-soft);
+  color:var(--green);
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:22px;
 }
 
-@keyframes heroFloat{
-  0%,100%{
-    transform:translateY(0);
-  }
-  50%{
-    transform:translateY(-6px);
-  }
+.eyebrow-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
 }
 
 .hero h1{
-  font-size:34px;
-  line-height:1.1;
-  letter-spacing:-1.2px;
-  margin-bottom:10px;
+  font-family:"Plus Jakarta Sans";
+  font-size:clamp(40px,9vw,74px);
+  line-height:1.02;
+  letter-spacing:-3.6px;
+  font-weight:800;
 }
 
-.hero h1 span{
-  color:#6d28d9;
+.hero h1 .purple{
+  color:var(--purple);
 }
 
 .hero p{
-  max-width:570px;
-  margin:auto;
-  color:#667085;
-  line-height:1.6;
-  font-size:15px;
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.card{
-  background:rgba(255,255,255,.94);
-  border:1px solid #ebe7f5;
-  border-radius:22px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 12px 35px rgba(31,41,55,.06);
-  transition:.3s;
-}
-
-.card:hover{
-  box-shadow:0 18px 45px rgba(31,41,55,.08);
-}
-
-.home-actions{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:12px;
-}
-
-.home-action{
-  width:100%;
-  border:1px solid #e6e1f2;
-  background:#fff;
-  border-radius:20px;
-  padding:21px;
-  text-align:left;
-  display:flex;
-  align-items:center;
-  gap:15px;
-  transition:.3s cubic-bezier(.22,1,.36,1);
-}
-
-.home-action:hover{
-  transform:translateY(-3px);
-  border-color:#a78bfa;
-  box-shadow:0 14px 32px rgba(109,40,217,.10);
-}
-
-.home-action.primary{
-  background:linear-gradient(135deg,#faf5ff,#f5f3ff);
-  border-color:#ddd6fe;
-}
-
-.home-action-icon{
-  width:52px;
-  height:52px;
-  flex:none;
-  border-radius:17px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-  background:#f3e8ff;
-}
-
-.home-action-content{
-  flex:1;
-}
-
-.home-action h3{
+  max-width:650px;
+  margin:24px auto 0;
+  color:var(--muted);
   font-size:17px;
-  margin-bottom:4px;
+  line-height:1.75;
 }
 
-.home-action p{
-  color:#7a8190;
+.hero-actions{
+  margin:31px auto 0;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.primary-btn,
+.secondary-btn{
+  border-radius:14px;
+  padding:14px 20px;
+  font-weight:700;
+  border:1px solid transparent;
+  transition:.2s ease;
+}
+
+.primary-btn{
+  background:var(--purple);
+  color:white;
+  box-shadow:0 12px 28px rgba(109,74,255,.24);
+}
+
+.primary-btn:hover{
+  background:var(--purple-dark);
+  transform:translateY(-1px);
+}
+
+.secondary-btn{
+  background:white;
+  color:var(--text);
+  border-color:var(--border);
+}
+
+.secondary-btn:hover{
+  border-color:#cfc8f4;
+  transform:translateY(-1px);
+}
+
+.hero-note{
+  margin-top:14px;
+  color:#9994a5;
   font-size:12px;
-  line-height:1.45;
-}
-
-.home-arrow{
-  color:#7c3aed;
-  font-size:22px;
 }
 
 /* =========================
-   FEATURES
+   TRUST STRIP
 ========================= */
 
-.features{
+.trust-section{
+  max-width:900px;
+  margin:45px auto 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:24px 0;
+}
+
+.trust-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:18px;
 }
 
-.feature{
-  padding:15px 10px;
-  background:#faf9ff;
-  border-radius:15px;
-  text-align:center;
-  transition:.3s;
+.trust-item{
+  padding:5px 24px;
+  border-right:1px solid var(--border);
 }
 
-.feature:hover{
-  transform:translateY(-3px);
+.trust-item:last-child{
+  border-right:0;
 }
 
-.feature-icon{
-  font-size:22px;
-  margin-bottom:7px;
-}
-
-.feature strong{
-  display:block;
-  font-size:12px;
-}
-
-.feature span{
-  color:#777;
-  font-size:10px;
-}
-
-/* =========================
-   SECTION
-========================= */
-
-.section-title{
-  font-size:23px;
+.trust-number{
+  color:var(--purple);
+  font-family:"Plus Jakarta Sans";
+  font-size:13px;
   font-weight:800;
   margin-bottom:6px;
 }
 
-.section-sub{
-  color:#777;
-  font-size:13px;
-  margin-bottom:20px;
+.trust-item h3{
+  font-family:"Plus Jakarta Sans";
+  font-size:16px;
 }
 
-.section-note{
-  padding:12px 14px;
-  border-radius:13px;
-  background:#f8f7ff;
-  border:1px solid #ebe7f5;
-  color:#686f7d;
-  font-size:12px;
-  line-height:1.5;
-  margin-bottom:16px;
+.trust-item p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+  margin-top:5px;
 }
 
 /* =========================
-   BUTTONS
+   FOOTER
 ========================= */
 
-.primary-btn{
-  width:100%;
-  border:0;
-  border-radius:14px;
-  padding:14px 18px;
-  color:white;
-  font-weight:800;
-  background:linear-gradient(135deg,#7c3aed,#5b21b6);
-  box-shadow:0 10px 24px rgba(109,40,217,.20);
-  transition:.3s cubic-bezier(.22,1,.36,1);
+.footer{
+  text-align:center;
+  padding:42px 20px 26px;
+  color:#9994a5;
+  font-size:12px;
 }
 
-.primary-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 30px rgba(109,40,217,.25);
+.footer strong{
+  color:#625d70;
 }
 
-.primary-btn:active{
-  transform:scale(.98);
-}
+/* =========================
+   PAGE TITLE
+========================= */
 
-.secondary-btn{
-  width:100%;
-  border:1px solid #ddd6fe;
-  border-radius:14px;
-  padding:13px 18px;
-  color:#6d28d9;
-  font-weight:700;
-  background:#faf9ff;
-  transition:.25s;
-}
-
-.secondary-btn:hover{
-  background:#f3e8ff;
-}
-
-.button-row{
-  display:flex;
-  gap:10px;
-  margin-top:18px;
+.page-top{
+  margin:8px auto 26px;
+  max-width:720px;
 }
 
 .back-btn{
   border:0;
-  background:transparent;
-  color:#6d28d9;
-  font-weight:700;
-  margin-bottom:18px;
+  background:none;
+  color:var(--muted);
+  font-weight:600;
   padding:7px 0;
+  margin-bottom:19px;
+}
+
+.page-top h1{
+  font-family:"Plus Jakarta Sans";
+  font-size:clamp(28px,7vw,42px);
+  letter-spacing:-1.5px;
+}
+
+.page-top p{
+  color:var(--muted);
+  line-height:1.65;
+  margin-top:8px;
 }
 
 /* =========================
-   FORMS
+   CARD
 ========================= */
 
-.form-group{
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:0 10px 35px rgba(40,30,85,.055);
+  padding:22px;
+}
+
+.form-card{
+  max-width:720px;
+  margin:auto;
+}
+
+.form-section{
+  margin-bottom:27px;
+}
+
+.form-section:last-child{
+  margin-bottom:0;
+}
+
+.form-section-title{
+  font-family:"Plus Jakarta Sans";
+  font-size:16px;
   margin-bottom:15px;
 }
 
-.form-group label{
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:7px;
-  color:#303747;
+.form-section-sub{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:-8px;
+  margin-bottom:15px;
 }
 
-.required{
-  color:#ef4444;
+.field{
+  margin-bottom:16px;
+}
+
+.field:last-child{
+  margin-bottom:0;
+}
+
+.field label{
+  display:block;
+  font-weight:700;
+  font-size:13px;
+  margin-bottom:7px;
 }
 
 .optional{
-  color:#8b91a0;
+  color:#9c97a8;
   font-weight:500;
+}
+
+.helper{
+  color:#8b8698;
   font-size:11px;
+  line-height:1.5;
+  margin-top:6px;
 }
 
 input,
 select,
 textarea{
   width:100%;
-  border:1px solid #ddd8ea;
+  border:1px solid var(--border);
   border-radius:13px;
   background:#fff;
-  color:#202636;
+  color:var(--text);
   padding:13px 14px;
   outline:none;
-  transition:.25s;
+  transition:border .2s,box-shadow .2s;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
-  border-color:#7c3aed;
-  box-shadow:0 0 0 3px rgba(124,58,237,.10);
+  border-color:#a99af5;
+  box-shadow:0 0 0 4px rgba(109,74,255,.08);
 }
 
 textarea{
-  min-height:100px;
+  min-height:90px;
   resize:vertical;
 }
 
-.form-row{
+.row{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:14px;
 }
 
-.skill-other{
-  display:none;
-}
+/* =========================
+   SKILLS
+========================= */
 
-.input-with-button{
+.chip-grid{
   display:flex;
+  flex-wrap:wrap;
   gap:8px;
 }
 
-.input-with-button input{
-  flex:1;
-}
-
-.location-btn{
-  flex:none;
-  width:48px;
-  border:1px solid #ddd6fe;
-  border-radius:13px;
-  background:#faf9ff;
-  color:#6d28d9;
-  font-size:20px;
-}
-
-/* =========================
-   STATUS
-========================= */
-
-.status{
-  display:none;
-  padding:13px 15px;
-  border-radius:13px;
-  margin-bottom:15px;
-  font-size:13px;
-  line-height:1.45;
-}
-
-.status.success{
-  display:block;
-  background:#ecfdf3;
-  color:#166534;
-  border:1px solid #bbf7d0;
-}
-
-.status.error{
-  display:block;
-  background:#fef2f2;
-  color:#991b1b;
-  border:1px solid #fecaca;
-}
-
-.status.info{
-  display:block;
-  background:#eff6ff;
-  color:#1d4ed8;
-  border:1px solid #bfdbfe;
-}
-
-/* =========================
-   ACCOUNT
-========================= */
-
-.account-choice{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.account-card{
-  border:1px solid #e6e1f2;
-  background:#fff;
-  border-radius:20px;
-  padding:22px 14px;
-  text-align:center;
-  transition:.3s;
-}
-
-.account-card:hover{
-  transform:translateY(-3px);
-  border-color:#a78bfa;
-  box-shadow:0 14px 30px rgba(109,40,217,.09);
-}
-
-.account-card-icon{
-  font-size:34px;
-  margin-bottom:10px;
-}
-
-.account-card h3{
-  font-size:15px;
-  margin-bottom:5px;
-}
-
-.account-card p{
-  color:#777;
-  font-size:11px;
-  line-height:1.45;
-}
-
-/* =========================
-   LOGIN
-========================= */
-
-.login-box{
-  max-width:540px;
-  margin:20px auto;
-}
-
-.login-methods{
-  display:flex;
-  gap:8px;
-  margin-bottom:16px;
-}
-
-.login-method{
-  flex:1;
-  border:1px solid #ddd6fe;
-  border-radius:12px;
-  padding:11px;
-  background:#fff;
-  color:#6d28d9;
-  font-weight:700;
+.chip{
+  border:1px solid var(--border);
+  background:white;
+  color:#5d586b;
+  border-radius:999px;
+  padding:9px 13px;
   font-size:12px;
+  font-weight:600;
 }
 
-.login-method.active{
-  background:#f3e8ff;
-  border-color:#a78bfa;
-}
-
-.otp-box{
-  display:none;
-}
-
-.auth-user{
-  padding:10px 13px;
-  border-radius:12px;
-  background:#ecfdf5;
-  color:#166534;
-  font-size:12px;
-  margin-bottom:14px;
+.chip.active{
+  background:var(--lavender);
+  border-color:#b6a9fb;
+  color:var(--purple-dark);
 }
 
 /* =========================
    LOCATION
 ========================= */
 
-.location-help{
-  font-size:11px;
-  color:#777;
-  margin-top:6px;
-  line-height:1.45;
+.location-box{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:13px;
+  background:#fcfbff;
 }
 
-.map-panel{
-  position:fixed;
-  inset:0;
-  z-index:300;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  background:rgba(15,23,42,.38);
-  backdrop-filter:blur(5px);
+.location-value{
+  min-height:22px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:10px;
 }
 
-.map-panel.show{
+.location-value.selected{
+  color:var(--text);
+  font-weight:600;
+}
+
+.location-actions{
   display:flex;
-  animation:modalIn .3s ease;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-.map-card{
-  width:min(900px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:#fff;
-  border-radius:25px 25px 0 0;
-  padding:20px;
-  box-shadow:0 -15px 45px rgba(0,0,0,.15);
-}
-
-.map-card h3{
-  font-size:20px;
-  margin-bottom:6px;
-}
-
-.map-card p{
-  color:#777;
+.small-btn{
+  border:1px solid var(--border);
+  background:white;
+  color:var(--text);
+  border-radius:10px;
+  padding:9px 11px;
   font-size:12px;
-  margin-bottom:15px;
+  font-weight:700;
 }
 
-.map-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
+.small-btn.primary{
+  border-color:var(--purple);
+  background:var(--purple);
+  color:white;
 }
 
-.map-preview{
-  width:100%;
-  height:260px;
-  border:0;
-  border-radius:17px;
-  margin:12px 0;
-  background:#f4f4f5;
+#map{
+  height:320px;
+  border-radius:16px;
+  overflow:hidden;
+  margin-top:12px;
+  display:none;
 }
 
-@keyframes modalIn{
-  from{
-    opacity:0;
-  }
-  to{
-    opacity:1;
-  }
+.map-search{
+  display:none;
+  margin-top:10px;
 }
 
 /* =========================
-   PORTFOLIO
+   UPLOAD
 ========================= */
 
-.portfolio-box{
-  background:#faf9ff;
-  border:1px solid #e8e2f5;
-  border-radius:18px;
-  padding:16px;
-  margin:20px 0;
+.upload-box{
+  border:1px dashed #cfc9df;
+  border-radius:16px;
+  padding:18px;
+  background:#fcfbff;
 }
 
-.portfolio-box strong{
-  display:block;
-  margin-bottom:7px;
+.upload-box input{
+  border:0;
+  padding:0;
+  background:none;
 }
 
-.portfolio-box p{
-  color:#777;
-  font-size:12px;
-  line-height:1.5;
-  margin-bottom:12px;
-}
-
-.portfolio-input{
-  width:100%;
-  padding:10px;
-  border:1px dashed #c4b5fd;
-  border-radius:12px;
-  background:#fff;
-}
-
-.preview-grid{
+.upload-preview{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
   margin-top:12px;
 }
 
-.preview-item{
-  position:relative;
-  aspect-ratio:1;
-  overflow:hidden;
-  border-radius:12px;
-  background:#eee;
-}
-
-.preview-item img{
+.upload-preview img{
   width:100%;
-  height:100%;
+  height:90px;
   object-fit:cover;
+  border-radius:10px;
 }
 
-.upload-status{
-  margin-top:9px;
-  font-size:11px;
-  color:#6b7280;
+/* =========================
+   LANGUAGE
+========================= */
+
+.language-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.lang-chip{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:999px;
+  padding:9px 12px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.lang-chip.active{
+  background:var(--lavender);
+  border-color:#b6a9fb;
+  color:var(--purple-dark);
+}
+
+/* =========================
+   FORM FOOT
+========================= */
+
+.form-footer{
+  margin-top:22px;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+.full-btn{
+  width:100%;
+  padding:14px 18px;
+  border-radius:14px;
+  border:0;
+  background:var(--purple);
+  color:white;
+  font-weight:800;
+  box-shadow:0 10px 25px rgba(109,74,255,.2);
+}
+
+.status{
+  margin-top:13px;
+  font-size:12px;
+  line-height:1.5;
+  display:none;
+}
+
+.status.success{
+  display:block;
+  color:var(--green);
+}
+
+.status.error{
+  display:block;
+  color:var(--danger);
+}
+
+.status.info{
+  display:block;
+  color:var(--muted);
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-card{
+  max-width:480px;
+  margin:auto;
+}
+
+.login-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:#f5f3f8;
+  border-radius:13px;
+  padding:4px;
+  margin-bottom:20px;
+}
+
+.login-tab{
+  border:0;
+  background:none;
+  border-radius:10px;
+  padding:10px;
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
+}
+
+.login-tab.active{
+  background:white;
+  color:var(--text);
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.dashboard-item{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  text-align:left;
+  transition:.2s;
+}
+
+.dashboard-item:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.dashboard-item h3{
+  font-family:"Plus Jakarta Sans";
+  font-size:15px;
+  margin-bottom:7px;
+}
+
+.dashboard-item p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.55;
 }
 
 /* =========================
    SEARCH
 ========================= */
 
-.search-box{
-  position:relative;
-  margin-bottom:14px;
+.search-bar{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:9px;
+  margin-bottom:17px;
 }
 
-.search-box input{
-  padding-left:42px;
-}
-
-.search-icon{
-  position:absolute;
-  left:15px;
-  top:13px;
-}
-
-.filters{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  padding-bottom:5px;
-  margin-bottom:16px;
-}
-
-.filter{
-  flex:none;
-  padding:8px 12px;
-  border-radius:20px;
-  border:1px solid #ddd6fe;
-  background:#fff;
-  color:#6d28d9;
-  font-size:12px;
-  font-weight:700;
-}
-
-.results-count{
-  color:#667085;
-  font-size:13px;
-  margin-bottom:12px;
+.search-results{
+  display:grid;
+  gap:12px;
 }
 
 .worker-card{
-  background:#fff;
-  border:1px solid #ebe7f5;
-  border-radius:20px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
   padding:17px;
-  margin-bottom:13px;
-  box-shadow:0 8px 24px rgba(31,41,55,.05);
-  animation:cardIn .4s ease both;
 }
 
-@keyframes cardIn{
-  from{
-    opacity:0;
-    transform:translateY(12px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-.worker-top{
+.worker-main{
   display:flex;
   justify-content:space-between;
-  gap:10px;
+  gap:15px;
 }
 
-.worker-name{
-  font-weight:800;
-  font-size:17px;
-}
-
-.verified{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:#2563eb;
-  color:#fff;
-  font-size:11px;
-  margin-left:5px;
-}
-
-.worker-skill{
-  color:#6d28d9;
-  font-weight:700;
-  font-size:13px;
-  margin-top:3px;
+.worker-card h3{
+  font-family:"Plus Jakarta Sans";
+  font-size:16px;
 }
 
 .worker-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:10px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.65;
+  margin-top:6px;
 }
 
-.meta{
-  background:#f8f7fc;
-  border-radius:9px;
-  padding:6px 8px;
-  color:#667085;
-  font-size:11px;
+.badge{
+  white-space:nowrap;
+  height:max-content;
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
 }
 
-.available{
-  color:#166534;
-  background:#dcfce7;
-  font-weight:700;
+.badge.pending{
+  background:#fff5dc;
+  color:#9b6b00;
+}
+
+.badge.verified{
+  background:var(--green-soft);
+  color:var(--green);
 }
 
 .worker-actions{
   display:flex;
   gap:8px;
   margin-top:13px;
-}
-
-.action-btn{
-  flex:1;
-  border-radius:11px;
-  padding:10px;
-  border:1px solid #ddd6fe;
-  background:#faf9ff;
-  color:#6d28d9;
-  font-weight:700;
-  font-size:12px;
-}
-
-.action-btn.whatsapp{
-  background:#ecfdf5;
-  border-color:#bbf7d0;
-  color:#15803d;
-}
-
-.empty{
-  text-align:center;
-  padding:40px 15px;
-  color:#777;
-}
-
-.empty-icon{
-  font-size:40px;
-  margin-bottom:10px;
-}
-
-.loading{
-  text-align:center;
-  padding:25px;
-  color:#777;
+  flex-wrap:wrap;
 }
 
 /* =========================
-   PROFILE
+   DETAIL
 ========================= */
 
-.profile-header{
-  background:linear-gradient(135deg,#5b21b6,#7c3aed,#4f46e5);
-  color:#fff;
-  border-radius:24px;
-  padding:24px;
-  margin-bottom:15px;
-  box-shadow:0 18px 45px rgba(109,40,217,.20);
-}
-
-.profile-name{
-  font-size:25px;
-  font-weight:800;
-}
-
-.profile-role{
-  margin-top:5px;
-  opacity:.9;
-}
-
-.profile-stats{
+.detail-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  margin-top:22px;
-  gap:5px;
+  gap:12px;
 }
 
-.stat{
-  text-align:center;
-  padding:10px 4px;
-  border-right:1px solid rgba(255,255,255,.2);
-}
-
-.stat:last-child{
-  border-right:0;
-}
-
-.stat strong{
-  display:block;
-  font-size:18px;
-}
-
-.stat span{
-  font-size:9px;
-  opacity:.8;
-}
-
-.detail-section{
-  background:#fff;
-  border:1px solid #ebe7f5;
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:13px;
-}
-
-.detail-section h3{
-  font-size:17px;
-  margin-bottom:9px;
-}
-
-.detail-section p{
-  color:#687182;
-  font-size:13px;
-  line-height:1.6;
-}
-
-.tags{
+.detail-row{
   display:flex;
-  flex-wrap:wrap;
-  gap:8px;
+  justify-content:space-between;
+  gap:20px;
+  border-bottom:1px solid var(--border);
+  padding:10px 0;
 }
 
-.tag{
-  padding:8px 10px;
-  background:#f3e8ff;
-  color:#6d28d9;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:700;
+.detail-row:last-child{
+  border-bottom:0;
 }
 
-.portfolio-profile-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
+.detail-label{
+  color:var(--muted);
+  font-size:12px;
 }
 
-.portfolio-profile-grid img{
-  width:100%;
-  aspect-ratio:1;
-  object-fit:cover;
-  border-radius:12px;
+.detail-value{
+  text-align:right;
+  font-size:13px;
+  font-weight:600;
 }
 
 /* =========================
@@ -1104,36 +891,39 @@ textarea{
 ========================= */
 
 .chat-box{
-  background:#fff;
-  border:1px solid #ebe7f5;
-  border-radius:20px;
-  padding:18px;
+  max-width:650px;
+  margin:auto;
 }
 
-.chat-messages{
-  min-height:150px;
-  max-height:300px;
-  overflow:auto;
-  background:#fafafa;
-  border-radius:14px;
-  padding:12px;
-  margin-bottom:10px;
+.messages{
+  min-height:300px;
+  max-height:55vh;
+  overflow-y:auto;
+  padding:5px 0 15px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
 }
 
 .message{
-  max-width:80%;
-  padding:9px 12px;
-  border-radius:13px;
-  background:#ede9fe;
-  color:#3b2b70;
-  margin-bottom:7px;
-  font-size:12px;
+  max-width:78%;
+  padding:10px 13px;
+  border-radius:14px;
+  font-size:13px;
+  line-height:1.5;
 }
 
-.message.me{
-  margin-left:auto;
-  background:#7c3aed;
-  color:#fff;
+.message.mine{
+  align-self:flex-end;
+  background:var(--purple);
+  color:white;
+  border-bottom-right-radius:5px;
+}
+
+.message.theirs{
+  align-self:flex-start;
+  background:#f1eff5;
+  border-bottom-left-radius:5px;
 }
 
 .chat-input{
@@ -1141,87 +931,88 @@ textarea{
   gap:8px;
 }
 
-.chat-input input{
-  flex:1;
-}
-
-.chat-input button{
-  width:48px;
-  border:0;
-  border-radius:12px;
-  background:#7c3aed;
-  color:#fff;
-}
-
 /* =========================
-   FOOTER
+   TOAST
 ========================= */
 
-footer{
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translate(-50%,20px);
+  background:#201d2b;
+  color:white;
+  padding:12px 15px;
+  border-radius:12px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:10000;
+  max-width:90%;
   text-align:center;
-  padding:25px 15px;
-  color:#8a8f9c;
-  font-size:11px;
 }
 
-.footer-brand{
-  color:#6d28d9;
-  font-weight:800;
-  margin-bottom:4px;
+#toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:600px){
-
-  main{
-    padding:14px 12px 35px;
-  }
-
+@media(max-width:650px){
   .hero{
-    padding-top:24px;
+    padding-top:44px;
   }
 
   .hero h1{
-    font-size:29px;
+    letter-spacing:-2.3px;
   }
 
-  .features{
-    gap:7px;
+  .hero p{
+    font-size:15px;
   }
 
-  .feature{
-    padding:12px 6px;
-  }
-
-  .form-row{
+  .trust-grid{
     grid-template-columns:1fr;
-    gap:0;
   }
 
-  .profile-stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .stat{
+  .trust-item{
     border-right:0;
-    border-bottom:1px solid rgba(255,255,255,.2);
+    border-bottom:1px solid var(--border);
+    padding:14px 4px;
   }
 
-  .account-choice{
+  .trust-item:last-child{
+    border-bottom:0;
+  }
+
+  .row,
+  .search-bar,
+  .dashboard-grid{
     grid-template-columns:1fr;
   }
 
-  .intro-title{
-    font-size:34px;
+  .card{
+    padding:17px;
+    border-radius:18px;
   }
 
-  .intro-k{
-    width:72px;
-    height:72px;
+  .form-footer{
+    display:block;
   }
+
+  .form-footer button{
+    width:100%;
+    margin-top:8px;
+  }
+}
+
+/* hide native pages until rendered */
+.hidden{
+  display:none!important;
 }
 </style>
 </head>
@@ -1229,3391 +1020,1117 @@ footer{
 <body>
 
 <!-- =========================
-     KREDVOUCH OPENING ANIMATION
+     INTRO
 ========================= -->
-<div class="intro" id="intro">
-  <div class="intro-brand">
-    <div class="intro-k">K</div>
-    <div class="intro-title">Kred<span>Vouch</span></div>
-    <div class="intro-sub">Skills • Experience • Trust</div>
+
+<div id="intro">
+  <div class="intro-inner">
+    <div class="intro-logo">Kred<span>Vouch</span></div>
+    <div class="intro-tagline">Skills • Experience • Trust</div>
   </div>
 </div>
-
 
 <div class="app">
 
-<header>
+<header class="header">
   <div class="header-inner">
 
-    <div class="logo">
-      <div class="logo-icon">K</div>
+    <button class="brand" onclick="goHome()">
+      <div class="brand-mark">K</div>
+      <div class="brand-name">KredVouch</div>
+    </button>
 
-      <div>
-        <div class="logo-text">KredVouch</div>
-        <div class="logo-sub">Skills • Experience • Trust</div>
-      </div>
+    <div class="header-actions">
+
+      <select id="languageSelector"
+              class="language-select"
+              onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ml">മലയാളം</option>
+        <option value="hi">हिन्दी</option>
+        <option value="ta">தமிழ்</option>
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="te">తెలుగు</option>
+        <option value="bn">বাংলা</option>
+        <option value="ur">اردو</option>
+        <option value="mr">मराठी</option>
+      </select>
+
+      <button class="icon-button"
+              id="accountButton"
+              onclick="openAccount()"
+              aria-label="Account">
+        •••
+      </button>
+
     </div>
-
-    <div id="headerAccountBadge" class="header-badge">
-      Trusted Skills
-    </div>
-
   </div>
 </header>
 
-
-<main>
-
-<!-- =====================================================
-     HOME
-===================================================== -->
-
-<section id="homeScreen" class="screen active">
-
-  <div class="hero">
-
-    <div class="hero-icon">🤝</div>
-
-    <h1>
-      Find skilled people.<br>
-      <span>Trust their experience.</span>
-    </h1>
-
-    <p>
-      KredVouch connects skilled workers with employers using
-      real work experience, skills and verification.
-    </p>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="home-actions">
-
-      <button
-        class="home-action primary"
-        onclick="startCreateProfile()">
-
-        <div class="home-action-icon">✨</div>
-
-        <div class="home-action-content">
-          <h3>Create Profile</h3>
-          <p>
-            Build your KredVouch account and add your worker
-            profile whenever you are ready.
-          </p>
-        </div>
-
-        <div class="home-arrow">›</div>
-
-      </button>
-
-
-      <button
-        class="home-action"
-        onclick="startFindWorkers()">
-
-        <div class="home-action-icon">🔎</div>
-
-        <div class="home-action-content">
-          <h3>Find Skilled Workers</h3>
-          <p>
-            Search for trusted skilled people near your
-            required location.
-          </p>
-        </div>
-
-        <div class="home-arrow">›</div>
-
-      </button>
-
-    </div>
-
-
-    <div class="features">
-
-      <div class="feature">
-        <div class="feature-icon">🛠️</div>
-        <strong>Skills</strong>
-        <span>Show what you do</span>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">📋</div>
-        <strong>Experience</strong>
-        <span>Build credibility</span>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">🛡️</div>
-        <strong>Trust</strong>
-        <span>Work verification</span>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="card"
-    style="text-align:center;background:linear-gradient(135deg,#faf5ff,#f0fdf4)">
-
-    <h3 style="margin-bottom:7px">
-      One account. More possibilities.
-    </h3>
-
-    <p
-      style="font-size:13px;color:#6b7280;margin-bottom:15px;line-height:1.5">
-
-      You can be a skilled worker, find skilled workers,
-      or do both with one KredVouch account.
-
-    </p>
-
-    <button
-      class="primary-btn"
-      onclick="startCreateProfile()">
-
-      Create Profile
-
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     LOGIN
-===================================================== -->
-
-<section id="loginScreen" class="screen">
-
-  <button
-    class="back-btn"
-    onclick="showScreen('homeScreen',true)">
-    ← Back
-  </button>
-
-
-  <div class="card login-box">
-
-    <div class="section-title">
-      Welcome to KredVouch
-    </div>
-
-    <div class="section-sub">
-      Sign in to continue securely.
-    </div>
-
-
-    <div class="section-note">
-      A KredVouch account can be used for both finding skilled
-      workers and creating your own Worker Profile.
-      Login is required before accessing protected worker
-      contact information.
-    </div>
-
-
-    <div class="login-methods">
-
-      <button
-        id="emailMethodBtn"
-        class="login-method active"
-        onclick="selectLoginMethod('email')">
-
-        Email
-
-      </button>
-
-      <button
-        id="phoneMethodBtn"
-        class="login-method"
-        onclick="selectLoginMethod('phone')">
-
-        Phone
-
-      </button>
-
-    </div>
-
-
-    <div id="authStatus" class="status"></div>
-
-
-    <div class="form-group">
-
-      <label id="loginLabel">
-        Email
-      </label>
-
-      <input
-        id="loginInput"
-        type="email"
-        placeholder="Enter your email">
-
-      <div class="location-help">
-        We will send a secure one-time verification code.
-      </div>
-
-    </div>
-
-
-    <button
-      id="sendOtpBtn"
-      class="primary-btn"
-      onclick="sendOTP()">
-
-      Send Verification Code
-
-    </button>
-
-
-    <div id="otpBox" class="otp-box">
-
-      <div class="form-group" style="margin-top:16px">
-
-        <label>
-          Verification Code
-        </label>
-
-        <input
-          id="otpInput"
-          type="text"
-          inputmode="numeric"
-          autocomplete="one-time-code"
-          maxlength="6"
-          placeholder="Enter 6-digit code">
-
-      </div>
-
-
-      <button
-        id="verifyOtpBtn"
-        class="primary-btn"
-        onclick="verifyOTP()">
-
-        Verify & Continue
-
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     ACCOUNT / PROFILE CHOICE
-===================================================== -->
-
-<section id="accountScreen" class="screen">
-
-  <button
-    class="back-btn"
-    onclick="showScreen('homeScreen',true)">
-    ← Back
-  </button>
-
-
-  <div class="card">
-
-    <div class="section-title">
-      Your KredVouch
-    </div>
-
-    <div class="section-sub">
-      Choose what you want to do. You can use both options
-      with the same account.
-    </div>
-
-
-    <div id="loggedUserBox" class="auth-user">
-      Signed in securely.
-    </div>
-
-
-    <div class="account-choice">
-
-      <button
-        class="account-card"
-        onclick="openWorkerProfile()">
-
-        <div class="account-card-icon">👷</div>
-
-        <h3>
-          Worker Profile
-        </h3>
-
-        <p>
-          Add your skills, experience, locations,
-          verification and work portfolio.
-        </p>
-
-      </button>
-
-
-      <button
-        class="account-card"
-        onclick="openEmployerSearch()">
-
-        <div class="account-card-icon">🔎</div>
-
-        <h3>
-          Find Skilled Workers
-        </h3>
-
-        <p>
-          Search for skilled people for your work,
-          business or personal requirements.
-        </p>
-
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h3 style="margin-bottom:8px">
-      One account can do both
-    </h3>
-
-    <p style="font-size:13px;color:#6b7280;line-height:1.6">
-
-      You don't have to choose a permanent identity.
-      Create a Worker Profile today and you can still
-      search for another skilled worker tomorrow.
-
-    </p>
-
-  </div>
-
-
-  <button
-    class="secondary-btn"
-    onclick="logoutUser()">
-
-    Sign Out
-
-  </button>
-
-</section>
-
-
-<!-- =====================================================
-     WORKER
-===================================================== -->
-
-<section id="workerScreen" class="screen">
-
-  <button
-    class="back-btn"
-    onclick="showScreen('accountScreen',true)">
-
-    ← Back
-
-  </button>
-
-
-  <div class="card">
-
-    <div class="section-title">
-      Create Your KredVouch
-    </div>
-
-    <div class="section-sub">
-      Add your skills and work experience.
-    </div>
-
-
-    <div id="saveStatus" class="status"></div>
-
-
-    <form id="workerForm">
-
-      <!-- NAME -->
-
-      <div class="form-group">
-
-        <label>
-          Full Name
-          <span class="required">*</span>
-        </label>
-
-        <input
-          id="fullName"
-          type="text"
-          placeholder="Enter your full name"
-          required>
-
-      </div>
-
-
-      <!-- SKILL -->
-
-      <div class="form-group">
-
-        <label>
-          Select Your Skill
-          <span class="required">*</span>
-        </label>
-
-        <select id="skill" required>
-
-          <option value="">
-            Select skill
-          </option>
-
-          <option>Painter</option>
-          <option>Welder</option>
-          <option>Plumber</option>
-          <option>Electrician</option>
-          <option>Carpenter</option>
-          <option>Mason</option>
-          <option>Mechanic</option>
-          <option>Tile Worker</option>
-          <option>AC Technician</option>
-          <option>Driver</option>
-          <option>Fabricator</option>
-          <option>Machine Operator</option>
-          <option>CNC Operator</option>
-          <option>Auto Painter</option>
-          <option>Cleaner</option>
-          <option>Gardener</option>
-          <option>Roofer</option>
-          <option>Maintenance Worker</option>
-          <option>Other</option>
-
-        </select>
-
-      </div>
-
-
-      <div
-        class="form-group skill-other"
-        id="otherSkillGroup">
-
-        <label>
-          Other Skill
-          <span class="required">*</span>
-        </label>
-
-        <input
-          id="otherSkill"
-          type="text"
-          placeholder="Enter your skill">
-
-      </div>
-
-
-      <!-- COMPANY -->
-
-      <div class="form-group">
-
-        <label>
-          Current or Past Company
-          <span class="optional">(Optional)</span>
-        </label>
-
-        <input
-          id="companyName"
-          type="text"
-          placeholder="Company / workshop name">
-
-        <div class="location-help">
-          If you are self-employed, freelance, independent,
-          or have never worked for a company, you can leave
-          this empty.
-        </div>
-
-      </div>
-
-
-      <!-- JOB ROLE -->
-
-      <div class="form-group">
-
-        <label>
-          Job Role
-          <span class="required">*</span>
-        </label>
-
-        <input
-          id="jobRole"
-          type="text"
-          placeholder="Example: Electrician, Auto Painter, Mason"
-          required>
-
-        <div class="location-help">
-          Job Role means the specific position or type of work
-          you performed. Example: Skill = Painting,
-          Job Role = Auto Painter.
-        </div>
-
-      </div>
-
-
-      <!-- DURATION -->
-
-      <div class="form-group">
-
-        <label>
-          Duration
-          <span class="required">*</span>
-        </label>
-
-        <input
-          id="duration"
-          type="text"
-          placeholder="Example: 5 years"
-          required>
-
-      </div>
-
-
-      <!-- CURRENT LOCATION -->
-
-      <div class="form-group">
-
-        <label>
-          Current Location
-          <span class="required">*</span>
-        </label>
-
-        <div class="input-with-button">
-
-          <input
-            id="location"
-            type="text"
-            placeholder="Select your current location"
-            required>
-
-          <button
-            type="button"
-            class="location-btn"
-            onclick="openLocationPicker('location')">
-
-            📍
-
-          </button>
-
-        </div>
-
-        <div class="location-help">
-          Use the map/location button for a more accurate
-          current location instead of entering a random place.
-        </div>
-
-      </div>
-
-
-      <!-- DISTRICT -->
-
-      <div class="form-group">
-
-        <label>
-          District
-          <span class="required">*</span>
-        </label>
-
-        <select id="district" required>
-
-          <option value="">
-            Select district
-          </option>
-
-          <option>Kasaragod</option>
-          <option>Kannur</option>
-          <option>Wayanad</option>
-          <option>Kozhikode</option>
-          <option>Malappuram</option>
-          <option>Palakkad</option>
-          <option>Thrissur</option>
-          <option>Ernakulam</option>
-          <option>Idukki</option>
-          <option>Kottayam</option>
-          <option>Alappuzha</option>
-          <option>Pathanamthitta</option>
-          <option>Kollam</option>
-          <option>Thiruvananthapuram</option>
-
-        </select>
-
-      </div>
-
-
-      <!-- WORK LOCATION -->
-
-      <div class="form-group">
-
-        <label>
-          Work Location
-          <span class="optional">(Optional)</span>
-        </label>
-
-        <div class="input-with-button">
-
-          <input
-            id="workLocation"
-            type="text"
-            placeholder="Where you work">
-
-          <button
-            type="button"
-            class="location-btn"
-            onclick="openLocationPicker('workLocation')">
-
-            📍
-
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- PREFERRED LOCATION -->
-
-      <div class="form-group">
-
-        <label>
-          Preferred Work Location
-          <span class="optional">(Optional)</span>
-        </label>
-
-        <div class="input-with-button">
-
-          <input
-            id="preferredLocation"
-            type="text"
-            placeholder="Where you prefer to work">
-
-          <button
-            type="button"
-            class="location-btn"
-            onclick="openLocationPicker('preferredLocation')">
-
-            📍
-
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- LANGUAGE -->
-
-      <div class="form-group">
-
-        <label>
-          Language
-          <span class="optional">(Optional)</span>
-        </label>
-
-        <select id="language">
-
-          <option value="">
-            Select language
-          </option>
-
-          <option>Malayalam</option>
-          <option>English</option>
-          <option>Hindi</option>
-          <option>Tamil</option>
-          <option>Kannada</option>
-          <option>Telugu</option>
-          <option>Urdu</option>
-          <option>Arabic</option>
-          <option>Bengali</option>
-          <option>Marathi</option>
-          <option>Gujarati</option>
-          <option>Punjabi</option>
-          <option>Odia</option>
-
-        </select>
-
-      </div>
-
-
-      <!-- AVAILABILITY -->
-
-      <div class="form-group">
-
-        <label>
-          Availability
-        </label>
-
-        <select id="availability">
-
-          <option value="">
-            Select availability
-          </option>
-
-          <option>Available</option>
-          <option>Available Immediately</option>
-          <option>Currently Working</option>
-          <option>Available on Weekends</option>
-
-        </select>
-
-      </div>
-
-
-      <!-- CONTACT -->
-
-      <div class="form-row">
-
-        <div class="form-group">
-
-          <label>
-            Contact Phone
-          </label>
-
-          <input
-            id="contactPhone"
-            type="tel"
-            placeholder="Phone number">
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            WhatsApp Number
-          </label>
-
-          <input
-            id="contactWhatsapp"
-            type="tel"
-            placeholder="WhatsApp number">
-
-        </div>
-
-      </div>
-
-
-      <!-- CONTACT PREFERENCE -->
-
-      <div class="form-group">
-
-        <label>
-          Contact Preference
-        </label>
-
-        <select id="contactPreference">
-
-          <option value="">
-            Select preference
-          </option>
-
-          <option>Phone</option>
-          <option>WhatsApp</option>
-          <option>Both</option>
-
-        </select>
-
-      </div>
-
-
-      <!-- VERIFICATION -->
-
-      <div class="form-group">
-
-        <label>
-          Work Verification
-        </label>
-
-        <select id="verification">
-
-          <option value="Not Verified">
-            Not Verified
-          </option>
-
-          <option value="Pending">
-            Pending
-          </option>
-
-          <option value="Verified">
-            Verified
-          </option>
-
-        </select>
-
-        <div class="location-help">
-
-          Work Verification is the trust status showing
-          whether the worker's work experience or proof
-          has been verified. It is separate from the
-          Work Portfolio.
-
-        </div>
-
-      </div>
-
-
-      <!-- PORTFOLIO -->
-
-      <div class="portfolio-box">
-
-        <strong>
-          📸 Work Portfolio
-        </strong>
-
-        <p>
-          Add real photos of work you have completed.
-          For example, painting work, electrical work,
-          construction, vehicle repair or other skilled work.
-          Portfolio photos help people understand your
-          practical experience.
-        </p>
-
-        <input
-          id="portfolioFiles"
-          class="portfolio-input"
-          type="file"
-          accept="image/*"
-          multiple>
-
-        <div
-          id="portfolioPreview"
-          class="preview-grid">
-        </div>
-
-        <div
-          id="uploadStatus"
-          class="upload-status">
-        </div>
-
-      </div>
-
-
-      <button
-        id="saveWorkerBtn"
-        type="submit"
-        class="primary-btn">
-
-        Create Worker Profile
-
-      </button>
-
-    </form>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     FIND WORKERS
-===================================================== -->
-
-<section id="employerScreen" class="screen">
-
-  <button
-    class="back-btn"
-    onclick="showScreen('accountScreen',true)">
-
-    ← Back
-
-  </button>
-
-
-  <div class="card">
-
-    <div class="section-title">
-      Find Skilled Workers
-    </div>
-
-    <div class="section-sub">
-      Search skilled people for your business,
-      project, home work or personal requirement.
-    </div>
-
-
-    <div class="section-note">
-      You don't need to be a company or formal employer
-      to use this feature. Anyone looking for skilled
-      help can search.
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        Skill
-      </label>
-
-      <select id="searchSkill">
-
-        <option value="">
-          All Skills
-        </option>
-
-        <option>Painter</option>
-        <option>Welder</option>
-        <option>Plumber</option>
-        <option>Electrician</option>
-        <option>Carpenter</option>
-        <option>Mason</option>
-        <option>Mechanic</option>
-        <option>Tile Worker</option>
-        <option>AC Technician</option>
-        <option>Driver</option>
-        <option>Fabricator</option>
-        <option>Machine Operator</option>
-        <option>CNC Operator</option>
-        <option>Auto Painter</option>
-        <option>Cleaner</option>
-        <option>Gardener</option>
-        <option>Roofer</option>
-        <option>Maintenance Worker</option>
-
-      </select>
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        District
-      </label>
-
-      <select id="searchDistrict">
-
-        <option value="">
-          All Districts
-        </option>
-
-        <option>Kasaragod</option>
-        <option>Kannur</option>
-        <option>Wayanad</option>
-        <option>Kozhikode</option>
-        <option>Malappuram</option>
-        <option>Palakkad</option>
-        <option>Thrissur</option>
-        <option>Ernakulam</option>
-        <option>Idukki</option>
-        <option>Kottayam</option>
-        <option>Alappuzha</option>
-        <option>Pathanamthitta</option>
-        <option>Kollam</option>
-        <option>Thiruvananthapuram</option>
-
-      </select>
-
-    </div>
-
-
-    <button
-      id="searchBtn"
-      class="primary-btn">
-
-      🔎 Find Skilled Workers
-
-    </button>
-
-  </div>
-
-
-  <div id="results"></div>
-
-</section>
-
-
-<!-- =====================================================
-     PROFILE
-===================================================== -->
-
-<section id="profileScreen" class="screen">
-
-  <button
-    class="back-btn"
-    onclick="showScreen('employerScreen',true)">
-
-    ← Back to Workers
-
-  </button>
-
-
-  <div id="profileContent"></div>
-
-</section>
-
-
-<!-- =====================================================
-     CHAT
-===================================================== -->
-
-<section id="chatScreen" class="screen">
-
-  <button
-    class="back-btn"
-    onclick="backFromChat()">
-
-    ← Back
-
-  </button>
-
-
-  <div class="card">
-
-    <div
-      class="section-title"
-      id="chatTitle">
-
-      Worker Chat
-
-    </div>
-
-    <div class="section-sub">
-      Contact the worker directly.
-    </div>
-
-
-    <div class="chat-box">
-
-      <div
-        id="chatMessages"
-        class="chat-messages">
-
-        <div class="message">
-          Hello! You can send a message to this worker.
-        </div>
-
-      </div>
-
-
-      <div class="chat-input">
-
-        <input
-          id="chatInput"
-          type="text"
-          placeholder="Type your message...">
-
-        <button onclick="sendChat()">
-          ➤
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-  <div class="footer-brand">
-    KredVouch
-  </div>
-
-  <div>
-    © 2026 KredVouch • Skills • Experience • Trust
-  </div>
-
-  <div style="margin-top:4px">
-    Built for skilled people and the people who need them.
-  </div>
-
-</footer>
+<main id="screenRoot"></main>
 
 </div>
 
+<div id="toast"></div>
 
-<!-- =====================================================
-     LOCATION MODAL
-===================================================== -->
-
-<div
-  id="mapPanel"
-  class="map-panel">
-
-  <div class="map-card">
-
-    <h3>
-      📍 Select Location
-    </h3>
-
-    <p>
-      Use your current location for better accuracy,
-      or enter a place and search it.
-    </p>
-
-
-    <div class="form-group">
-
-      <input
-        id="mapSearchInput"
-        type="text"
-        placeholder="Example: Kasaragod, Kerala">
-
-    </div>
-
-
-    <div class="map-actions">
-
-      <button
-        class="secondary-btn"
-        type="button"
-        onclick="useCurrentLocation()">
-
-        📍 Use Current Location
-
-      </button>
-
-
-      <button
-        class="secondary-btn"
-        type="button"
-        onclick="searchMapLocation()">
-
-        🔎 Search Location
-
-      </button>
-
-    </div>
-
-
-    <iframe
-      id="mapPreview"
-      class="map-preview"
-      loading="lazy"
-      title="Location map">
-    </iframe>
-
-
-    <div
-      id="mapStatus"
-      class="status">
-    </div>
-
-
-    <div class="button-row">
-
-      <button
-        type="button"
-        class="secondary-btn"
-        onclick="closeLocationPicker()">
-
-        Cancel
-
-      </button>
-
-
-      <button
-        type="button"
-        class="primary-btn"
-        onclick="applySelectedLocation()">
-
-        Use This Location
-
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
 /* =========================================================
-   KREDVOUCH — SUPABASE
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
   "https://ohpehdqjlvvqlihhgqgv.supabase.co";
 
-const SUPABASE_KEY =
+/*
+  IMPORTANT:
+  Paste the SAME Supabase publishable/anon key that you
+  already use in your current KredVouch file.
+*/
+const SUPABASE_ANON_KEY =
   "sb_publishable_4vIhXmmLasNH_C18XYupwg_KyYpzopL";
 
+let supabaseClient = null;
 
-/* =========================================================
-   STATE
-========================================================= */
-
-let authSession = null;
-let authUser = null;
-
-let loginMethod = "email";
-let pendingLoginValue = "";
-
-let currentWorkers = [];
-let currentWorker = null;
-let chatBackScreen = "profileScreen";
-
-let locationTarget = null;
-let selectedLocationText = "";
-let selectedLatitude = null;
-let selectedLongitude = null;
-
-
-/* =========================================================
-   SUPABASE REQUEST
-========================================================= */
-
-async function supabaseRequest(path, options = {}){
-
-  const headers = {
-    "apikey": SUPABASE_KEY,
-    "Content-Type": "application/json",
-    ...(options.headers || {})
-  };
-
-
-  if(authSession && authSession.access_token){
-
-    headers["Authorization"] =
-      "Bearer " + authSession.access_token;
-
-  }else{
-
-    /*
-     * Keep the publishable key as the API key.
-     * Do not invent a user JWT when the user is logged out.
-     */
-
-  }
-
-
-  const response =
-    await fetch(
-      SUPABASE_URL + "/rest/v1/" + path,
-      {
-        ...options,
-        headers
-      }
-    );
-
-
-  const text =
-    await response.text();
-
-
-  if(!response.ok){
-
-    let message = text;
-
-    try{
-
-      const json =
-        JSON.parse(text);
-
-      message =
-        json.message ||
-        json.error_description ||
-        json.error ||
-        text;
-
-    }catch(e){}
-
-
-    throw new Error(
-      "Supabase " +
-      response.status +
-      ": " +
-      message
-    );
-
-  }
-
-
-  if(!text) return null;
-
-
-  try{
-
-    return JSON.parse(text);
-
-  }catch(e){
-
-    return text;
-
-  }
-
+if(
+  SUPABASE_ANON_KEY &&
+  !SUPABASE_ANON_KEY.includes("PASTE_YOUR")
+){
+  supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 }
 
 
 /* =========================================================
-   AUTH REQUEST
+   APP STATE
 ========================================================= */
 
-async function authRequest(endpoint, options = {}){
+let currentScreen = "home";
+let screenHistory = [];
 
-  const response =
-    await fetch(
-      SUPABASE_URL + "/auth/v1/" + endpoint,
-      {
-        ...options,
-        headers:{
-          "apikey":SUPABASE_KEY,
-          "Content-Type":"application/json",
-          ...(options.headers || {})
-        }
-      }
-    );
+let selectedSkill = "";
+let selectedLanguages = [];
 
+let currentLocation = {
+  text:"",
+  lat:null,
+  lng:null
+};
 
-  const text =
-    await response.text();
+let preferredLocation = {
+  text:"",
+  lat:null,
+  lng:null
+};
 
+let map = null;
+let mapMode = null;
+let mapMarker = null;
 
-  if(!response.ok){
+let loginMode = "email";
+let otpDestination = "";
 
-    let message = text;
-
-    try{
-
-      const json =
-        JSON.parse(text);
-
-      message =
-        json.msg ||
-        json.message ||
-        json.error_description ||
-        json.error ||
-        text;
-
-    }catch(e){}
+let selectedWorker = null;
 
 
-    throw new Error(message);
+/* =========================================================
+   TRANSLATIONS
+========================================================= */
 
-  }
+const T = {
+
+en:{
+  homeEyebrow:"A professional way to discover skilled people",
+  hero1:"Find skilled people.",
+  hero2:"Trust their experience.",
+  heroText:"KredVouch connects skilled workers with employers using real work experience, skills and verification.",
+  create:"Create Profile",
+  find:"Find Skilled Workers",
+  homeNote:"One account. Your profile when you need it. Search when you need it.",
+  skills:"Skills",
+  skillsText:"Discover people by the work they can actually do.",
+  experience:"Experience",
+  experienceText:"See practical work experience and job roles.",
+  trust:"Trust",
+  trustText:"Verification helps employers make informed decisions.",
+  created:"Created by Athul Raj",
+  back:"Back",
+  account:"Account",
+  login:"Login",
+  loginText:"Sign in to search for skilled workers and access protected contact details.",
+  email:"Email",
+  phone:"Phone",
+  sendOtp:"Send OTP",
+  verifyOtp:"Verify OTP",
+  otp:"OTP",
+  changeMethod:"Change login method",
+  logout:"Logout",
+  dashboard:"Your KredVouch account",
+  dashboardText:"Use the same account to create your worker profile and find skilled workers.",
+  myProfile:"My Worker Profile",
+  myProfileText:"Create or manage your worker profile.",
+  search:"Find Skilled Workers",
+  searchText:"Search workers by skill and district.",
+  profile:"Worker Profile",
+  fullName:"Full Name",
+  skill:"Skill",
+  company:"Company",
+  optional:"Optional",
+  companyHelp:"Leave blank if you are self-employed, a freelancer, independent worker or day worker.",
+  jobRole:"Job Role",
+  jobRoleHelp:"Your role, position or main function. Examples: Painter, Electrician, Site Supervisor, Welder, Helper, Machine Operator.",
+  duration:"Experience / Duration",
+  currentLocation:"Current Location",
+  locationHelp:"Select your exact current location using the map.",
+  useLocation:"Use My Location",
+  chooseMap:"Choose on Map",
+  workLocation:"Work / Preferred Work Location",
+  workLocationHelp:"Choose the place or area where you prefer to work.",
+  district:"District",
+  language:"Languages",
+  availability:"Availability",
+  contactPhone:"Contact Phone",
+  whatsapp:"WhatsApp",
+  contactPreference:"Contact Preference",
+  verification:"Work Verification",
+  verificationHelp:"Verification is managed by KredVouch after evidence or review. Workers cannot mark themselves as verified.",
+  pending:"Pending",
+  portfolio:"Work Portfolio",
+  portfolioHelp:"Upload up to 6 work images. Maximum 5MB per image.",
+  saveProfile:"Save Profile",
+  searchPlaceholder:"Search skill",
+  districtPlaceholder:"District",
+  searchButton:"Search",
+  noResults:"No workers found.",
+  locationRequired:"Please select your current location on the map.",
+  skillRequired:"Please select a skill.",
+  nameRequired:"Please enter your full name.",
+  roleRequired:"Please enter your job role.",
+  durationRequired:"Please enter your experience or duration.",
+  districtRequired:"Please select your district.",
+  profileSaved:"Worker profile saved successfully.",
+  profileError:"Could not save profile. Please check your connection and permissions.",
+  loginRequired:"Please login first.",
+  loginSent:"OTP sent. Check your email or phone.",
+  loginVerified:"Login successful.",
+  locationPermission:"Location permission is required to use your current location.",
+  findOnMap:"Tap the map to select a location.",
+  chooseLocation:"Choose Location",
+  selectedLocation:"Selected location",
+  chat:"Chat",
+  call:"Call",
+  whatsappButton:"WhatsApp",
+  details:"Details",
+  send:"Send",
+  messagePlaceholder:"Write a message...",
+  noMessages:"Start the conversation.",
+  accountInfo:"Account",
+  createProfileFirst:"Create a Worker Profile",
+  manageProfile:"Manage Worker Profile",
+  notLogged:"Not logged in",
+  welcome:"Welcome to KredVouch",
+  languageSaved:"Language preference saved."
+},
+
+ml:{
+  homeEyebrow:"കഴിവുള്ള ആളുകളെ കണ്ടെത്താനുള്ള പ്രൊഫഷണൽ മാർഗം",
+  hero1:"കഴിവുള്ള ആളുകളെ കണ്ടെത്തൂ.",
+  hero2:"അവരുടെ അനുഭവത്തെ വിശ്വസിക്കൂ.",
+  heroText:"യഥാർത്ഥ ജോലി പരിചയം, കഴിവുകൾ, verification എന്നിവ ഉപയോഗിച്ച് skilled workers-നെയും employers-നെയും KredVouch ബന്ധിപ്പിക്കുന്നു.",
+  create:"പ്രൊഫൈൽ സൃഷ്ടിക്കുക",
+  find:"Skilled Workers കണ്ടെത്തുക",
+  homeNote:"ഒരു account. ആവശ്യമുള്ളപ്പോൾ profile. ആവശ്യമുള്ളപ്പോൾ search.",
+  skills:"കഴിവുകൾ",
+  skillsText:"അവർക്ക് യഥാർത്ഥത്തിൽ ചെയ്യാൻ കഴിയുന്ന ജോലിയിലൂടെ ആളുകളെ കണ്ടെത്തൂ.",
+  experience:"അനുഭവം",
+  experienceText:"പ്രായോഗിക ജോലി പരിചയവും job role-ഉം കാണാം.",
+  trust:"വിശ്വാസം",
+  trustText:"Verification വഴി കൂടുതൽ വിവരമുള്ള തീരുമാനങ്ങൾ എടുക്കാം.",
+  created:"Created by Athul Raj",
+  back:"തിരികെ",
+  account:"Account",
+  login:"Login",
+  loginText:"Skilled workers തിരയാനും protected contact details കാണാനും login ചെയ്യുക.",
+  email:"Email",
+  phone:"Phone",
+  sendOtp:"OTP അയയ്ക്കുക",
+  verifyOtp:"OTP സ്ഥിരീകരിക്കുക",
+  otp:"OTP",
+  changeMethod:"Login method മാറ്റുക",
+  logout:"Logout",
+  dashboard:"നിങ്ങളുടെ KredVouch account",
+  dashboardText:"Worker profile സൃഷ്ടിക്കാനും skilled workers കണ്ടെത്താനും ഇതേ account ഉപയോഗിക്കാം.",
+  myProfile:"My Worker Profile",
+  myProfileText:"Worker profile സൃഷ്ടിക്കുകയോ manage ചെയ്യുകയോ ചെയ്യുക.",
+  search:"Skilled Workers കണ്ടെത്തുക",
+  searchText:"Skill, district എന്നിവ ഉപയോഗിച്ച് workers തിരയുക.",
+  profile:"Worker Profile",
+  fullName:"പൂർണ്ണ പേര്",
+  skill:"Skill",
+  company:"Company",
+  optional:"Optional",
+  companyHelp:"Self-employed, freelancer, independent worker അല്ലെങ്കിൽ day worker ആണെങ്കിൽ blank വിടാം.",
+  jobRole:"Job Role",
+  jobRoleHelp:"നിങ്ങളുടെ role, position അല്ലെങ്കിൽ പ്രധാന function. ഉദാഹരണം: Painter, Electrician, Site Supervisor, Welder, Helper, Machine Operator.",
+  duration:"Experience / Duration",
+  currentLocation:"നിലവിലെ സ്ഥലം",
+  locationHelp:"Map ഉപയോഗിച്ച് നിങ്ങളുടെ exact current location തിരഞ്ഞെടുക്കുക.",
+  useLocation:"My Location ഉപയോഗിക്കുക",
+  chooseMap:"Map-ൽ തിരഞ്ഞെടുക്കുക",
+  workLocation:"Work / Preferred Work Location",
+  workLocationHelp:"ജോലി ചെയ്യാൻ നിങ്ങൾക്ക് ഇഷ്ടമുള്ള സ്ഥലം അല്ലെങ്കിൽ area തിരഞ്ഞെടുക്കുക.",
+  district:"District",
+  language:"Languages",
+  availability:"Availability",
+  contactPhone:"Contact Phone",
+  whatsapp:"WhatsApp",
+  contactPreference:"Contact Preference",
+  verification:"Work Verification",
+  verificationHelp:"Evidence/review കഴിഞ്ഞ് KredVouch ആണ് verification manage ചെയ്യുന്നത്. Worker-ന് സ്വയം verified എന്ന് mark ചെയ്യാൻ കഴിയില്ല.",
+  pending:"Pending",
+  portfolio:"Work Portfolio",
+  portfolioHelp:"പരമാവധി 6 work images upload ചെയ്യാം. ഓരോ image-നും 5MB maximum.",
+  saveProfile:"Profile Save ചെയ്യുക",
+  searchPlaceholder:"Skill തിരയുക",
+  districtPlaceholder:"District",
+  searchButton:"Search",
+  noResults:"Workers കണ്ടെത്താനായില്ല.",
+  locationRequired:"Map-ൽ current location തിരഞ്ഞെടുക്കുക.",
+  skillRequired:"ഒരു skill തിരഞ്ഞെടുക്കുക.",
+  nameRequired:"പൂർണ്ണ പേര് നൽകുക.",
+  roleRequired:"Job role നൽകുക.",
+  durationRequired:"Experience അല്ലെങ്കിൽ duration നൽകുക.",
+  districtRequired:"District തിരഞ്ഞെടുക്കുക.",
+  profileSaved:"Worker profile വിജയകരമായി save ചെയ്തു.",
+  profileError:"Profile save ചെയ്യാൻ കഴിഞ്ഞില്ല. Connection/permissions പരിശോധിക്കുക.",
+  loginRequired:"ആദ്യം login ചെയ്യുക.",
+  loginSent:"OTP അയച്ചു. Email അല്ലെങ്കിൽ phone പരിശോധിക്കുക.",
+  loginVerified:"Login വിജയിച്ചു.",
+  locationPermission:"Current location ഉപയോഗിക്കാൻ location permission ആവശ്യമാണ്.",
+  findOnMap:"Location തിരഞ്ഞെടുക്കാൻ map-ൽ tap ചെയ്യുക.",
+  chooseLocation:"Location തിരഞ്ഞെടുക്കുക",
+  selectedLocation:"തിരഞ്ഞെടുത്ത location",
+  chat:"Chat",
+  call:"Call",
+  whatsappButton:"WhatsApp",
+  details:"Details",
+  send:"Send",
+  messagePlaceholder:"Message എഴുതുക...",
+  noMessages:"Conversation ആരംഭിക്കുക.",
+  accountInfo:"Account",
+  createProfileFirst:"Worker Profile സൃഷ്ടിക്കുക",
+  manageProfile:"Worker Profile Manage ചെയ്യുക",
+  notLogged:"Login ചെയ്തിട്ടില്ല",
+  welcome:"KredVouch-ലേക്ക് സ്വാഗതം",
+  languageSaved:"Language preference save ചെയ്തു."
+},
+
+hi:{
+  homeEyebrow:"कुशल लोगों को खोजने का पेशेवर तरीका",
+  hero1:"कुशल लोगों को खोजें।",
+  hero2:"उनके अनुभव पर भरोसा करें।",
+  heroText:"KredVouch वास्तविक कार्य अनुभव, कौशल और सत्यापन के आधार पर कुशल कर्मचारियों और नियोक्ताओं को जोड़ता है।",
+  create:"प्रोफ़ाइल बनाएं",
+  find:"कुशल कर्मचारी खोजें",
+  homeNote:"एक account. जरूरत पर profile. जरूरत पर search.",
+  skills:"कौशल",
+  skillsText:"लोगों को उनके वास्तविक काम के आधार पर खोजें।",
+  experience:"अनुभव",
+  experienceText:"काम का अनुभव और job role देखें।",
+  trust:"विश्वास",
+  trustText:"Verification बेहतर निर्णय लेने में मदद करता है.",
+  created:"Created by Athul Raj",
+  back:"वापस",
+  account:"Account",
+  login:"Login",
+  loginText:"कुशल कर्मचारियों को खोजने और contact details देखने के लिए login करें।",
+  email:"Email",
+  phone:"Phone",
+  sendOtp:"OTP भेजें",
+  verifyOtp:"OTP सत्यापित करें",
+  otp:"OTP",
+  changeMethod:"Login method बदलें",
+  logout:"Logout",
+  dashboard:"आपका KredVouch account",
+  dashboardText:"Worker profile बनाने और skilled workers खोजने के लिए यही account इस्तेमाल करें।",
+  myProfile:"My Worker Profile",
+  myProfileText:"Worker profile बनाएं या manage करें।",
+  search:"कुशल कर्मचारी खोजें",
+  searchText:"Skill और district से workers खोजें।",
+  profile:"Worker Profile",
+  fullName:"पूरा नाम",
+  skill:"Skill",
+  company:"Company",
+  optional:"Optional",
+  companyHelp:"Self-employed, freelancer या independent worker हैं तो blank छोड़ सकते हैं।",
+  jobRole:"Job Role",
+  jobRoleHelp:"आपका role, position या मुख्य function. उदाहरण: Painter, Electrician, Welder, Helper.",
+  duration:"Experience / Duration",
+  currentLocation:"वर्तमान स्थान",
+  locationHelp:"Map से अपना exact current location चुनें।",
+  useLocation:"My Location",
+  chooseMap:"Map पर चुनें",
+  workLocation:"Work / Preferred Work Location",
+  workLocationHelp:"जहाँ आप काम करना पसंद करते हैं वह जगह चुनें।",
+  district:"District",
+  language:"Languages",
+  availability:"Availability",
+  contactPhone:"Contact Phone",
+  whatsapp:"WhatsApp",
+  contactPreference:"Contact Preference",
+  verification:"Work Verification",
+  verificationHelp:"Evidence/review के बाद KredVouch verification manage करता है। Worker खुद verified नहीं कर सकता।",
+  pending:"Pending",
+  portfolio:"Work Portfolio",
+  portfolioHelp:"अधिकतम 6 images upload करें। हर image अधिकतम 5MB।",
+  saveProfile:"Profile Save करें",
+  searchPlaceholder:"Skill खोजें",
+  districtPlaceholder:"District",
+  searchButton:"Search",
+  noResults:"कोई worker नहीं मिला।",
+  locationRequired:"Map पर current location चुनें।",
+  skillRequired:"एक skill चुनें।",
+  nameRequired:"पूरा नाम दर्ज करें।",
+  roleRequired:"Job role दर्ज करें।",
+  durationRequired:"Experience या duration दर्ज करें।",
+  districtRequired:"District चुनें।",
+  profileSaved:"Worker profile सफलतापूर्वक save हुआ।",
+  profileError:"Profile save नहीं हो सका। Connection/permissions जांचें।",
+  loginRequired:"पहले login करें।",
+  loginSent:"OTP भेज दिया गया है। Email या phone जांचें।",
+  loginVerified:"Login सफल हुआ।",
+  locationPermission:"Current location के लिए location permission जरूरी है।",
+  findOnMap:"Location चुनने के लिए map पर tap करें।",
+  chooseLocation:"Location चुनें",
+  selectedLocation:"Selected location",
+  chat:"Chat",
+  call:"Call",
+  whatsappButton:"WhatsApp",
+  details:"Details",
+  send:"Send",
+  messagePlaceholder:"Message लिखें...",
+  noMessages:"Conversation शुरू करें।",
+  accountInfo:"Account",
+  createProfileFirst:"Worker Profile बनाएं",
+  manageProfile:"Worker Profile Manage करें",
+  notLogged:"Login नहीं है",
+  welcome:"KredVouch में स्वागत है",
+  languageSaved:"Language preference save हो गई।"
+}
+
+};
 
 
-  if(!text) return null;
+/* Add fallback languages by inheriting English labels.
+   This keeps the full UI functional while language packs
+   can be expanded without changing app architecture. */
+
+["ta","kn","te","bn","ur","mr"].forEach(lang=>{
+  T[lang] = Object.assign({},T.en);
+});
 
 
-  try{
+let currentLang =
+  localStorage.getItem("kredvouch_language") || "en";
 
-    return JSON.parse(text);
 
-  }catch(e){
-
-    return text;
-
-  }
-
+function t(key){
+  return (T[currentLang] && T[currentLang][key]) ||
+         T.en[key] ||
+         key;
 }
 
 
 /* =========================================================
-   SCREEN NAVIGATION
+   SKILLS
 ========================================================= */
 
-let lastScreen = "homeScreen";
+const skills = [
+  "Painter",
+  "Electrician",
+  "Plumber",
+  "Welder",
+  "Carpenter",
+  "Mason",
+  "Tile Worker",
+  "Fabricator",
+  "Mechanic",
+  "Machine Operator",
+  "Site Supervisor",
+  "Helper",
+  "Driver",
+  "AC Technician",
+  "Refrigeration Technician",
+  "Other"
+];
 
+const districts = [
+  "Kasaragod",
+  "Kannur",
+  "Wayanad",
+  "Kozhikode",
+  "Malappuram",
+  "Palakkad",
+  "Thrissur",
+  "Ernakulam",
+  "Idukki",
+  "Kottayam",
+  "Alappuzha",
+  "Pathanamthitta",
+  "Kollam",
+  "Thiruvananthapuram"
+];
 
-function showScreen(id,isBack=false){
-
-  const screens =
-    document.querySelectorAll(".screen");
-
-
-  screens.forEach(screen=>{
-    screen.classList.remove(
-      "active",
-      "back-enter"
-    );
-  });
-
-
-  const screen =
-    document.getElementById(id);
-
-
-  if(!screen) return;
-
-
-  screen.classList.add("active");
-
-
-  if(isBack){
-
-    screen.classList.add("back-enter");
-
-  }
-
-
-  lastScreen = id;
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
+const languages = [
+  "Malayalam",
+  "English",
+  "Hindi",
+  "Tamil",
+  "Kannada",
+  "Telugu",
+  "Bengali",
+  "Urdu",
+  "Marathi",
+  "Arabic",
+  "Other"
+];
 
 
 /* =========================================================
-   CREATE PROFILE FLOW
+   UTILITIES
 ========================================================= */
 
-function startCreateProfile(){
+function esc(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
-  if(authSession){
 
-    updateAccountScreen();
+function toast(message){
+  const el = document.getElementById("toast");
+  el.textContent = message;
+  el.classList.add("show");
 
-    showScreen("accountScreen");
+  clearTimeout(window.toastTimer);
 
-  }else{
+  window.toastTimer =
+    setTimeout(()=>el.classList.remove("show"),2800);
+}
 
-    showScreen("loginScreen");
 
+function isLoggedIn(){
+  return !!window.currentSession;
+}
+
+
+async function refreshSession(){
+  if(!supabaseClient){
+    window.currentSession = null;
+    return null;
   }
 
+  const {data} =
+    await supabaseClient.auth.getSession();
+
+  window.currentSession =
+    data?.session || null;
+
+  return window.currentSession;
 }
 
 
-/* =========================================================
-   FIND WORKERS FLOW
-========================================================= */
-
-function startFindWorkers(){
-
-  if(authSession){
-
-    openEmployerSearch();
-
-  }else{
-
-    showScreen("loginScreen");
-
-  }
-
-}
-
-
-/* =========================================================
-   ACCOUNT SCREEN
-========================================================= */
-
-function updateAccountScreen(){
-
-  const box =
-    document.getElementById("loggedUserBox");
-
-
-  if(authUser){
-
-    const identity =
-      authUser.email ||
-      authUser.phone ||
-      "Verified account";
-
-    box.innerText =
-      "✓ Signed in: " + identity;
-
-  }else{
-
-    box.innerText =
-      "✓ Signed in securely.";
-
-  }
-
-
-  document.getElementById(
-    "headerAccountBadge"
-  ).innerText =
-    "Account Active";
-
-}
-
-
-function openWorkerProfile(){
-
-  if(!requireLogin()) return;
-
-  showScreen("workerScreen");
-
-}
-
-
-function openEmployerSearch(){
-
-  if(!requireLogin()) return;
-
-  showScreen("employerScreen");
-
-}
-
-
-function requireLogin(){
-
-  if(!authSession){
-
-    showScreen("loginScreen");
-
-    showAuthStatus(
-      "info",
-      "Please sign in to continue."
-    );
-
+function requireLogin(target){
+  if(!isLoggedIn()){
+    toast(t("loginRequired"));
+    openLogin(target);
     return false;
-
   }
 
   return true;
-
 }
 
 
 /* =========================================================
-   LOGIN METHOD
+   NAVIGATION
 ========================================================= */
 
-function selectLoginMethod(method){
-
-  loginMethod = method;
-
-
-  document
-    .getElementById("emailMethodBtn")
-    .classList.toggle(
-      "active",
-      method === "email"
-    );
-
-
-  document
-    .getElementById("phoneMethodBtn")
-    .classList.toggle(
-      "active",
-      method === "phone"
-    );
-
-
-  const label =
-    document.getElementById("loginLabel");
-
-  const input =
-    document.getElementById("loginInput");
-
-
-  if(method === "email"){
-
-    label.innerText = "Email";
-
-    input.type = "email";
-
-    input.placeholder =
-      "Enter your email";
-
-  }else{
-
-    label.innerText = "Phone";
-
-    input.type = "tel";
-
-    input.placeholder =
-      "+91 98765 43210";
-
+function navigate(screen, options={}){
+  if(currentScreen !== screen){
+    screenHistory.push(currentScreen);
   }
 
-
-  input.value = "";
-
-}
-
-
-/* =========================================================
-   AUTH STATUS
-========================================================= */
-
-function showAuthStatus(type,message){
-
-  const box =
-    document.getElementById("authStatus");
-
-  box.className =
-    "status " + type;
-
-  box.innerText =
-    message;
-
-}
-
-
-/* =========================================================
-   SEND OTP
-========================================================= */
-
-async function sendOTP(){
-
-  const input =
-    document
-      .getElementById("loginInput")
-      .value
-      .trim();
-
-
-  if(!input){
-
-    showAuthStatus(
-      "error",
-      "Please enter your email or phone number."
-    );
-
-    return;
-
-  }
-
-
-  if(loginMethod === "email"){
-
-    if(!input.includes("@")){
-
-      showAuthStatus(
-        "error",
-        "Please enter a valid email address."
-      );
-
-      return;
-
-    }
-
-  }else{
-
-    const digits =
-      input.replace(/\D/g,"");
-
-    if(digits.length < 10){
-
-      showAuthStatus(
-        "error",
-        "Please enter a valid phone number."
-      );
-
-      return;
-
-    }
-
-  }
-
-
-  const button =
-    document.getElementById("sendOtpBtn");
-
-
-  button.disabled = true;
-
-  button.innerText =
-    "Sending Code...";
-
-
-  try{
-
-    const body =
-      loginMethod === "email"
-      ? {
-          email:input,
-          create_user:true
-        }
-      : {
-          phone:normalizePhone(input),
-          create_user:true
-        };
-
-
-    await authRequest(
-      "otp",
-      {
-        method:"POST",
-        body:JSON.stringify(body)
-      }
-    );
-
-
-    pendingLoginValue =
-      input;
-
-
-    document
-      .getElementById("otpBox")
-      .style.display =
-      "block";
-
-
-    showAuthStatus(
-      "success",
-      "✓ Verification code sent. Check your " +
-      (loginMethod === "email"
-        ? "email."
-        : "phone.")
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showAuthStatus(
-      "error",
-      "Could not send verification code.\n\n" +
-      error.message
-    );
-
-  }finally{
-
-    button.disabled = false;
-
-    button.innerText =
-      "Send Verification Code";
-
-  }
-
-}
-
-
-/* =========================================================
-   VERIFY OTP
-========================================================= */
-
-async function verifyOTP(){
-
-  const token =
-    document
-      .getElementById("otpInput")
-      .value
-      .trim();
-
-
-  if(!token){
-
-    showAuthStatus(
-      "error",
-      "Enter the verification code."
-    );
-
-    return;
-
-  }
-
-
-  const button =
-    document.getElementById("verifyOtpBtn");
-
-
-  button.disabled = true;
-
-  button.innerText =
-    "Verifying...";
-
-
-  try{
-
-    const body =
-      loginMethod === "email"
-      ? {
-          type:"email",
-          email:pendingLoginValue,
-          token,
-          verify_type:"email"
-        }
-      : {
-          type:"sms",
-          phone:normalizePhone(pendingLoginValue),
-          token,
-          verify_type:"sms"
-        };
-
-
-    const result =
-      await authRequest(
-        "verify",
-        {
-          method:"POST",
-          body:JSON.stringify(body)
-        }
-      );
-
-
-    if(!result || !result.access_token){
-
-      throw new Error(
-        "Verification succeeded but no login session was returned."
-      );
-
-    }
-
-
-    authSession = result;
-
-    authUser =
-      result.user || null;
-
-
-    localStorage.setItem(
-      "kredvouch_session",
-      JSON.stringify(result)
-    );
-
-
-    updateAccountScreen();
-
-
-    document
-      .getElementById("otpBox")
-      .style.display =
-      "none";
-
-
-    document
-      .getElementById("otpInput")
-      .value = "";
-
-
-    showScreen("accountScreen");
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showAuthStatus(
-      "error",
-      "Verification failed.\n\n" +
-      error.message
-    );
-
-  }finally{
-
-    button.disabled = false;
-
-    button.innerText =
-      "Verify & Continue";
-
-  }
-
-}
-
-
-/* =========================================================
-   RESTORE SESSION
-========================================================= */
-
-function restoreSession(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        "kredvouch_session"
-      );
-
-
-    if(!saved) return;
-
-
-    const session =
-      JSON.parse(saved);
-
-
-    if(
-      session &&
-      session.access_token
-    ){
-
-      authSession = session;
-
-      authUser =
-        session.user || null;
-
-      updateAccountScreen();
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Session restore error:",
-      error
-    );
-
-    localStorage.removeItem(
-      "kredvouch_session"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logoutUser(){
-
-  try{
-
-    if(authSession){
-
-      await authRequest(
-        "logout",
-        {
-          method:"POST",
-          headers:{
-            "Authorization":
-              "Bearer " +
-              authSession.access_token
-          }
-        }
-      );
-
-    }
-
-  }catch(error){
-
-    console.warn(
-      "Logout request:",
-      error
-    );
-
-  }
-
-
-  authSession = null;
-  authUser = null;
-
-
-  localStorage.removeItem(
-    "kredvouch_session"
+  currentScreen = screen;
+
+  renderScreen(
+    screen,
+    options,
+    "forward"
   );
+}
 
 
-  document.getElementById(
-    "headerAccountBadge"
-  ).innerText =
-    "Trusted Skills";
+function goBack(){
+  const previous =
+    screenHistory.pop() || "home";
 
+  currentScreen = previous;
 
-  showScreen(
-    "homeScreen",
-    true
+  renderScreen(
+    previous,
+    {},
+    "back"
   );
+}
 
+
+function goHome(){
+  screenHistory = [];
+  currentScreen = "home";
+  renderScreen("home",{}, "back");
 }
 
 
 /* =========================================================
-   PHONE NORMALIZER
+   RENDER
 ========================================================= */
 
-function normalizePhone(number){
+function renderScreen(screen, options={}, direction="forward"){
 
-  let clean =
-    String(number)
-      .replace(/[^\d+]/g,"");
+  const root =
+    document.getElementById("screenRoot");
 
+  let html = "";
 
-  if(clean.startsWith("+")){
-
-    return clean;
-
+  if(screen === "home"){
+    html = homeHTML();
   }
 
-
-  if(clean.length === 10){
-
-    return "+91" + clean;
-
+  if(screen === "login"){
+    html = loginHTML(options?.target || "dashboard");
   }
 
-
-  if(clean.startsWith("91")){
-
-    return "+" + clean;
-
+  if(screen === "dashboard"){
+    html = dashboardHTML();
   }
 
+  if(screen === "profile"){
+    html = profileHTML();
+  }
 
-  return "+" + clean;
+  if(screen === "search"){
+    html = searchHTML();
+  }
 
+  if(screen === "detail"){
+    html = detailHTML(selectedWorker);
+  }
+
+  if(screen === "chat"){
+    html = chatHTML(selectedWorker);
+  }
+
+  root.innerHTML = html;
+
+  const page =
+    root.firstElementChild;
+
+  if(page){
+    page.classList.add(
+      direction === "back"
+        ? "enter-back"
+        : "enter-forward"
+    );
+  }
+
+  afterRender(screen, options);
+}
+
+
+function afterRender(screen){
+
+  if(screen === "profile"){
+    setupProfileMap();
+    setupPortfolioPreview();
+  }
+
+  if(screen === "search"){
+    loadWorkers();
+  }
+
+  if(screen === "dashboard"){
+    updateDashboardState();
+  }
 }
 
 
 /* =========================================================
-   SKILL OTHER FIELD
+   HOME
 ========================================================= */
 
-document
-  .getElementById("skill")
-  .addEventListener(
-    "change",
-    function(){
+function homeHTML(){
 
-      const group =
-        document.getElementById(
-          "otherSkillGroup"
-        );
+return `
+<section class="screen">
+  <div class="screen-inner">
 
+    <div class="hero">
 
-      const other =
-        document.getElementById(
-          "otherSkill"
-        );
-
-
-      if(this.value === "Other"){
-
-        group.style.display =
-          "block";
-
-        other.required = true;
-
-      }else{
-
-        group.style.display =
-          "none";
-
-        other.required = false;
-
-        other.value = "";
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-function showStatus(type,message){
-
-  const status =
-    document.getElementById(
-      "saveStatus"
-    );
-
-
-  status.className =
-    "status " + type;
-
-
-  status.innerText =
-    message;
-
-
-  status.scrollIntoView({
-    behavior:"smooth",
-    block:"center"
-  });
-
-}
-
-
-/* =========================================================
-   LOCATION PICKER
-========================================================= */
-
-function openLocationPicker(targetId){
-
-  locationTarget =
-    targetId;
-
-
-  selectedLocationText =
-    document.getElementById(
-      targetId
-    ).value.trim();
-
-
-  selectedLatitude = null;
-  selectedLongitude = null;
-
-
-  const input =
-    document.getElementById(
-      "mapSearchInput"
-    );
-
-
-  input.value =
-    selectedLocationText;
-
-
-  document.getElementById(
-    "mapStatus"
-  ).className =
-    "status";
-
-
-  document.getElementById(
-    "mapStatus"
-  ).innerText = "";
-
-
-  document
-    .getElementById("mapPanel")
-    .classList.add("show");
-
-
-  if(selectedLocationText){
-
-    searchMapLocation();
-
-  }else{
-
-    setDefaultMap();
-
-  }
-
-}
-
-
-function closeLocationPicker(){
-
-  document
-    .getElementById("mapPanel")
-    .classList.remove("show");
-
-}
-
-
-function setDefaultMap(){
-
-  const map =
-    document.getElementById(
-      "mapPreview"
-    );
-
-
-  map.src =
-    "https://www.openstreetmap.org/export/embed.html?bbox=74.8%2C11.7%2C76.5%2C12.8&layer=mapnik";
-
-}
-
-
-function showMapStatus(type,message){
-
-  const box =
-    document.getElementById(
-      "mapStatus"
-    );
-
-
-  box.className =
-    "status " + type;
-
-
-  box.innerText =
-    message;
-
-}
-
-
-/* =========================================================
-   CURRENT GPS LOCATION
-========================================================= */
-
-function useCurrentLocation(){
-
-  if(!navigator.geolocation){
-
-    showMapStatus(
-      "error",
-      "Location services are not supported on this device/browser."
-    );
-
-    return;
-
-  }
-
-
-  showMapStatus(
-    "info",
-    "Getting your current location..."
-  );
-
-
-  navigator.geolocation.getCurrentPosition(
-    async position=>{
-
-      const lat =
-        position.coords.latitude;
-
-      const lon =
-        position.coords.longitude;
-
-
-      selectedLatitude = lat;
-
-      selectedLongitude = lon;
-
-
-      try{
-
-        const address =
-          await reverseGeocode(
-            lat,
-            lon
-          );
-
-
-        selectedLocationText =
-          address ||
-          `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
-
-
-        document.getElementById(
-          "mapSearchInput"
-        ).value =
-          selectedLocationText;
-
-
-        updateMap(lat,lon);
-
-
-        showMapStatus(
-          "success",
-          "✓ Current location found."
-        );
-
-
-      }catch(error){
-
-        selectedLocationText =
-          `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
-
-
-        document.getElementById(
-          "mapSearchInput"
-        ).value =
-          selectedLocationText;
-
-
-        updateMap(lat,lon);
-
-
-        showMapStatus(
-          "success",
-          "✓ GPS location found."
-        );
-
-      }
-
-    },
-    error=>{
-
-      let message =
-        "Could not access your location.";
-
-
-      if(error.code === 1){
-
-        message =
-          "Location permission was denied. Please allow location access in your browser.";
-
-      }
-
-
-      showMapStatus(
-        "error",
-        message
-      );
-
-    },
-    {
-      enableHighAccuracy:true,
-      timeout:15000,
-      maximumAge:0
-    }
-  );
-
-}
-
-
-/* =========================================================
-   GEOCODING
-========================================================= */
-
-async function searchMapLocation(){
-
-  const query =
-    document
-      .getElementById(
-        "mapSearchInput"
-      )
-      .value
-      .trim();
-
-
-  if(!query){
-
-    showMapStatus(
-      "error",
-      "Enter a location to search."
-    );
-
-    return;
-
-  }
-
-
-  showMapStatus(
-    "info",
-    "Searching location..."
-  );
-
-
-  try{
-
-    const url =
-      "https://nominatim.openstreetmap.org/search" +
-      "?format=jsonv2" +
-      "&limit=1" +
-      "&q=" +
-      encodeURIComponent(query);
-
-
-    const response =
-      await fetch(
-        url,
-        {
-          headers:{
-            "Accept":
-              "application/json"
-          }
-        }
-      );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        "Location search failed."
-      );
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    if(!data.length){
-
-      throw new Error(
-        "Location not found. Try a more specific place."
-      );
-
-    }
-
-
-    const result =
-      data[0];
-
-
-    selectedLatitude =
-      Number(result.lat);
-
-    selectedLongitude =
-      Number(result.lon);
-
-
-    selectedLocationText =
-      result.display_name;
-
-
-    document.getElementById(
-      "mapSearchInput"
-    ).value =
-      selectedLocationText;
-
-
-    updateMap(
-      selectedLatitude,
-      selectedLongitude
-    );
-
-
-    showMapStatus(
-      "success",
-      "✓ Location found. Tap “Use This Location” to apply it."
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showMapStatus(
-      "error",
-      error.message
-    );
-
-  }
-
-}
-
-
-async function reverseGeocode(lat,lon){
-
-  const url =
-    "https://nominatim.openstreetmap.org/reverse" +
-    "?format=jsonv2" +
-    "&lat=" +
-    encodeURIComponent(lat) +
-    "&lon=" +
-    encodeURIComponent(lon);
-
-
-  const response =
-    await fetch(
-      url,
-      {
-        headers:{
-          "Accept":
-            "application/json"
-        }
-      }
-    );
-
-
-  if(!response.ok){
-
-    throw new Error(
-      "Reverse geocoding failed."
-    );
-
-  }
-
-
-  const data =
-    await response.json();
-
-
-  return data.display_name || "";
-
-}
-
-
-function updateMap(lat,lon){
-
-  const delta = .025;
-
-
-  const left =
-    lon - delta;
-
-  const right =
-    lon + delta;
-
-  const bottom =
-    lat - delta;
-
-  const top =
-    lat + delta;
-
-
-  const bbox =
-    `${left}%2C${bottom}%2C${right}%2C${top}`;
-
-
-  document.getElementById(
-    "mapPreview"
-  ).src =
-    "https://www.openstreetmap.org/export/embed.html" +
-    "?bbox=" +
-    bbox +
-    "&layer=mapnik" +
-    "&marker=" +
-    lat +
-    "%2C" +
-    lon;
-
-}
-
-
-function applySelectedLocation(){
-
-  if(!locationTarget){
-
-    closeLocationPicker();
-
-    return;
-
-  }
-
-
-  const text =
-    document
-      .getElementById(
-        "mapSearchInput"
-      )
-      .value
-      .trim();
-
-
-  if(!text){
-
-    showMapStatus(
-      "error",
-      "Please select or search a location first."
-    );
-
-    return;
-
-  }
-
-
-  document.getElementById(
-    locationTarget
-  ).value =
-    selectedLocationText || text;
-
-
-  closeLocationPicker();
-
-}
-
-
-/* =========================================================
-   PORTFOLIO PREVIEW
-========================================================= */
-
-document
-  .getElementById("portfolioFiles")
-  .addEventListener(
-    "change",
-    function(){
-
-      const preview =
-        document.getElementById(
-          "portfolioPreview"
-        );
-
-
-      preview.innerHTML = "";
-
-
-      const files =
-        Array.from(this.files || []);
-
-
-      files.forEach(file=>{
-
-        if(!file.type.startsWith("image/")){
-          return;
-        }
-
-
-        const reader =
-          new FileReader();
-
-
-        reader.onload =
-          event=>{
-
-            const item =
-              document.createElement(
-                "div"
-              );
-
-            item.className =
-              "preview-item";
-
-
-            const img =
-              document.createElement(
-                "img"
-              );
-
-
-            img.src =
-              event.target.result;
-
-
-            item.appendChild(img);
-
-            preview.appendChild(item);
-
-          };
-
-
-        reader.readAsDataURL(file);
-
-      });
-
-    }
-  );
-
-
-/* =========================================================
-   WORKER PROFILE SAVE
-========================================================= */
-
-document
-  .getElementById("workerForm")
-  .addEventListener(
-    "submit",
-    async function(event){
-
-      event.preventDefault();
-
-
-      if(!requireLogin()){
-
-        return;
-
-      }
-
-
-      const button =
-        document.getElementById(
-          "saveWorkerBtn"
-        );
-
-
-      button.disabled = true;
-
-      button.innerText =
-        "Saving Profile...";
-
-
-      showStatus(
-        "info",
-        "Saving your worker profile..."
-      );
-
-
-      try{
-
-        const selectedSkill =
-          document.getElementById(
-            "skill"
-          ).value;
-
-
-        const otherSkill =
-          document.getElementById(
-            "otherSkill"
-          ).value.trim();
-
-
-        const finalSkill =
-          selectedSkill === "Other"
-          ? otherSkill
-          : selectedSkill;
-
-
-        if(
-          selectedSkill === "Other" &&
-          !otherSkill
-        ){
-
-          throw new Error(
-            "Please enter your skill."
-          );
-
-        }
-
-
-        const workerData = {
-
-          full_name:
-            document.getElementById(
-              "fullName"
-            ).value.trim(),
-
-          skills:
-            finalSkill,
-
-          company_name:
-            document.getElementById(
-              "companyName"
-            ).value.trim(),
-
-          job_role:
-            document.getElementById(
-              "jobRole"
-            ).value.trim(),
-
-          duration:
-            document.getElementById(
-              "duration"
-            ).value.trim(),
-
-          location:
-            document.getElementById(
-              "location"
-            ).value.trim(),
-
-          district:
-            document.getElementById(
-              "district"
-            ).value,
-
-          verification:
-            document.getElementById(
-              "verification"
-            ).value,
-
-          work_location:
-            document.getElementById(
-              "workLocation"
-            ).value.trim(),
-
-          preferred_location:
-            document.getElementById(
-              "preferredLocation"
-            ).value.trim(),
-
-          language:
-            document.getElementById(
-              "language"
-            ).value,
-
-          availability:
-            document.getElementById(
-              "availability"
-            ).value,
-
-          contact_phone:
-            document.getElementById(
-              "contactPhone"
-            ).value.trim(),
-
-          contact_whatsapp:
-            document.getElementById(
-              "contactWhatsapp"
-            ).value.trim(),
-
-          contact_prefferance:
-            document.getElementById(
-              "contactPreference"
-            ).value,
-
-          other_skill:
-            selectedSkill === "Other"
-            ? otherSkill
-            : ""
-
-        };
-
-
-        /*
-         * We request the inserted row back so we can
-         * use its ID for the portfolio storage path.
-         */
-
-        const inserted =
-          await supabaseRequest(
-            "workers",
-            {
-              method:"POST",
-              headers:{
-                "Prefer":
-                  "return=representation"
-              },
-              body:
-                JSON.stringify(
-                  workerData
-                )
-            }
-          );
-
-
-        let workerId = null;
-
-
-        if(
-          Array.isArray(inserted) &&
-          inserted[0]
-        ){
-
-          workerId =
-            inserted[0].id;
-
-        }
-
-
-        /*
-         * Upload portfolio photos only after
-         * the worker profile has been successfully saved.
-         */
-
-        const portfolioFiles =
-          Array.from(
-            document
-              .getElementById(
-                "portfolioFiles"
-              )
-              .files || []
-          );
-
-
-        if(
-          portfolioFiles.length &&
-          workerId
-        ){
-
-          await uploadPortfolio(
-            workerId,
-            portfolioFiles
-          );
-
-        }
-
-
-        showStatus(
-          "success",
-          portfolioFiles.length
-          ? "✅ Worker profile created and portfolio photos uploaded successfully!"
-          : "✅ Worker profile created successfully!"
-        );
-
-
-        document
-          .getElementById(
-            "workerForm"
-          )
-          .reset();
-
-
-        document
-          .getElementById(
-            "otherSkillGroup"
-          )
-          .style.display =
-          "none";
-
-
-        document
-          .getElementById(
-            "portfolioPreview"
-          )
-          .innerHTML = "";
-
-
-        document
-          .getElementById(
-            "uploadStatus"
-          )
-          .innerText = "";
-
-
-      }catch(error){
-
-        console.error(
-          "KredVouch save error:",
-          error
-        );
-
-
-        showStatus(
-          "error",
-          "❌ Could not save profile.\n\n" +
-          error.message
-        );
-
-      }finally{
-
-        button.disabled = false;
-
-        button.innerText =
-          "Create Worker Profile";
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   PORTFOLIO STORAGE UPLOAD
-========================================================= */
-
-async function uploadPortfolio(
-  workerId,
-  files
-){
-
-  const status =
-    document.getElementById(
-      "uploadStatus"
-    );
-
-
-  status.innerText =
-    "Uploading portfolio photos...";
-
-
-  let uploaded = 0;
-
-
-  for(const file of files){
-
-    if(!file.type.startsWith("image/")){
-      continue;
-    }
-
-
-    const safeName =
-      file.name
-        .replace(/[^a-zA-Z0-9._-]/g,"_");
-
-
-    const path =
-      workerId +
-      "/" +
-      Date.now() +
-      "_" +
-      Math.random()
-        .toString(36)
-        .slice(2,8) +
-      "_" +
-      safeName;
-
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/storage/v1/object/portfolio/" +
-        path,
-        {
-          method:"POST",
-          headers:{
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              "Bearer " +
-              authSession.access_token,
-
-            "Content-Type":
-              file.type,
-
-            "x-upsert":
-              "false"
-          },
-          body:file
-        }
-      );
-
-
-    if(!response.ok){
-
-      const text =
-        await response.text();
-
-
-      throw new Error(
-        "Portfolio upload failed: " +
-        text
-      );
-
-    }
-
-
-    uploaded++;
-
-
-    status.innerText =
-      `Uploaded ${uploaded} of ${files.length} portfolio photo(s)...`;
-
-  }
-
-
-  status.innerText =
-    `✓ ${uploaded} portfolio photo(s) uploaded.`;
-
-}
-
-
-/* =========================================================
-   EMPLOYER SEARCH
-========================================================= */
-
-document
-  .getElementById("searchBtn")
-  .addEventListener(
-    "click",
-    searchWorkers
-  );
-
-
-async function searchWorkers(){
-
-  if(!requireLogin()){
-
-    return;
-
-  }
-
-
-  const results =
-    document.getElementById(
-      "results"
-    );
-
-
-  const skill =
-    document.getElementById(
-      "searchSkill"
-    ).value;
-
-
-  const district =
-    document.getElementById(
-      "searchDistrict"
-    ).value;
-
-
-  results.innerHTML =
-    '<div class="card loading">Searching skilled workers...</div>';
-
-
-  try{
-
-    let query =
-      "workers?select=*";
-
-
-    if(skill){
-
-      query +=
-        "&skills=eq." +
-        encodeURIComponent(
-          skill
-        );
-
-    }
-
-
-    if(district){
-
-      query +=
-        "&district=eq." +
-        encodeURIComponent(
-          district
-        );
-
-    }
-
-
-    query +=
-      "&order=created_at.desc";
-
-
-    const workers =
-      await supabaseRequest(
-        query
-      );
-
-
-    currentWorkers =
-      workers || [];
-
-
-    renderWorkers(
-      currentWorkers
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Search error:",
-      error
-    );
-
-
-    results.innerHTML = `
-      <div class="card">
-        <div
-          class="status error"
-          style="display:block">
-
-          Could not load workers.<br><br>
-
-          ${escapeHtml(
-            error.message
-          )}
-
-        </div>
-      </div>
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   RENDER WORKERS
-========================================================= */
-
-function renderWorkers(workers){
-
-  const results =
-    document.getElementById(
-      "results"
-    );
-
-
-  if(!workers.length){
-
-    results.innerHTML = `
-      <div class="card empty">
-
-        <div class="empty-icon">
-          🔍
-        </div>
-
-        <strong>
-          No workers found
-        </strong>
-
-        <p
-          style="margin-top:7px;font-size:12px">
-
-          Try another skill or district.
-
-        </p>
-
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  let html = `
-    <div class="results-count">
-      ${workers.length}
-      worker${workers.length === 1 ? "" : "s"}
-      found
-    </div>
-  `;
-
-
-  workers.forEach(
-    (worker,index)=>{
-
-      html +=
-        workerCardHtml(
-          worker,
-          index
-        );
-
-    }
-  );
-
-
-  results.innerHTML =
-    html;
-
-}
-
-
-function workerCardHtml(
-  worker,
-  index
-){
-
-  const verified =
-    worker.verification ===
-    "Verified";
-
-
-  const available =
-    worker.availability &&
-    worker.availability
-      .toLowerCase()
-      .includes(
-        "available"
-      );
-
-
-  return `
-    <div
-      class="worker-card"
-      style="animation-delay:${index * 45}ms">
-
-      <div class="worker-top">
-
-        <div>
-
-          <div class="worker-name">
-
-            ${escapeHtml(
-              worker.full_name ||
-              "Worker"
-            )}
-
-            ${
-              verified
-              ? '<span class="verified">✓</span>'
-              : ''
-            }
-
-          </div>
-
-          <div class="worker-skill">
-
-            ${escapeHtml(
-              worker.skills ||
-              "Skilled Worker"
-            )}
-
-          </div>
-
-        </div>
-
-
-        ${
-          available
-          ? '<div class="meta available">Available</div>'
-          : ''
-        }
-
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        ${esc(t("homeEyebrow"))}
       </div>
 
+      <h1>
+        ${esc(t("hero1"))}<br>
+        <span class="purple">${esc(t("hero2"))}</span>
+      </h1>
 
-      <div class="worker-meta">
+      <p>${esc(t("heroText"))}</p>
 
-        ${
-          worker.location
-          ? `
-          <div class="meta">
-            📍
-            ${escapeHtml(
-              worker.location
-            )}
-          </div>
-          `
-          : ''
-        }
+      <div class="hero-actions">
 
-
-        ${
-          worker.district
-          ? `
-          <div class="meta">
-            ${escapeHtml(
-              worker.district
-            )}
-          </div>
-          `
-          : ''
-        }
-
-
-        ${
-          worker.duration
-          ? `
-          <div class="meta">
-            ⏱
-            ${escapeHtml(
-              worker.duration
-            )}
-          </div>
-          `
-          : ''
-        }
-
-
-        ${
-          worker.job_role
-          ? `
-          <div class="meta">
-            💼
-            ${escapeHtml(
-              worker.job_role
-            )}
-          </div>
-          `
-          : ''
-        }
-
-
-        ${
-          worker.company_name
-          ? `
-          <div class="meta">
-            🏢
-            ${escapeHtml(
-              worker.company_name
-            )}
-          </div>
-          `
-          : ''
-        }
-
-      </div>
-
-
-      <div class="worker-actions">
-
+        <!-- ONLY CREATE PROFILE BUTTON ON HOME -->
         <button
-          class="action-btn"
-          onclick="openProfile(${index})">
-
-          View Profile
-
+          class="primary-btn"
+          onclick="openProfile()">
+          ${esc(t("create"))}
         </button>
 
-
-        ${
-          worker.contact_whatsapp
-          ? `
-          <button
-            class="action-btn whatsapp"
-            onclick="openWhatsApp('${escapeAttribute(
-              worker.contact_whatsapp
-            )}')">
-
-            WhatsApp
-
-          </button>
-          `
-          : ''
-        }
-
-
-        ${
-          worker.contact_phone
-          ? `
-          <button
-            class="action-btn"
-            onclick="callWorker('${escapeAttribute(
-              worker.contact_phone
-            )}')">
-
-            Call
-
-          </button>
-          `
-          : ''
-        }
+        <button
+          class="secondary-btn"
+          onclick="openSearch()">
+          ${esc(t("find"))}
+        </button>
 
       </div>
 
-    </div>
-  `;
+      <div class="hero-note">
+        ${esc(t("homeNote"))}
+      </div>
 
+    </div>
+
+
+    <section class="trust-section">
+
+      <div class="trust-grid">
+
+        <div class="trust-item">
+          <div class="trust-number">01</div>
+          <h3>${esc(t("skills"))}</h3>
+          <p>${esc(t("skillsText"))}</p>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-number">02</div>
+          <h3>${esc(t("experience"))}</h3>
+          <p>${esc(t("experienceText"))}</p>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-number">03</div>
+          <h3>${esc(t("trust"))}</h3>
+          <p>${esc(t("trustText"))}</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <footer class="footer">
+      © 2026 KredVouch · <strong>${esc(t("created"))}</strong>
+    </footer>
+
+  </div>
+</section>
+`;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function openLogin(target="dashboard"){
+  navigate("login",{target});
+}
+
+
+function loginHTML(target){
+
+return `
+<section class="screen">
+  <div class="screen-inner">
+
+    <div class="page-top">
+      <button class="back-btn" onclick="goBack()">
+        ← ${esc(t("back"))}
+      </button>
+
+      <h1>${esc(t("login"))}</h1>
+      <p>${esc(t("loginText"))}</p>
+    </div>
+
+    <div class="card login-card">
+
+      <div class="login-tabs">
+
+        <button
+          id="emailLoginTab"
+          class="login-tab ${loginMode==="email"?"active":""}"
+          onclick="setLoginMode('email')">
+          ${esc(t("email"))}
+        </button>
+
+        <button
+          id="phoneLoginTab"
+          class="login-tab ${loginMode==="phone"?"active":""}"
+          onclick="setLoginMode('phone')">
+          ${esc(t("phone"))}
+        </button>
+
+      </div>
+
+      <div id="loginDestinationField">
+
+        <div class="field">
+
+          <label id="destinationLabel">
+            ${esc(loginMode==="email"?t("email"):t("phone"))}
+          </label>
+
+          <input
+            id="loginDestination"
+            type="${loginMode==="email"?"email":"tel"}"
+            placeholder="${loginMode==="email"?"name@example.com":"+91 9876543210"}"
+            autocomplete="email">
+
+        </div>
+
+        <button
+          class="full-btn"
+          onclick="sendLoginOtp('${esc(target)}')">
+          ${esc(t("sendOtp"))}
+        </button>
+
+      </div>
+
+      <div id="otpField"
+           class="hidden"
+           style="margin-top:16px">
+
+        <div class="field">
+
+          <label>${esc(t("otp"))}</label>
+
+          <input
+            id="loginOtp"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="123456">
+
+        </div>
+
+        <button
+          class="full-btn"
+          onclick="verifyLoginOtp('${esc(target)}')">
+          ${esc(t("verifyOtp"))}
+        </button>
+
+      </div>
+
+      <button
+        class="back-btn"
+        style="margin-top:15px"
+        onclick="setLoginMode(loginMode==='email'?'phone':'email')">
+        ${esc(t("changeMethod"))}
+      </button>
+
+      <div id="loginStatus" class="status"></div>
+
+    </div>
+
+  </div>
+</section>
+`;
+}
+
+
+function setLoginMode(mode){
+  loginMode = mode;
+
+  renderScreen(
+    "login",
+    {},
+    "back"
+  );
+}
+
+
+async function sendLoginOtp(target){
+
+  const destination =
+    document.getElementById("loginDestination")?.value.trim();
+
+  if(!destination){
+    toast(
+      currentLang==="ml"
+        ? "Email അല്ലെങ്കിൽ phone നൽകുക."
+        : "Enter your email or phone."
+    );
+    return;
+  }
+
+  if(!supabaseClient){
+    toast(
+      currentLang==="ml"
+        ? "Supabase key ചേർത്തിട്ടില്ല."
+        : "Supabase key is not configured."
+    );
+    return;
+  }
+
+  let value = destination;
+
+  if(loginMode === "phone"){
+    value = normalizePhone(destination);
+  }
+
+  otpDestination = value;
+
+  let result;
+
+  if(loginMode === "email"){
+    result =
+      await supabaseClient.auth.signInWithOtp({
+        email:value
+      });
+  }else{
+    result =
+      await supabaseClient.auth.signInWithOtp({
+        phone:value
+      });
+  }
+
+  if(result.error){
+    setStatus(
+      "loginStatus",
+      result.error.message,
+      "error"
+    );
+    return;
+  }
+
+  document
+    .getElementById("otpField")
+    ?.classList.remove("hidden");
+
+  setStatus(
+    "loginStatus",
+    t("loginSent"),
+    "success"
+  );
+}
+
+
+async function verifyLoginOtp(target){
+
+  const token =
+    document.getElementById("loginOtp")?.value.trim();
+
+  if(!token){
+    toast("Enter OTP");
+    return;
+  }
+
+  if(!supabaseClient){
+    toast("Supabase is not configured.");
+    return;
+  }
+
+  const params =
+    loginMode==="email"
+      ? {
+          email:otpDestination,
+          token,
+          type:"email"
+        }
+      : {
+          phone:otpDestination,
+          token,
+          type:"sms"
+        };
+
+  const {data,error} =
+    await supabaseClient.auth.verifyOtp(params);
+
+  if(error){
+    setStatus(
+      "loginStatus",
+      error.message,
+      "error"
+    );
+    return;
+  }
+
+  window.currentSession =
+    data.session || null;
+
+  toast(t("loginVerified"));
+
+  if(target === "search"){
+    navigate("search");
+  }else if(target === "profile"){
+    navigate("profile");
+  }else{
+    navigate("dashboard");
+  }
+}
+
+
+function normalizePhone(phone){
+
+  let p =
+    phone.replace(/[^\d+]/g,"");
+
+  if(p.startsWith("0")){
+    p = "+91" + p.substring(1);
+  }
+
+  if(/^\d{10}$/.test(p)){
+    p = "+91" + p;
+  }
+
+  return p;
+}
+
+
+function setStatus(id,message,type){
+
+  const el =
+    document.getElementById(id);
+
+  if(!el) return;
+
+  el.textContent = message;
+  el.className = "status " + type;
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function openAccount(){
+
+  if(isLoggedIn()){
+    navigate("dashboard");
+  }else{
+    openLogin("dashboard");
+  }
+}
+
+
+function dashboardHTML(){
+
+return `
+<section class="screen">
+  <div class="screen-inner">
+
+    <div class="page-top">
+
+      <button class="back-btn" onclick="goBack()">
+        ← ${esc(t("back"))}
+      </button>
+
+      <h1>${esc(t("dashboard"))}</h1>
+      <p>${esc(t("dashboardText"))}</p>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+      <button
+        class="dashboard-item"
+        onclick="openSearch()">
+
+        <h3>${esc(t("search"))}</h3>
+        <p>${esc(t("searchText"))}</p>
+
+      </button>
+
+      <button
+        class="dashboard-item"
+        onclick="openProfile()">
+
+        <h3>${esc(t("myProfile"))}</h3>
+        <p>${esc(t("myProfileText"))}</p>
+
+      </button>
+
+    </div>
+
+    <div style="height:14px"></div>
+
+    <div class="card">
+
+      <div class="form-section-title">
+        ${esc(t("accountInfo"))}
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Email</span>
+        <span class="detail-value">
+          ${esc(window.currentSession?.user?.email || "—")}
+        </span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Phone</span>
+        <span class="detail-value">
+          ${esc(window.currentSession?.user?.phone || "—")}
+        </span>
+      </div>
+
+      <button
+        class="secondary-btn"
+        style="margin-top:14px;width:100%"
+        onclick="logout()">
+        ${esc(t("logout"))}
+      </button>
+
+    </div>
+
+  </div>
+</section>
+`;
+}
+
+
+function updateDashboardState(){}
+
+
+async function logout(){
+
+  if(supabaseClient){
+    await supabaseClient.auth.signOut();
+  }
+
+  window.currentSession = null;
+
+  toast(t("logout"));
+
+  goHome();
 }
 
 
@@ -4621,379 +2138,1660 @@ function workerCardHtml(
    PROFILE
 ========================================================= */
 
-function openProfile(index){
+function openProfile(){
 
-  if(!requireLogin()){
-
+  if(!isLoggedIn()){
+    openLogin("profile");
     return;
-
   }
 
-
-  currentWorker =
-    currentWorkers[index];
-
-
-  if(!currentWorker){
-
-    return;
-
-  }
-
-
-  renderProfile(
-    currentWorker
-  );
-
-
-  showScreen(
-    "profileScreen"
-  );
-
+  navigate("profile");
 }
 
 
-function renderProfile(worker){
+function profileHTML(){
 
-  const profile =
+return `
+<section class="screen">
+  <div class="screen-inner">
+
+    <div class="page-top">
+
+      <button class="back-btn" onclick="goBack()">
+        ← ${esc(t("back"))}
+      </button>
+
+      <h1>${esc(t("profile"))}</h1>
+
+      <p>
+        ${esc(
+          currentLang==="ml"
+          ? "നിങ്ങളുടെ ജോലി, അനുഭവം, location, languages, contact എന്നിവ ചേർക്കുക."
+          : "Add your work, experience, location, languages and contact details."
+        )}
+      </p>
+
+    </div>
+
+
+    <form
+      id="profileForm"
+      class="card form-card"
+      onsubmit="saveWorkerProfile(event)">
+
+
+      <!-- BASIC -->
+      <div class="form-section">
+
+        <div class="form-section-title">
+          ${esc(t("fullName"))}
+        </div>
+
+        <div class="field">
+          <label>${esc(t("fullName"))} *</label>
+          <input
+            id="full_name"
+            required
+            autocomplete="name">
+        </div>
+
+      </div>
+
+
+      <!-- SKILL -->
+      <div class="form-section">
+
+        <div class="form-section-title">
+          ${esc(t("skill"))}
+        </div>
+
+        <div class="chip-grid">
+
+          ${skills.map(skill=>`
+            <button
+              type="button"
+              class="chip ${selectedSkill===skill?"active":""}"
+              onclick="selectSkill('${esc(skill)}')">
+              ${esc(skill)}
+            </button>
+          `).join("")}
+
+        </div>
+
+        <div id="otherSkillField"
+             class="field ${selectedSkill==="Other"?"":"hidden"}"
+             style="margin-top:13px">
+
+          <label>
+            ${currentLang==="ml"?"Other Skill":"Other Skill"}
+          </label>
+
+          <input id="other_skill">
+
+        </div>
+
+      </div>
+
+
+      <!-- COMPANY -->
+      <div class="form-section">
+
+        <div class="field">
+
+          <label>
+            ${esc(t("company"))}
+            <span class="optional">
+              (${esc(t("optional"))})
+            </span>
+          </label>
+
+          <input id="company_name">
+
+          <div class="helper">
+            ${esc(t("companyHelp"))}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- JOB ROLE -->
+      <div class="form-section">
+
+        <div class="field">
+
+          <label>${esc(t("jobRole"))} *</label>
+
+          <input id="job_role" required>
+
+          <div class="helper">
+            ${esc(t("jobRoleHelp"))}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DURATION -->
+      <div class="form-section">
+
+        <div class="field">
+
+          <label>${esc(t("duration"))} *</label>
+
+          <input id="duration" required>
+
+        </div>
+
+      </div>
+
+
+      <!-- CURRENT LOCATION -->
+      <div class="form-section">
+
+        <div class="form-section-title">
+          ${esc(t("currentLocation"))}
+        </div>
+
+        <div class="helper" style="margin-bottom:9px">
+          ${esc(t("locationHelp"))}
+        </div>
+
+        <div class="location-box">
+
+          <div
+            id="currentLocationValue"
+            class="location-value">
+            ${esc(t("findOnMap"))}
+          </div>
+
+          <div class="location-actions">
+
+            <button
+              type="button"
+              class="small-btn primary"
+              onclick="useCurrentLocation()">
+              ${esc(t("useLocation"))}
+            </button>
+
+            <button
+              type="button"
+              class="small-btn"
+              onclick="openMapPicker('current')">
+              ${esc(t("chooseMap"))}
+            </button>
+
+          </div>
+
+          <input
+            id="location"
+            type="hidden">
+
+          <input
+            id="location_lat"
+            type="hidden">
+
+          <input
+            id="location_lng"
+            type="hidden">
+
+          <div
+            id="currentMapSearch"
+            class="map-search">
+
+            <input
+              id="currentMapSearchInput"
+              placeholder="${esc(
+                currentLang==="ml"
+                  ? "Place search ചെയ്യുക"
+                  : "Search place"
+              )}">
+
+            <button
+              type="button"
+              class="small-btn"
+              style="margin-top:7px"
+              onclick="searchMapPlace('current')">
+              ${esc(t("searchButton"))}
+            </button>
+
+          </div>
+
+          <div id="map"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DISTRICT -->
+      <div class="form-section">
+
+        <div class="field">
+
+          <label>${esc(t("district"))} *</label>
+
+          <select id="district" required>
+
+            <option value="">
+              ${esc(t("district"))}
+            </option>
+
+            ${districts.map(d=>`
+              <option value="${esc(d)}">${esc(d)}</option>
+            `).join("")}
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- WORK LOCATION -->
+      <div class="form-section">
+
+        <div class="form-section-title">
+          ${esc(t("workLocation"))}
+        </div>
+
+        <div class="helper" style="margin-bottom:9px">
+          ${esc(t("workLocationHelp"))}
+        </div>
+
+        <div class="location-box">
+
+          <div
+            id="preferredLocationValue"
+            class="location-value">
+            ${esc(t("findOnMap"))}
+          </div>
+
+          <div class="location-actions">
+
+            <button
+              type="button"
+              class="small-btn primary"
+              onclick="usePreferredLocation()">
+              ${esc(t("chooseMap"))}
+            </button>
+
+          </div>
+
+          <input
+            id="preferred_location"
+            type="hidden">
+
+          <input
+            id="preferred_lat"
+            type="hidden">
+
+          <input
+            id="preferred_lng"
+            type="hidden">
+
+        </div>
+
+      </div>
+
+
+      <!-- LANGUAGES -->
+      <div class="form-section">
+
+        <div class="form-section-title">
+          ${esc(t("language"))}
+        </div>
+
+        <div class="language-options">
+
+          ${languages.map(lang=>`
+            <button
+              type="button"
+              class="lang-chip ${selectedLanguages.includes(lang)?"active":""}"
+              onclick="toggleLanguage('${esc(lang)}')">
+              ${esc(lang)}
+            </button>
+          `).join("")}
+
+        </div>
+
+      </div>
+
+
+      <!-- AVAILABILITY -->
+      <div class="form-section">
+
+        <div class="field">
+
+          <label>${esc(t("availability"))}</label>
+
+          <select id="availability">
+
+            <option value="">—</option>
+            <option value="Available">
+              ${currentLang==="ml"?"Available":"Available"}
+            </option>
+            <option value="Not Available">
+              ${currentLang==="ml"?"Not Available":"Not Available"}
+            </option>
+            <option value="Available Soon">
+              ${currentLang==="ml"?"Available Soon":"Available Soon"}
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- CONTACT -->
+      <div class="form-section">
+
+        <div class="form-section-title">
+          ${esc(t("contactPhone"))}
+        </div>
+
+        <div class="field">
+          <label>${esc(t("contactPhone"))}</label>
+          <input
+            id="contact_phone"
+            type="tel">
+        </div>
+
+        <div class="field">
+          <label>${esc(t("whatsapp"))}</label>
+          <input
+            id="contact_whatsapp"
+            type="tel">
+        </div>
+
+        <div class="field">
+          <label>${esc(t("contactPreference"))}</label>
+
+          <select id="contact_prefferance">
+            <option value="">—</option>
+            <option value="Phone">Phone</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Both">Both</option>
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- VERIFICATION -->
+      <div class="form-section">
+
+        <div class="form-section-title">
+          ${esc(t("verification"))}
+        </div>
+
+        <div class="location-box">
+
+          <strong style="font-size:13px">
+            ${esc(t("pending"))}
+          </strong>
+
+          <div class="helper">
+            ${esc(t("verificationHelp"))}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PORTFOLIO -->
+      <div class="form-section">
+
+        <div class="form-section-title">
+          ${esc(t("portfolio"))}
+        </div>
+
+        <div class="upload-box">
+
+          <div class="helper"
+               style="margin:0 0 10px">
+            ${esc(t("portfolioHelp"))}
+          </div>
+
+          <input
+            id="portfolioFiles"
+            type="file"
+            accept="image/*"
+            multiple>
+
+          <div
+            id="uploadPreview"
+            class="upload-preview">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-footer">
+
+        <button
+          type="button"
+          class="secondary-btn"
+          onclick="goBack()">
+          ${esc(t("back"))}
+        </button>
+
+        <button
+          type="submit"
+          class="primary-btn">
+          ${esc(t("saveProfile"))}
+        </button>
+
+      </div>
+
+      <div
+        id="profileStatus"
+        class="status">
+      </div>
+
+    </form>
+
+  </div>
+</section>
+`;
+}
+
+
+/* =========================================================
+   PROFILE INTERACTION
+========================================================= */
+
+function selectSkill(skill){
+
+  selectedSkill = skill;
+
+  document.querySelectorAll(".chip")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        btn.textContent.trim() === skill
+      );
+    });
+
+  document
+    .getElementById("otherSkillField")
+    ?.classList.toggle(
+      "hidden",
+      skill !== "Other"
+    );
+}
+
+
+function toggleLanguage(lang){
+
+  if(selectedLanguages.includes(lang)){
+    selectedLanguages =
+      selectedLanguages.filter(x=>x!==lang);
+  }else{
+    selectedLanguages.push(lang);
+  }
+
+  document.querySelectorAll(".lang-chip")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        selectedLanguages.includes(
+          btn.textContent.trim()
+        )
+      );
+    });
+}
+
+
+function setupPortfolioPreview(){
+
+  const input =
+    document.getElementById("portfolioFiles");
+
+  if(!input) return;
+
+  input.addEventListener("change",()=>{
+
+    const files =
+      Array.from(input.files || []);
+
+    if(files.length > 6){
+      toast(
+        currentLang==="ml"
+          ? "പരമാവധി 6 images മാത്രം."
+          : "Maximum 6 images."
+      );
+
+      input.value="";
+      return;
+    }
+
+    const preview =
+      document.getElementById("uploadPreview");
+
+    preview.innerHTML="";
+
+    files.forEach(file=>{
+
+      if(!file.type.startsWith("image/")){
+        return;
+      }
+
+      if(file.size > 5 * 1024 * 1024){
+        toast(
+          currentLang==="ml"
+            ? `${file.name} 5MB-ൽ കൂടുതലാണ്.`
+            : `${file.name} is larger than 5MB.`
+        );
+        return;
+      }
+
+      const img =
+        document.createElement("img");
+
+      img.src =
+        URL.createObjectURL(file);
+
+      preview.appendChild(img);
+    });
+
+  });
+}
+
+
+/* =========================================================
+   MAP
+========================================================= */
+
+function setupProfileMap(){
+
+  currentLocation = {
+    text:"",
+    lat:null,
+    lng:null
+  };
+
+  preferredLocation = {
+    text:"",
+    lat:null,
+    lng:null
+  };
+}
+
+
+function openMapPicker(mode){
+
+  mapMode = mode;
+
+  const mapElement =
+    document.getElementById("map");
+
+  if(!mapElement) return;
+
+  mapElement.style.display="block";
+
+  if(mode==="current"){
+    const search =
+      document.getElementById("currentMapSearch");
+
+    if(search) search.style.display="block";
+  }
+
+  setTimeout(()=>{
+
+    if(!map){
+
+      map =
+        L.map("map").setView(
+          [10.1632,76.6413],
+          8
+        );
+
+      L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          maxZoom:19,
+          attribution:"© OpenStreetMap"
+        }
+      ).addTo(map);
+
+      map.on("click",async e=>{
+        await setMapLocation(
+          e.latlng.lat,
+          e.latlng.lng
+        );
+      });
+
+    }
+
+    map.invalidateSize();
+
+  },100);
+}
+
+
+function useCurrentLocation(){
+
+  if(!navigator.geolocation){
+    toast(
+      currentLang==="ml"
+        ? "ഈ browser geolocation support ചെയ്യുന്നില്ല."
+        : "Geolocation is not supported."
+    );
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+
+    async position=>{
+
+      const lat =
+        position.coords.latitude;
+
+      const lng =
+        position.coords.longitude;
+
+      await openMapPicker("current");
+
+      setTimeout(async()=>{
+        if(map){
+          map.setView([lat,lng],16);
+        }
+
+        await setMapLocation(lat,lng);
+      },200);
+
+    },
+
+    ()=>{
+      toast(t("locationPermission"));
+    },
+
+    {
+      enableHighAccuracy:true,
+      timeout:15000,
+      maximumAge:0
+    }
+
+  );
+}
+
+
+async function usePreferredLocation(){
+
+  await openMapPicker("preferred");
+
+  toast(t("findOnMap"));
+}
+
+
+async function setMapLocation(lat,lng){
+
+  if(!map) return;
+
+  if(mapMarker){
+    map.removeLayer(mapMarker);
+  }
+
+  mapMarker =
+    L.marker([lat,lng]).addTo(map);
+
+  map.setView([lat,lng],16);
+
+  const place =
+    await reverseGeocode(lat,lng);
+
+  if(mapMode==="current"){
+
+    currentLocation = {
+      text:place,
+      lat,
+      lng
+    };
+
+    const value =
+      document.getElementById(
+        "currentLocationValue"
+      );
+
+    if(value){
+      value.textContent = place;
+      value.classList.add("selected");
+    }
+
+    document.getElementById("location").value =
+      place;
+
+    document.getElementById("location_lat").value =
+      lat;
+
+    document.getElementById("location_lng").value =
+      lng;
+
+    autoDistrict(place);
+
+  }else{
+
+    preferredLocation = {
+      text:place,
+      lat,
+      lng
+    };
+
+    const value =
+      document.getElementById(
+        "preferredLocationValue"
+      );
+
+    if(value){
+      value.textContent = place;
+      value.classList.add("selected");
+    }
+
     document.getElementById(
-      "profileContent"
+      "preferred_location"
+    ).value = place;
+
+    document.getElementById(
+      "preferred_lat"
+    ).value = lat;
+
+    document.getElementById(
+      "preferred_lng"
+    ).value = lng;
+
+  }
+}
+
+
+async function reverseGeocode(lat,lng){
+
+  try{
+
+    const response =
+      await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}`
+      );
+
+    const data =
+      await response.json();
+
+    return (
+      data.display_name ||
+      `${lat.toFixed(5)}, ${lng.toFixed(5)}`
     );
 
+  }catch(e){
 
-  const verified =
-    worker.verification ===
-    "Verified";
+    return `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 
-
-  profile.innerHTML = `
-
-    <div class="profile-header">
-
-      <div
-        style="font-size:38px;margin-bottom:10px">
-
-        👷
-
-      </div>
+  }
+}
 
 
-      <div class="profile-name">
+async function searchMapPlace(mode){
 
-        ${escapeHtml(
-          worker.full_name ||
-          "Worker"
-        )}
+  const input =
+    document.getElementById(
+      "currentMapSearchInput"
+    );
 
-        ${
-          verified
-          ? '<span class="verified">✓</span>'
-          : ''
-        }
+  const query =
+    input?.value.trim();
 
-      </div>
+  if(!query){
+    toast(
+      currentLang==="ml"
+        ? "ഒരു place നൽകുക."
+        : "Enter a place."
+    );
+    return;
+  }
 
+  try{
 
-      <div class="profile-role">
+    const response =
+      await fetch(
+        `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`
+      );
 
-        ${escapeHtml(
-          worker.job_role ||
-          worker.skills ||
-          "Skilled Worker"
-        )}
+    const data =
+      await response.json();
 
-      </div>
+    if(!data.length){
+      toast(
+        currentLang==="ml"
+          ? "Place കണ്ടെത്താനായില്ല."
+          : "Place not found."
+      );
+      return;
+    }
 
+    const result = data[0];
 
-      <div
-        style="margin-top:10px;font-size:12px;opacity:.9">
+    await openMapPicker(mode);
 
-        📍
-        ${escapeHtml(
-          worker.location ||
-          worker.district ||
-          "Location not provided"
-        )}
+    setTimeout(async()=>{
 
-      </div>
+      if(map){
+        map.setView(
+          [parseFloat(result.lat),parseFloat(result.lon)],
+          15
+        );
+      }
 
+      await setMapLocation(
+        parseFloat(result.lat),
+        parseFloat(result.lon)
+      );
 
-      <div class="profile-stats">
+    },150);
 
-        <div class="stat">
-          <strong>
-            ${escapeHtml(
-              worker.duration || "—"
-            )}
-          </strong>
-          <span>
-            Experience
-          </span>
-        </div>
+  }catch(e){
 
+    toast(
+      currentLang==="ml"
+        ? "Map search failed."
+        : "Map search failed."
+    );
 
-        <div class="stat">
-          <strong>
-            ${escapeHtml(
-              worker.skills || "—"
-            )}
-          </strong>
-          <span>
-            Skill
-          </span>
-        </div>
-
-
-        <div class="stat">
-          <strong>
-            ${escapeHtml(
-              worker.district || "—"
-            )}
-          </strong>
-          <span>
-            District
-          </span>
-        </div>
+  }
+}
 
 
-        <div class="stat">
-          <strong>
-            ${escapeHtml(
-              worker.verification || "—"
-            )}
-          </strong>
-          <span>
-            Verification
-          </span>
-        </div>
+function autoDistrict(place){
 
-      </div>
+  const normalized =
+    String(place).toLowerCase();
+
+  const found =
+    districts.find(
+      d=>normalized.includes(
+        d.toLowerCase()
+      )
+    );
+
+  if(found){
+    const select =
+      document.getElementById("district");
+
+    if(select){
+      select.value=found;
+    }
+  }
+}
+
+
+/* =========================================================
+   SAVE PROFILE
+========================================================= */
+
+async function saveWorkerProfile(event){
+
+  event.preventDefault();
+
+  if(!requireLogin("profile")){
+    return;
+  }
+
+  const name =
+    document.getElementById("full_name")?.value.trim();
+
+  const company =
+    document.getElementById("company_name")?.value.trim();
+
+  const role =
+    document.getElementById("job_role")?.value.trim();
+
+  const duration =
+    document.getElementById("duration")?.value.trim();
+
+  const district =
+    document.getElementById("district")?.value;
+
+  const otherSkill =
+    document.getElementById("other_skill")?.value.trim();
+
+  const availability =
+    document.getElementById("availability")?.value || "";
+
+  const contactPhone =
+    document.getElementById("contact_phone")?.value.trim();
+
+  const whatsapp =
+    document.getElementById("contact_whatsapp")?.value.trim();
+
+  const preference =
+    document.getElementById("contact_prefferance")?.value || "";
+
+  if(!name){
+    toast(t("nameRequired"));
+    return;
+  }
+
+  if(!selectedSkill){
+    toast(t("skillRequired"));
+    return;
+  }
+
+  if(!role){
+    toast(t("roleRequired"));
+    return;
+  }
+
+  if(!duration){
+    toast(t("durationRequired"));
+    return;
+  }
+
+  if(!currentLocation.text){
+    toast(t("locationRequired"));
+    return;
+  }
+
+  if(!district){
+    toast(t("districtRequired"));
+    return;
+  }
+
+  if(!supabaseClient){
+    setStatus(
+      "profileStatus",
+      "Supabase key is not configured.",
+      "error"
+    );
+    return;
+  }
+
+  const finalSkill =
+    selectedSkill === "Other"
+      ? otherSkill || "Other"
+      : selectedSkill;
+
+  const session =
+    window.currentSession;
+
+  const userId =
+    session?.user?.id || null;
+
+
+  /*
+    First attempt:
+    includes optional user/location coordinate columns.
+    If old table doesn't contain those columns,
+    we retry using the existing known schema.
+  */
+
+  const payload = {
+
+    full_name:name,
+
+    skills:finalSkill,
+
+    company_name:company || null,
+
+    job_role:role,
+
+    duration,
+
+    location:currentLocation.text,
+
+    district,
+
+    verification:"Pending",
+
+    work_location:
+      preferredLocation.text || null,
+
+    preferred_location:
+      preferredLocation.text || null,
+
+    language:
+      selectedLanguages.join(", "),
+
+    availability,
+
+    contact_phone:
+      contactPhone || null,
+
+    contact_whatsapp:
+      whatsapp || null,
+
+    contact_prefferance:
+      preference || null,
+
+    other_skill:
+      selectedSkill === "Other"
+        ? (otherSkill || null)
+        : null,
+
+    user_id:userId,
+
+    location_lat:
+      currentLocation.lat,
+
+    location_lng:
+      currentLocation.lng,
+
+    preferred_lat:
+      preferredLocation.lat,
+
+    preferred_lng:
+      preferredLocation.lng
+  };
+
+
+  setStatus(
+    "profileStatus",
+    currentLang==="ml"
+      ? "Profile save ചെയ്യുന്നു..."
+      : "Saving profile...",
+    "info"
+  );
+
+
+  let result =
+    await supabaseClient
+      .from("workers")
+      .insert(payload)
+      .select()
+      .single();
+
+
+  /*
+    Compatibility retry for existing DB columns.
+  */
+
+  if(
+    result.error &&
+    (
+      result.error.message.includes("user_id") ||
+      result.error.message.includes("location_lat") ||
+      result.error.message.includes("location_lng") ||
+      result.error.message.includes("preferred_lat") ||
+      result.error.message.includes("preferred_lng")
+    )
+  ){
+
+    const fallbackPayload = {
+
+      full_name:name,
+      skills:finalSkill,
+      company_name:company || null,
+      job_role:role,
+      duration,
+      location:currentLocation.text,
+      district,
+      verification:"Pending",
+      work_location:
+        preferredLocation.text || null,
+      preferred_location:
+        preferredLocation.text || null,
+      language:
+        selectedLanguages.join(", "),
+      availability,
+      contact_phone:
+        contactPhone || null,
+      contact_whatsapp:
+        whatsapp || null,
+      contact_prefferance:
+        preference || null,
+      other_skill:
+        selectedSkill === "Other"
+          ? (otherSkill || null)
+          : null
+    };
+
+    result =
+      await supabaseClient
+        .from("workers")
+        .insert(fallbackPayload)
+        .select()
+        .single();
+  }
+
+
+  if(result.error){
+
+    setStatus(
+      "profileStatus",
+      result.error.message ||
+      t("profileError"),
+      "error"
+    );
+
+    return;
+  }
+
+
+  const worker =
+    result.data;
+
+
+  /* Upload portfolio after worker row exists */
+
+  await uploadPortfolio(
+    worker?.id,
+    userId
+  );
+
+
+  setStatus(
+    "profileStatus",
+    t("profileSaved"),
+    "success"
+  );
+
+  toast(t("profileSaved"));
+
+  setTimeout(()=>{
+    navigate("dashboard");
+  },900);
+}
+
+
+/* =========================================================
+   PORTFOLIO STORAGE
+========================================================= */
+
+async function uploadPortfolio(workerId,userId){
+
+  const input =
+    document.getElementById("portfolioFiles");
+
+  const files =
+    Array.from(input?.files || []);
+
+  if(!files.length) return;
+
+  if(!supabaseClient) return;
+
+  /*
+    Bucket:
+    work-portfolio
+
+    If the bucket is not created yet, the worker
+    profile remains saved and the upload warning
+    is shown instead of failing the entire profile.
+  */
+
+  for(const file of files){
+
+    if(!file.type.startsWith("image/")){
+      continue;
+    }
+
+    if(file.size > 5*1024*1024){
+      continue;
+    }
+
+    const ext =
+      file.name.split(".").pop() || "jpg";
+
+    const random =
+      Math.random()
+        .toString(36)
+        .substring(2,10);
+
+    const path =
+      `worker/${userId || "guest"}/${Date.now()}-${random}.${ext}`;
+
+    const {error} =
+      await supabaseClient
+        .storage
+        .from("work-portfolio")
+        .upload(path,file,{
+          upsert:false,
+          contentType:file.type
+        });
+
+    if(error){
+
+      console.warn(
+        "Portfolio upload:",
+        error.message
+      );
+
+      toast(
+        currentLang==="ml"
+          ? "Profile save ചെയ്തു. Portfolio upload പൂർത്തിയായില്ല."
+          : "Profile saved. Portfolio upload could not be completed."
+      );
+
+      break;
+    }
+  }
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function openSearch(){
+
+  if(!isLoggedIn()){
+    openLogin("search");
+    return;
+  }
+
+  navigate("search");
+}
+
+
+function searchHTML(){
+
+return `
+<section class="screen">
+  <div class="screen-inner">
+
+    <div class="page-top">
+
+      <button class="back-btn" onclick="goBack()">
+        ← ${esc(t("back"))}
+      </button>
+
+      <h1>${esc(t("search"))}</h1>
+
+      <p>${esc(t("searchText"))}</p>
 
     </div>
 
 
-    <div class="detail-section">
+    <div class="search-bar">
 
-      <h3>
-        💼 Work Experience
-      </h3>
+      <input
+        id="searchSkill"
+        placeholder="${esc(t("searchPlaceholder"))}">
 
-      <p>
+      <select id="searchDistrict">
 
-        ${
-          worker.job_role
-          ? "Role: " +
-            escapeHtml(
-              worker.job_role
-            )
-          : ""
-        }
+        <option value="">
+          ${esc(t("districtPlaceholder"))}
+        </option>
 
+        ${districts.map(d=>`
+          <option value="${esc(d)}">
+            ${esc(d)}
+          </option>
+        `).join("")}
 
-        ${
-          worker.company_name
-          ? "<br>Company: " +
-            escapeHtml(
-              worker.company_name
-            )
-          : ""
-        }
-
-
-        ${
-          worker.duration
-          ? "<br>Duration: " +
-            escapeHtml(
-              worker.duration
-            )
-          : ""
-        }
-
-      </p>
-
-    </div>
-
-
-    <div class="detail-section">
-
-      <h3>
-        🛠️ Skills
-      </h3>
-
-      <div class="tags">
-
-        ${
-          worker.skills
-          ? `
-          <div class="tag">
-            ${escapeHtml(
-              worker.skills
-            )}
-          </div>
-          `
-          : ''
-        }
-
-
-        ${
-          worker.other_skill
-          ? `
-          <div class="tag">
-            ${escapeHtml(
-              worker.other_skill
-            )}
-          </div>
-          `
-          : ''
-        }
-
-      </div>
-
-    </div>
-
-
-    <div class="detail-section">
-
-      <h3>
-        📍 Work Preferences
-      </h3>
-
-      <p>
-
-        ${
-          worker.work_location
-          ? "Work Location: " +
-            escapeHtml(
-              worker.work_location
-            )
-          : "Work location not provided."
-        }
-
-
-        ${
-          worker.preferred_location
-          ? "<br>Preferred Location: " +
-            escapeHtml(
-              worker.preferred_location
-            )
-          : ""
-        }
-
-
-        ${
-          worker.language
-          ? "<br>Language: " +
-            escapeHtml(
-              worker.language
-            )
-          : ""
-        }
-
-
-        ${
-          worker.availability
-          ? "<br>Availability: " +
-            escapeHtml(
-              worker.availability
-            )
-          : ""
-        }
-
-      </p>
-
-    </div>
-
-
-    <div class="detail-section">
-
-      <h3>
-        🛡️ Work Verification
-      </h3>
-
-      <p>
-
-        ${
-          worker.verification
-          ? escapeHtml(
-              worker.verification
-            )
-          : "Not specified"
-        }
-
-      </p>
-
-    </div>
-
-
-    <div class="detail-section">
-
-      <h3>
-        📞 Contact
-      </h3>
-
-      <p
-        style="font-size:11px;color:#8a8f9c;margin-bottom:10px">
-
-        Contact details are available only to
-        authenticated KredVouch users.
-
-      </p>
-
-
-      <div class="button-row">
-
-        ${
-          worker.contact_phone
-          ? `
-          <button
-            class="action-btn"
-            onclick="callWorker('${escapeAttribute(
-              worker.contact_phone
-            )}')">
-
-            📞 Call
-
-          </button>
-          `
-          : ''
-        }
-
-
-        ${
-          worker.contact_whatsapp
-          ? `
-          <button
-            class="action-btn whatsapp"
-            onclick="openWhatsApp('${escapeAttribute(
-              worker.contact_whatsapp
-            )}')">
-
-            💬 WhatsApp
-
-          </button>
-          `
-          : ''
-        }
-
-      </div>
-
+      </select>
 
       <button
-        class="secondary-btn"
-        style="margin-top:10px"
-        onclick="openChat('${escapeAttribute(
-          worker.full_name ||
-          "Worker"
-        )}')">
-
-        💬 Contact / Chat
-
+        class="primary-btn"
+        onclick="loadWorkers()">
+        ${esc(t("searchButton"))}
       </button>
 
     </div>
 
-  `;
 
+    <div
+      id="searchResults"
+      class="search-results">
+
+      <div class="card">
+        ${esc(
+          currentLang==="ml"
+            ? "Workers load ചെയ്യുന്നു..."
+            : "Loading workers..."
+        )}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+`;
+}
+
+
+async function loadWorkers(){
+
+  const container =
+    document.getElementById("searchResults");
+
+  if(!container) return;
+
+  if(!supabaseClient){
+
+    container.innerHTML = `
+      <div class="card">
+        Supabase is not configured.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const skill =
+    document.getElementById("searchSkill")
+      ?.value.trim();
+
+  const district =
+    document.getElementById("searchDistrict")
+      ?.value;
+
+
+  let query =
+    supabaseClient
+      .from("workers")
+      .select("*")
+      .order("created_at",{ascending:false})
+      .limit(50);
+
+
+  if(skill){
+    query =
+      query.ilike(
+        "skills",
+        `%${skill}%`
+      );
+  }
+
+  if(district){
+    query =
+      query.eq(
+        "district",
+        district
+      );
+  }
+
+
+  const {data,error} =
+    await query;
+
+
+  if(error){
+
+    container.innerHTML = `
+      <div class="card">
+        ${esc(error.message)}
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if(!data?.length){
+
+    container.innerHTML = `
+      <div class="card">
+        ${esc(t("noResults"))}
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    data.map(worker=>workerCardHTML(worker)).join("");
+}
+
+
+function workerCardHTML(worker){
+
+  const verified =
+    String(worker.verification || "")
+      .toLowerCase() === "verified";
+
+  return `
+    <div class="worker-card">
+
+      <div class="worker-main">
+
+        <div>
+
+          <h3>
+            ${esc(worker.full_name || "Worker")}
+          </h3>
+
+          <div class="worker-meta">
+
+            <strong>
+              ${esc(worker.skills || "—")}
+            </strong>
+            <br>
+
+            ${esc(worker.job_role || "—")}
+            <br>
+
+            ${esc(worker.duration || "—")}
+            ${worker.district
+              ? " · " + esc(worker.district)
+              : ""}
+
+            ${worker.location
+              ? "<br>" + esc(worker.location)
+              : ""}
+
+          </div>
+
+        </div>
+
+        <span class="badge ${
+          verified
+            ? "verified"
+            : "pending"
+        }">
+          ${esc(worker.verification || t("pending"))}
+        </span>
+
+      </div>
+
+
+      <div class="worker-actions">
+
+        <button
+          class="small-btn"
+          onclick='openWorkerDetail(${JSON.stringify(worker).replace(/'/g,"&#39;")})'>
+          ${esc(t("details"))}
+        </button>
+
+        ${
+          worker.contact_phone
+          ? `
+            <button
+              class="small-btn"
+              onclick="callWorker('${esc(worker.contact_phone)}')">
+              ${esc(t("call"))}
+            </button>
+          `
+          : ""
+        }
+
+        ${
+          worker.contact_whatsapp
+          ? `
+            <button
+              class="small-btn"
+              onclick="whatsappWorker('${esc(worker.contact_whatsapp)}')">
+              ${esc(t("whatsappButton"))}
+            </button>
+          `
+          : ""
+        }
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+function openWorkerDetail(worker){
+
+  selectedWorker = worker;
+
+  navigate("detail");
+}
+
+
+/* =========================================================
+   DETAIL
+========================================================= */
+
+function detailHTML(worker){
+
+  if(!worker){
+
+    return `
+      <section class="screen">
+        <div class="screen-inner">
+          <div class="card">
+            ${esc(t("noResults"))}
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+
+  return `
+<section class="screen">
+  <div class="screen-inner">
+
+    <div class="page-top">
+
+      <button class="back-btn" onclick="goBack()">
+        ← ${esc(t("back"))}
+      </button>
+
+      <h1>${esc(worker.full_name || "Worker")}</h1>
+
+      <p>
+        ${esc(worker.skills || "")}
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="detail-grid">
+
+        ${detailRow(
+          t("skill"),
+          worker.skills
+        )}
+
+        ${detailRow(
+          t("jobRole"),
+          worker.job_role
+        )}
+
+        ${detailRow(
+          t("duration"),
+          worker.duration
+        )}
+
+        ${detailRow(
+          t("currentLocation"),
+          worker.location
+        )}
+
+        ${detailRow(
+          t("district"),
+          worker.district
+        )}
+
+        ${detailRow(
+          t("workLocation"),
+          worker.preferred_location ||
+          worker.work_location
+        )}
+
+        ${detailRow(
+          t("language"),
+          worker.language
+        )}
+
+        ${detailRow(
+          t("availability"),
+          worker.availability
+        )}
+
+        ${detailRow(
+          t("verification"),
+          worker.verification || "Pending"
+        )}
+
+      </div>
+
+
+      <div class="worker-actions"
+           style="margin-top:18px">
+
+        ${
+          worker.contact_phone
+          ? `
+            <button
+              class="primary-btn"
+              onclick="callWorker('${esc(worker.contact_phone)}')">
+              ${esc(t("call"))}
+            </button>
+          `
+          : ""
+        }
+
+        ${
+          worker.contact_whatsapp
+          ? `
+            <button
+              class="secondary-btn"
+              onclick="whatsappWorker('${esc(worker.contact_whatsapp)}')">
+              ${esc(t("whatsappButton"))}
+            </button>
+          `
+          : ""
+        }
+
+        <button
+          class="secondary-btn"
+          onclick="openChat(workerFromState())">
+          ${esc(t("chat"))}
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+`;
+}
+
+
+function detailRow(label,value){
+
+  return `
+    <div class="detail-row">
+      <span class="detail-label">
+        ${esc(label)}
+      </span>
+
+      <span class="detail-value">
+        ${esc(value || "—")}
+      </span>
+    </div>
+  `;
+}
+
+
+function workerFromState(){
+  return selectedWorker;
 }
 
 
@@ -5001,294 +3799,235 @@ function renderProfile(worker){
    CONTACT
 ========================================================= */
 
-function callWorker(number){
+function callWorker(phone){
 
-  if(!requireLogin()){
-
-    return;
-
-  }
-
-
-  if(!number) return;
-
+  if(!phone) return;
 
   window.location.href =
-    "tel:" + number;
-
+    "tel:" + normalizePhone(phone);
 }
 
 
-function openWhatsApp(number){
+function whatsappWorker(phone){
 
-  if(!requireLogin()){
+  if(!phone) return;
 
-    return;
-
-  }
-
-
-  if(!number) return;
-
-
-  let clean =
-    String(number)
-      .replace(/[^\d+]/g,"");
-
-
-  if(clean.startsWith("+")){
-
-    clean =
-      clean.substring(1);
-
-  }
-
-
-  if(clean.length === 10){
-
-    clean =
-      "91" + clean;
-
-  }
-
+  const number =
+    normalizePhone(phone)
+      .replace("+","");
 
   window.open(
-    "https://wa.me/" +
-    clean,
+    `https://wa.me/${number}`,
     "_blank"
   );
-
 }
 
 
 /* =========================================================
-   LOCAL CHAT
+   CHAT
 ========================================================= */
 
-function openChat(workerName){
-
-  if(!requireLogin()){
-
-    return;
-
-  }
+let localMessages = [];
 
 
-  chatBackScreen =
-    "profileScreen";
+function openChat(worker){
+
+  selectedWorker = worker;
+
+  navigate("chat");
+}
 
 
-  document.getElementById(
-    "chatTitle"
-  ).innerText =
-    "Chat with " +
-    workerName;
+function chatHTML(worker){
+
+  const messages =
+    localMessages.length
+      ? localMessages
+      : [{
+          from:"theirs",
+          text:t("noMessages")
+        }];
 
 
-  document.getElementById(
-    "chatMessages"
-  ).innerHTML = `
+  return `
+<section class="screen">
+  <div class="screen-inner">
 
-    <div class="message">
+    <div class="page-top">
 
-      Hello! You can send a message to
-      ${escapeHtml(workerName)}.
+      <button class="back-btn" onclick="goBack()">
+        ← ${esc(t("back"))}
+      </button>
+
+      <h1>${esc(t("chat"))}</h1>
+
+      <p>
+        ${esc(worker?.full_name || "Worker")}
+      </p>
 
     </div>
 
-  `;
+
+    <div class="card chat-box">
+
+      <div class="messages">
+
+        ${messages.map(msg=>`
+          <div class="message ${
+            msg.from==="mine"
+              ? "mine"
+              : "theirs"
+          }">
+            ${esc(msg.text)}
+          </div>
+        `).join("")}
+
+      </div>
 
 
-  showScreen(
-    "chatScreen"
-  );
+      <div class="chat-input">
 
+        <input
+          id="chatMessage"
+          placeholder="${esc(t("messagePlaceholder"))}">
+
+        <button
+          class="primary-btn"
+          onclick="sendLocalMessage()">
+          ${esc(t("send"))}
+        </button>
+
+      </div>
+
+      <div class="helper"
+           style="margin-top:10px">
+        ${
+          currentLang==="ml"
+            ? "ഇത് local chat UI ആണ്; server-side real-time messaging ഇപ്പോൾ claim ചെയ്യുന്നില്ല."
+            : "This is a local chat UI; server-side real-time messaging is not claimed here."
+        }
+      </div>
+
+    </div>
+
+  </div>
+</section>
+`;
 }
 
 
-function backFromChat(){
-
-  showScreen(
-    chatBackScreen,
-    true
-  );
-
-}
-
-
-function sendChat(){
-
-  if(!requireLogin()){
-
-    return;
-
-  }
-
+function sendLocalMessage(){
 
   const input =
-    document.getElementById(
-      "chatInput"
-    );
-
+    document.getElementById("chatMessage");
 
   const text =
-    input.value.trim();
-
+    input?.value.trim();
 
   if(!text) return;
 
+  localMessages.push({
+    from:"mine",
+    text
+  });
 
-  const messages =
+  renderScreen("chat",{}, "forward");
+}
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function changeLanguage(lang){
+
+  currentLang = lang;
+
+  localStorage.setItem(
+    "kredvouch_language",
+    lang
+  );
+
+  document.documentElement.lang =
+    lang;
+
+  const selector =
     document.getElementById(
-      "chatMessages"
+      "languageSelector"
     );
 
-
-  const message =
-    document.createElement(
-      "div"
-    );
-
-
-  message.className =
-    "message me";
-
-
-  message.innerText =
-    text;
-
-
-  messages.appendChild(
-    message
-  );
-
-
-  input.value = "";
-
-
-  messages.scrollTop =
-    messages.scrollHeight;
-
-}
-
-
-/* =========================================================
-   SAFE TEXT
-========================================================= */
-
-function escapeHtml(value){
-
-  if(
-    value === null ||
-    value === undefined
-  ){
-
-    return "";
-
+  if(selector){
+    selector.value=lang;
   }
 
+  renderScreen(
+    currentScreen,
+    {},
+    "back"
+  );
 
-  return String(value)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
+  toast(t("languageSaved"));
 }
 
 
-function escapeAttribute(value){
+/* =========================================================
+   AUTH STATE
+========================================================= */
 
-  if(
-    value === null ||
-    value === undefined
-  ){
+async function initAuth(){
 
-    return "";
+  await refreshSession();
+
+  if(supabaseClient){
+
+    supabaseClient.auth.onAuthStateChange(
+      (_event,session)=>{
+
+        window.currentSession =
+          session || null;
+
+      }
+    );
 
   }
-
-
-  return String(value)
-    .replace(
-      /\\/g,
-      "\\\\"
-    )
-    .replace(
-      /'/g,
-      "\\'"
-    );
-
 }
 
 
 /* =========================================================
-   CHAT ENTER KEY
+   START APP
 ========================================================= */
 
-document
-  .getElementById("chatInput")
-  .addEventListener(
-    "keydown",
-    function(event){
+document.addEventListener(
+  "DOMContentLoaded",
+  async()=>{
 
-      if(event.key === "Enter"){
+    const selector =
+      document.getElementById(
+        "languageSelector"
+      );
 
-        sendChat();
-
-      }
-
+    if(selector){
+      selector.value =
+        currentLang;
     }
-  );
 
+    renderScreen(
+      "home",
+      {},
+      "forward"
+    );
 
-/* =========================================================
-   MAP ESCAPE
-========================================================= */
+    await initAuth();
 
-document
-  .getElementById("mapPanel")
-  .addEventListener(
-    "click",
-    function(event){
+    setTimeout(()=>{
 
-      if(
-        event.target ===
-        this
-      ){
+      document
+        .getElementById("intro")
+        ?.classList.add("hide");
 
-        closeLocationPicker();
+    },1500);
 
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   INITIAL STATE
-========================================================= */
-
-restoreSession();
-
-showScreen(
-  "homeScreen"
+  }
 );
 
 </script>
