@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" content="#6d28d9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>KredVouch — Skills • Experience • Trust</title>
 
 <style>
@@ -19,20 +21,27 @@ html{
 
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:linear-gradient(135deg,#f5f3ff,#ffffff,#f0fdf4);
+  background:
+    radial-gradient(circle at 10% 5%,rgba(124,58,237,.09),transparent 28%),
+    radial-gradient(circle at 90% 85%,rgba(34,197,94,.07),transparent 30%),
+    linear-gradient(135deg,#f7f5ff,#fff,#f5fff8);
   color:#172033;
   min-height:100vh;
+  overflow-x:hidden;
 }
 
-button,
-input,
-select,
-textarea{
+button,input,select,textarea{
   font:inherit;
 }
 
 button{
   cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .app{
@@ -40,16 +49,123 @@ button{
   max-width:900px;
   margin:auto;
   min-height:100vh;
+  position:relative;
 }
+
+/* =========================
+   INTRO
+========================= */
+
+.intro{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at center,rgba(124,58,237,.16),transparent 35%),
+    linear-gradient(135deg,#faf8ff,#ffffff,#f6fff9);
+  pointer-events:none;
+  animation:introFade 1s ease 2.9s forwards;
+}
+
+.intro-brand{
+  text-align:center;
+  animation:
+    introCenter 1.15s cubic-bezier(.22,1,.36,1) .15s forwards,
+    introShrink 1.05s cubic-bezier(.22,1,.36,1) 1.25s forwards;
+}
+
+.intro-k{
+  width:82px;
+  height:82px;
+  margin:0 auto 17px;
+  border-radius:27px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:42px;
+  font-weight:900;
+  background:linear-gradient(135deg,#8b5cf6,#5b21b6,#4f46e5);
+  box-shadow:
+    0 25px 70px rgba(109,40,217,.30),
+    0 0 0 10px rgba(124,58,237,.05);
+  animation:introGlow 1.3s ease-in-out infinite alternate;
+}
+
+.intro-title{
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:-2px;
+  color:#241447;
+}
+
+.intro-title span{
+  color:#6d28d9;
+}
+
+.intro-sub{
+  margin-top:7px;
+  font-size:12px;
+  letter-spacing:2px;
+  color:#73788a;
+  text-transform:uppercase;
+}
+
+@keyframes introCenter{
+  from{
+    opacity:0;
+    transform:scale(.75);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes introShrink{
+  0%{
+    transform:scale(1);
+  }
+  100%{
+    transform:scale(.52) translateY(-38vh);
+    opacity:0;
+  }
+}
+
+@keyframes introGlow{
+  from{
+    box-shadow:0 20px 55px rgba(109,40,217,.23);
+  }
+  to{
+    box-shadow:
+      0 28px 75px rgba(109,40,217,.35),
+      0 0 0 12px rgba(124,58,237,.05);
+  }
+}
+
+@keyframes introFade{
+  to{
+    opacity:0;
+    visibility:hidden;
+  }
+}
+
+/* =========================
+   HEADER
+========================= */
 
 header{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid #e9e5f5;
-  padding:16px 18px;
+  background:rgba(255,255,255,.90);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid #ebe7f5;
+  padding:14px 18px;
 }
 
 .header-inner{
@@ -77,6 +193,11 @@ header{
   font-weight:800;
   background:linear-gradient(135deg,#7c3aed,#4f46e5);
   box-shadow:0 8px 22px rgba(109,40,217,.25);
+  transition:.3s;
+}
+
+.logo-icon:hover{
+  transform:rotate(-4deg) scale(1.04);
 }
 
 .logo-text{
@@ -86,7 +207,7 @@ header{
 }
 
 .logo-sub{
-  font-size:11px;
+  font-size:10px;
   color:#6b7280;
   margin-top:2px;
 }
@@ -100,33 +221,56 @@ header{
   font-weight:700;
 }
 
+/* =========================
+   MAIN / SCREEN
+========================= */
+
 main{
   padding:20px 16px 45px;
 }
 
 .screen{
   display:none;
-  animation:fadeUp .35s ease;
 }
 
 .screen.active{
   display:block;
+  animation:screenForward .45s cubic-bezier(.22,1,.36,1);
 }
 
-@keyframes fadeUp{
+.screen.back-enter{
+  animation:screenBack .45s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes screenForward{
   from{
     opacity:0;
-    transform:translateY(10px);
+    transform:translateX(24px) translateY(8px) scale(.985);
   }
   to{
     opacity:1;
-    transform:translateY(0);
+    transform:translateX(0) translateY(0) scale(1);
   }
 }
 
+@keyframes screenBack{
+  from{
+    opacity:0;
+    transform:translateX(-24px) translateY(8px) scale(.985);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   HERO
+========================= */
+
 .hero{
   text-align:center;
-  padding:32px 10px 24px;
+  padding:34px 10px 25px;
 }
 
 .hero-icon{
@@ -140,6 +284,16 @@ main{
   font-size:42px;
   background:linear-gradient(135deg,#ede9fe,#ddd6fe);
   box-shadow:0 15px 40px rgba(109,40,217,.13);
+  animation:heroFloat 4s ease-in-out infinite;
+}
+
+@keyframes heroFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-6px);
+  }
 }
 
 .hero h1{
@@ -161,51 +315,89 @@ main{
   font-size:15px;
 }
 
+/* =========================
+   CARDS
+========================= */
+
 .card{
-  background:#fff;
+  background:rgba(255,255,255,.94);
   border:1px solid #ebe7f5;
   border-radius:22px;
   padding:20px;
   margin-bottom:16px;
   box-shadow:0 12px 35px rgba(31,41,55,.06);
+  transition:.3s;
 }
 
-.choice-grid{
+.card:hover{
+  box-shadow:0 18px 45px rgba(31,41,55,.08);
+}
+
+.home-actions{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  grid-template-columns:1fr;
+  gap:12px;
 }
 
-.choice{
+.home-action{
+  width:100%;
   border:1px solid #e6e1f2;
   background:#fff;
   border-radius:20px;
-  padding:24px 15px;
-  text-align:center;
-  transition:.2s;
+  padding:21px;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  transition:.3s cubic-bezier(.22,1,.36,1);
 }
 
-.choice:hover{
-  transform:translateY(-2px);
-  border-color:#8b5cf6;
-  box-shadow:0 10px 25px rgba(109,40,217,.1);
+.home-action:hover{
+  transform:translateY(-3px);
+  border-color:#a78bfa;
+  box-shadow:0 14px 32px rgba(109,40,217,.10);
 }
 
-.choice-icon{
-  font-size:32px;
-  margin-bottom:12px;
+.home-action.primary{
+  background:linear-gradient(135deg,#faf5ff,#f5f3ff);
+  border-color:#ddd6fe;
 }
 
-.choice h3{
-  font-size:16px;
-  margin-bottom:6px;
+.home-action-icon{
+  width:52px;
+  height:52px;
+  flex:none;
+  border-radius:17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  background:#f3e8ff;
 }
 
-.choice p{
+.home-action-content{
+  flex:1;
+}
+
+.home-action h3{
+  font-size:17px;
+  margin-bottom:4px;
+}
+
+.home-action p{
   color:#7a8190;
   font-size:12px;
-  line-height:1.4;
+  line-height:1.45;
 }
+
+.home-arrow{
+  color:#7c3aed;
+  font-size:22px;
+}
+
+/* =========================
+   FEATURES
+========================= */
 
 .features{
   display:grid;
@@ -219,6 +411,11 @@ main{
   background:#faf9ff;
   border-radius:15px;
   text-align:center;
+  transition:.3s;
+}
+
+.feature:hover{
+  transform:translateY(-3px);
 }
 
 .feature-icon{
@@ -236,6 +433,10 @@ main{
   font-size:10px;
 }
 
+/* =========================
+   SECTION
+========================= */
+
 .section-title{
   font-size:23px;
   font-weight:800;
@@ -247,6 +448,76 @@ main{
   font-size:13px;
   margin-bottom:20px;
 }
+
+.section-note{
+  padding:12px 14px;
+  border-radius:13px;
+  background:#f8f7ff;
+  border:1px solid #ebe7f5;
+  color:#686f7d;
+  font-size:12px;
+  line-height:1.5;
+  margin-bottom:16px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-btn{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:14px 18px;
+  color:white;
+  font-weight:800;
+  background:linear-gradient(135deg,#7c3aed,#5b21b6);
+  box-shadow:0 10px 24px rgba(109,40,217,.20);
+  transition:.3s cubic-bezier(.22,1,.36,1);
+}
+
+.primary-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(109,40,217,.25);
+}
+
+.primary-btn:active{
+  transform:scale(.98);
+}
+
+.secondary-btn{
+  width:100%;
+  border:1px solid #ddd6fe;
+  border-radius:14px;
+  padding:13px 18px;
+  color:#6d28d9;
+  font-weight:700;
+  background:#faf9ff;
+  transition:.25s;
+}
+
+.secondary-btn:hover{
+  background:#f3e8ff;
+}
+
+.button-row{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+.back-btn{
+  border:0;
+  background:transparent;
+  color:#6d28d9;
+  font-weight:700;
+  margin-bottom:18px;
+  padding:7px 0;
+}
+
+/* =========================
+   FORMS
+========================= */
 
 .form-group{
   margin-bottom:15px;
@@ -264,6 +535,12 @@ main{
   color:#ef4444;
 }
 
+.optional{
+  color:#8b91a0;
+  font-weight:500;
+  font-size:11px;
+}
+
 input,
 select,
 textarea{
@@ -274,14 +551,14 @@ textarea{
   color:#202636;
   padding:13px 14px;
   outline:none;
-  transition:.2s;
+  transition:.25s;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
   border-color:#7c3aed;
-  box-shadow:0 0 0 3px rgba(124,58,237,.1);
+  box-shadow:0 0 0 3px rgba(124,58,237,.10);
 }
 
 textarea{
@@ -295,49 +572,32 @@ textarea{
   gap:12px;
 }
 
-.primary-btn{
-  width:100%;
-  border:0;
-  border-radius:14px;
-  padding:14px 18px;
-  color:white;
-  font-weight:800;
-  background:linear-gradient(135deg,#7c3aed,#5b21b6);
-  box-shadow:0 10px 24px rgba(109,40,217,.2);
-  transition:.2s;
-}
-
-.primary-btn:hover{
-  transform:translateY(-1px);
-}
-
-.secondary-btn{
-  width:100%;
-  border:1px solid #ddd6fe;
-  border-radius:14px;
-  padding:13px 18px;
-  color:#6d28d9;
-  font-weight:700;
-  background:#faf9ff;
-}
-
-.button-row{
-  display:flex;
-  gap:10px;
-  margin-top:18px;
-}
-
-.back-btn{
-  border:0;
-  background:transparent;
-  color:#6d28d9;
-  font-weight:700;
-  margin-bottom:18px;
-}
-
 .skill-other{
   display:none;
 }
+
+.input-with-button{
+  display:flex;
+  gap:8px;
+}
+
+.input-with-button input{
+  flex:1;
+}
+
+.location-btn{
+  flex:none;
+  width:48px;
+  border:1px solid #ddd6fe;
+  border-radius:13px;
+  background:#faf9ff;
+  color:#6d28d9;
+  font-size:20px;
+}
+
+/* =========================
+   STATUS
+========================= */
 
 .status{
   display:none;
@@ -361,6 +621,233 @@ textarea{
   color:#991b1b;
   border:1px solid #fecaca;
 }
+
+.status.info{
+  display:block;
+  background:#eff6ff;
+  color:#1d4ed8;
+  border:1px solid #bfdbfe;
+}
+
+/* =========================
+   ACCOUNT
+========================= */
+
+.account-choice{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.account-card{
+  border:1px solid #e6e1f2;
+  background:#fff;
+  border-radius:20px;
+  padding:22px 14px;
+  text-align:center;
+  transition:.3s;
+}
+
+.account-card:hover{
+  transform:translateY(-3px);
+  border-color:#a78bfa;
+  box-shadow:0 14px 30px rgba(109,40,217,.09);
+}
+
+.account-card-icon{
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.account-card h3{
+  font-size:15px;
+  margin-bottom:5px;
+}
+
+.account-card p{
+  color:#777;
+  font-size:11px;
+  line-height:1.45;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-box{
+  max-width:540px;
+  margin:20px auto;
+}
+
+.login-methods{
+  display:flex;
+  gap:8px;
+  margin-bottom:16px;
+}
+
+.login-method{
+  flex:1;
+  border:1px solid #ddd6fe;
+  border-radius:12px;
+  padding:11px;
+  background:#fff;
+  color:#6d28d9;
+  font-weight:700;
+  font-size:12px;
+}
+
+.login-method.active{
+  background:#f3e8ff;
+  border-color:#a78bfa;
+}
+
+.otp-box{
+  display:none;
+}
+
+.auth-user{
+  padding:10px 13px;
+  border-radius:12px;
+  background:#ecfdf5;
+  color:#166534;
+  font-size:12px;
+  margin-bottom:14px;
+}
+
+/* =========================
+   LOCATION
+========================= */
+
+.location-help{
+  font-size:11px;
+  color:#777;
+  margin-top:6px;
+  line-height:1.45;
+}
+
+.map-panel{
+  position:fixed;
+  inset:0;
+  z-index:300;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(15,23,42,.38);
+  backdrop-filter:blur(5px);
+}
+
+.map-panel.show{
+  display:flex;
+  animation:modalIn .3s ease;
+}
+
+.map-card{
+  width:min(900px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:25px 25px 0 0;
+  padding:20px;
+  box-shadow:0 -15px 45px rgba(0,0,0,.15);
+}
+
+.map-card h3{
+  font-size:20px;
+  margin-bottom:6px;
+}
+
+.map-card p{
+  color:#777;
+  font-size:12px;
+  margin-bottom:15px;
+}
+
+.map-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.map-preview{
+  width:100%;
+  height:260px;
+  border:0;
+  border-radius:17px;
+  margin:12px 0;
+  background:#f4f4f5;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }
+}
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+.portfolio-box{
+  background:#faf9ff;
+  border:1px solid #e8e2f5;
+  border-radius:18px;
+  padding:16px;
+  margin:20px 0;
+}
+
+.portfolio-box strong{
+  display:block;
+  margin-bottom:7px;
+}
+
+.portfolio-box p{
+  color:#777;
+  font-size:12px;
+  line-height:1.5;
+  margin-bottom:12px;
+}
+
+.portfolio-input{
+  width:100%;
+  padding:10px;
+  border:1px dashed #c4b5fd;
+  border-radius:12px;
+  background:#fff;
+}
+
+.preview-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.preview-item{
+  position:relative;
+  aspect-ratio:1;
+  overflow:hidden;
+  border-radius:12px;
+  background:#eee;
+}
+
+.preview-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.upload-status{
+  margin-top:9px;
+  font-size:11px;
+  color:#6b7280;
+}
+
+/* =========================
+   SEARCH
+========================= */
 
 .search-box{
   position:relative;
@@ -409,6 +896,18 @@ textarea{
   padding:17px;
   margin-bottom:13px;
   box-shadow:0 8px 24px rgba(31,41,55,.05);
+  animation:cardIn .4s ease both;
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .worker-top{
@@ -497,12 +996,23 @@ textarea{
   margin-bottom:10px;
 }
 
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#777;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
 .profile-header{
   background:linear-gradient(135deg,#5b21b6,#7c3aed,#4f46e5);
   color:#fff;
   border-radius:24px;
   padding:24px;
   margin-bottom:15px;
+  box-shadow:0 18px 45px rgba(109,40,217,.20);
 }
 
 .profile-name{
@@ -576,6 +1086,23 @@ textarea{
   font-weight:700;
 }
 
+.portfolio-profile-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.portfolio-profile-grid img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+/* =========================
+   CHAT
+========================= */
+
 .chat-box{
   background:#fff;
   border:1px solid #ebe7f5;
@@ -626,6 +1153,10 @@ textarea{
   color:#fff;
 }
 
+/* =========================
+   FOOTER
+========================= */
+
 footer{
   text-align:center;
   padding:25px 15px;
@@ -639,13 +1170,12 @@ footer{
   margin-bottom:4px;
 }
 
-.loading{
-  text-align:center;
-  padding:25px;
-  color:#777;
-}
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:600px){
+
   main{
     padding:14px 12px 35px;
   }
@@ -656,14 +1186,6 @@ footer{
 
   .hero h1{
     font-size:29px;
-  }
-
-  .choice-grid{
-    gap:10px;
-  }
-
-  .choice{
-    padding:20px 10px;
   }
 
   .features{
@@ -687,59 +1209,130 @@ footer{
     border-right:0;
     border-bottom:1px solid rgba(255,255,255,.2);
   }
+
+  .account-choice{
+    grid-template-columns:1fr;
+  }
+
+  .intro-title{
+    font-size:34px;
+  }
+
+  .intro-k{
+    width:72px;
+    height:72px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     KREDVOUCH OPENING ANIMATION
+========================= -->
+<div class="intro" id="intro">
+  <div class="intro-brand">
+    <div class="intro-k">K</div>
+    <div class="intro-title">Kred<span>Vouch</span></div>
+    <div class="intro-sub">Skills • Experience • Trust</div>
+  </div>
+</div>
+
+
 <div class="app">
 
 <header>
   <div class="header-inner">
+
     <div class="logo">
       <div class="logo-icon">K</div>
+
       <div>
         <div class="logo-text">KredVouch</div>
         <div class="logo-sub">Skills • Experience • Trust</div>
       </div>
     </div>
-    <div class="header-badge">Trusted Skills</div>
+
+    <div id="headerAccountBadge" class="header-badge">
+      Trusted Skills
+    </div>
+
   </div>
 </header>
 
+
 <main>
 
-<!-- HOME -->
+<!-- =====================================================
+     HOME
+===================================================== -->
+
 <section id="homeScreen" class="screen active">
 
   <div class="hero">
+
     <div class="hero-icon">🤝</div>
-    <h1>Find skilled people.<br><span>Trust their experience.</span></h1>
+
+    <h1>
+      Find skilled people.<br>
+      <span>Trust their experience.</span>
+    </h1>
+
     <p>
       KredVouch connects skilled workers with employers using
       real work experience, skills and verification.
     </p>
+
   </div>
 
-  <div class="card">
-    <div class="choice-grid">
 
-      <button class="choice" onclick="showScreen('workerScreen')">
-        <div class="choice-icon">👷</div>
-        <h3>I'm a Worker</h3>
-        <p>Create your profile and showcase your skills.</p>
+  <div class="card">
+
+    <div class="home-actions">
+
+      <button
+        class="home-action primary"
+        onclick="startCreateProfile()">
+
+        <div class="home-action-icon">✨</div>
+
+        <div class="home-action-content">
+          <h3>Create Profile</h3>
+          <p>
+            Build your KredVouch account and add your worker
+            profile whenever you are ready.
+          </p>
+        </div>
+
+        <div class="home-arrow">›</div>
+
       </button>
 
-      <button class="choice" onclick="showScreen('employerScreen')">
-        <div class="choice-icon">🏢</div>
-        <h3>I'm an Employer</h3>
-        <p>Find skilled workers for your work.</p>
+
+      <button
+        class="home-action"
+        onclick="startFindWorkers()">
+
+        <div class="home-action-icon">🔎</div>
+
+        <div class="home-action-content">
+          <h3>Find Skilled Workers</h3>
+          <p>
+            Search for trusted skilled people near your
+            required location.
+          </p>
+        </div>
+
+        <div class="home-arrow">›</div>
+
       </button>
 
     </div>
 
+
     <div class="features">
+
       <div class="feature">
         <div class="feature-icon">🛠️</div>
         <strong>Skills</strong>
@@ -757,49 +1350,326 @@ footer{
         <strong>Trust</strong>
         <span>Work verification</span>
       </div>
+
     </div>
+
   </div>
 
-  <div class="card" style="text-align:center;background:linear-gradient(135deg,#faf5ff,#f0fdf4)">
-    <h3 style="margin-bottom:7px">Are you a skilled professional?</h3>
-    <p style="font-size:13px;color:#6b7280;margin-bottom:15px">
-      Create your KredVouch profile and get discovered by employers.
+
+  <div
+    class="card"
+    style="text-align:center;background:linear-gradient(135deg,#faf5ff,#f0fdf4)">
+
+    <h3 style="margin-bottom:7px">
+      One account. More possibilities.
+    </h3>
+
+    <p
+      style="font-size:13px;color:#6b7280;margin-bottom:15px;line-height:1.5">
+
+      You can be a skilled worker, find skilled workers,
+      or do both with one KredVouch account.
+
     </p>
-    <button class="primary-btn" onclick="showScreen('workerScreen')">
-      Create Worker Profile
+
+    <button
+      class="primary-btn"
+      onclick="startCreateProfile()">
+
+      Create Profile
+
     </button>
+
   </div>
 
 </section>
 
 
-<!-- WORKER -->
-<section id="workerScreen" class="screen">
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
-  <button class="back-btn" onclick="showScreen('homeScreen')">
+<section id="loginScreen" class="screen">
+
+  <button
+    class="back-btn"
+    onclick="showScreen('homeScreen',true)">
     ← Back
   </button>
 
+
+  <div class="card login-box">
+
+    <div class="section-title">
+      Welcome to KredVouch
+    </div>
+
+    <div class="section-sub">
+      Sign in to continue securely.
+    </div>
+
+
+    <div class="section-note">
+      A KredVouch account can be used for both finding skilled
+      workers and creating your own Worker Profile.
+      Login is required before accessing protected worker
+      contact information.
+    </div>
+
+
+    <div class="login-methods">
+
+      <button
+        id="emailMethodBtn"
+        class="login-method active"
+        onclick="selectLoginMethod('email')">
+
+        Email
+
+      </button>
+
+      <button
+        id="phoneMethodBtn"
+        class="login-method"
+        onclick="selectLoginMethod('phone')">
+
+        Phone
+
+      </button>
+
+    </div>
+
+
+    <div id="authStatus" class="status"></div>
+
+
+    <div class="form-group">
+
+      <label id="loginLabel">
+        Email
+      </label>
+
+      <input
+        id="loginInput"
+        type="email"
+        placeholder="Enter your email">
+
+      <div class="location-help">
+        We will send a secure one-time verification code.
+      </div>
+
+    </div>
+
+
+    <button
+      id="sendOtpBtn"
+      class="primary-btn"
+      onclick="sendOTP()">
+
+      Send Verification Code
+
+    </button>
+
+
+    <div id="otpBox" class="otp-box">
+
+      <div class="form-group" style="margin-top:16px">
+
+        <label>
+          Verification Code
+        </label>
+
+        <input
+          id="otpInput"
+          type="text"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          maxlength="6"
+          placeholder="Enter 6-digit code">
+
+      </div>
+
+
+      <button
+        id="verifyOtpBtn"
+        class="primary-btn"
+        onclick="verifyOTP()">
+
+        Verify & Continue
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     ACCOUNT / PROFILE CHOICE
+===================================================== -->
+
+<section id="accountScreen" class="screen">
+
+  <button
+    class="back-btn"
+    onclick="showScreen('homeScreen',true)">
+    ← Back
+  </button>
+
+
   <div class="card">
 
-    <div class="section-title">Create Your KredVouch</div>
+    <div class="section-title">
+      Your KredVouch
+    </div>
+
+    <div class="section-sub">
+      Choose what you want to do. You can use both options
+      with the same account.
+    </div>
+
+
+    <div id="loggedUserBox" class="auth-user">
+      Signed in securely.
+    </div>
+
+
+    <div class="account-choice">
+
+      <button
+        class="account-card"
+        onclick="openWorkerProfile()">
+
+        <div class="account-card-icon">👷</div>
+
+        <h3>
+          Worker Profile
+        </h3>
+
+        <p>
+          Add your skills, experience, locations,
+          verification and work portfolio.
+        </p>
+
+      </button>
+
+
+      <button
+        class="account-card"
+        onclick="openEmployerSearch()">
+
+        <div class="account-card-icon">🔎</div>
+
+        <h3>
+          Find Skilled Workers
+        </h3>
+
+        <p>
+          Search for skilled people for your work,
+          business or personal requirements.
+        </p>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h3 style="margin-bottom:8px">
+      One account can do both
+    </h3>
+
+    <p style="font-size:13px;color:#6b7280;line-height:1.6">
+
+      You don't have to choose a permanent identity.
+      Create a Worker Profile today and you can still
+      search for another skilled worker tomorrow.
+
+    </p>
+
+  </div>
+
+
+  <button
+    class="secondary-btn"
+    onclick="logoutUser()">
+
+    Sign Out
+
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     WORKER
+===================================================== -->
+
+<section id="workerScreen" class="screen">
+
+  <button
+    class="back-btn"
+    onclick="showScreen('accountScreen',true)">
+
+    ← Back
+
+  </button>
+
+
+  <div class="card">
+
+    <div class="section-title">
+      Create Your KredVouch
+    </div>
+
     <div class="section-sub">
       Add your skills and work experience.
     </div>
 
+
     <div id="saveStatus" class="status"></div>
+
 
     <form id="workerForm">
 
-      <div class="form-group">
-        <label>Full Name <span class="required">*</span></label>
-        <input id="fullName" type="text" placeholder="Enter your full name" required>
-      </div>
+      <!-- NAME -->
 
       <div class="form-group">
-        <label>Select Your Skill <span class="required">*</span></label>
+
+        <label>
+          Full Name
+          <span class="required">*</span>
+        </label>
+
+        <input
+          id="fullName"
+          type="text"
+          placeholder="Enter your full name"
+          required>
+
+      </div>
+
+
+      <!-- SKILL -->
+
+      <div class="form-group">
+
+        <label>
+          Select Your Skill
+          <span class="required">*</span>
+        </label>
+
         <select id="skill" required>
-          <option value="">Select skill</option>
+
+          <option value="">
+            Select skill
+          </option>
+
           <option>Painter</option>
           <option>Welder</option>
           <option>Plumber</option>
@@ -814,129 +1684,424 @@ footer{
           <option>Machine Operator</option>
           <option>CNC Operator</option>
           <option>Auto Painter</option>
+          <option>Cleaner</option>
+          <option>Gardener</option>
+          <option>Roofer</option>
+          <option>Maintenance Worker</option>
           <option>Other</option>
+
         </select>
+
       </div>
 
-      <div class="form-group skill-other" id="otherSkillGroup">
-        <label>Other Skill</label>
-        <input id="otherSkill" type="text" placeholder="Enter your skill">
+
+      <div
+        class="form-group skill-other"
+        id="otherSkillGroup">
+
+        <label>
+          Other Skill
+          <span class="required">*</span>
+        </label>
+
+        <input
+          id="otherSkill"
+          type="text"
+          placeholder="Enter your skill">
+
       </div>
+
+
+      <!-- COMPANY -->
 
       <div class="form-group">
-        <label>Current or Past Company <span class="required">*</span></label>
-        <input id="companyName" type="text" placeholder="Company / workshop name" required>
-      </div>
 
-      <div class="form-group">
-        <label>Job Role <span class="required">*</span></label>
-        <input id="jobRole" type="text" placeholder="Your job role" required>
-      </div>
+        <label>
+          Current or Past Company
+          <span class="optional">(Optional)</span>
+        </label>
 
-      <div class="form-group">
-        <label>Duration <span class="required">*</span></label>
-        <input id="duration" type="text" placeholder="Example: 5 years" required>
-      </div>
+        <input
+          id="companyName"
+          type="text"
+          placeholder="Company / workshop name">
 
-      <div class="form-row">
-
-        <div class="form-group">
-          <label>Current Location <span class="required">*</span></label>
-          <input id="location" type="text" placeholder="Your current location" required>
-        </div>
-
-        <div class="form-group">
-          <label>District <span class="required">*</span></label>
-          <select id="district" required>
-            <option value="">Select district</option>
-            <option>Kasaragod</option>
-            <option>Kannur</option>
-            <option>Wayanad</option>
-            <option>Kozhikode</option>
-            <option>Malappuram</option>
-            <option>Palakkad</option>
-            <option>Thrissur</option>
-            <option>Ernakulam</option>
-            <option>Idukki</option>
-            <option>Kottayam</option>
-            <option>Alappuzha</option>
-            <option>Pathanamthitta</option>
-            <option>Kollam</option>
-            <option>Thiruvananthapuram</option>
-          </select>
+        <div class="location-help">
+          If you are self-employed, freelance, independent,
+          or have never worked for a company, you can leave
+          this empty.
         </div>
 
       </div>
 
-      <div class="form-group">
-        <label>Work Location</label>
-        <input id="workLocation" type="text" placeholder="Where you currently work">
-      </div>
+
+      <!-- JOB ROLE -->
 
       <div class="form-group">
-        <label>Preferred Work Location</label>
-        <input id="preferredLocation" type="text" placeholder="Where you prefer to work">
+
+        <label>
+          Job Role
+          <span class="required">*</span>
+        </label>
+
+        <input
+          id="jobRole"
+          type="text"
+          placeholder="Example: Electrician, Auto Painter, Mason"
+          required>
+
+        <div class="location-help">
+          Job Role means the specific position or type of work
+          you performed. Example: Skill = Painting,
+          Job Role = Auto Painter.
+        </div>
+
       </div>
 
-      <div class="form-group">
-        <label>Language</label>
-        <input id="language" type="text" placeholder="Example: Malayalam, English, Hindi">
-      </div>
+
+      <!-- DURATION -->
 
       <div class="form-group">
-        <label>Availability</label>
+
+        <label>
+          Duration
+          <span class="required">*</span>
+        </label>
+
+        <input
+          id="duration"
+          type="text"
+          placeholder="Example: 5 years"
+          required>
+
+      </div>
+
+
+      <!-- CURRENT LOCATION -->
+
+      <div class="form-group">
+
+        <label>
+          Current Location
+          <span class="required">*</span>
+        </label>
+
+        <div class="input-with-button">
+
+          <input
+            id="location"
+            type="text"
+            placeholder="Select your current location"
+            required>
+
+          <button
+            type="button"
+            class="location-btn"
+            onclick="openLocationPicker('location')">
+
+            📍
+
+          </button>
+
+        </div>
+
+        <div class="location-help">
+          Use the map/location button for a more accurate
+          current location instead of entering a random place.
+        </div>
+
+      </div>
+
+
+      <!-- DISTRICT -->
+
+      <div class="form-group">
+
+        <label>
+          District
+          <span class="required">*</span>
+        </label>
+
+        <select id="district" required>
+
+          <option value="">
+            Select district
+          </option>
+
+          <option>Kasaragod</option>
+          <option>Kannur</option>
+          <option>Wayanad</option>
+          <option>Kozhikode</option>
+          <option>Malappuram</option>
+          <option>Palakkad</option>
+          <option>Thrissur</option>
+          <option>Ernakulam</option>
+          <option>Idukki</option>
+          <option>Kottayam</option>
+          <option>Alappuzha</option>
+          <option>Pathanamthitta</option>
+          <option>Kollam</option>
+          <option>Thiruvananthapuram</option>
+
+        </select>
+
+      </div>
+
+
+      <!-- WORK LOCATION -->
+
+      <div class="form-group">
+
+        <label>
+          Work Location
+          <span class="optional">(Optional)</span>
+        </label>
+
+        <div class="input-with-button">
+
+          <input
+            id="workLocation"
+            type="text"
+            placeholder="Where you work">
+
+          <button
+            type="button"
+            class="location-btn"
+            onclick="openLocationPicker('workLocation')">
+
+            📍
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PREFERRED LOCATION -->
+
+      <div class="form-group">
+
+        <label>
+          Preferred Work Location
+          <span class="optional">(Optional)</span>
+        </label>
+
+        <div class="input-with-button">
+
+          <input
+            id="preferredLocation"
+            type="text"
+            placeholder="Where you prefer to work">
+
+          <button
+            type="button"
+            class="location-btn"
+            onclick="openLocationPicker('preferredLocation')">
+
+            📍
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- LANGUAGE -->
+
+      <div class="form-group">
+
+        <label>
+          Language
+          <span class="optional">(Optional)</span>
+        </label>
+
+        <select id="language">
+
+          <option value="">
+            Select language
+          </option>
+
+          <option>Malayalam</option>
+          <option>English</option>
+          <option>Hindi</option>
+          <option>Tamil</option>
+          <option>Kannada</option>
+          <option>Telugu</option>
+          <option>Urdu</option>
+          <option>Arabic</option>
+          <option>Bengali</option>
+          <option>Marathi</option>
+          <option>Gujarati</option>
+          <option>Punjabi</option>
+          <option>Odia</option>
+
+        </select>
+
+      </div>
+
+
+      <!-- AVAILABILITY -->
+
+      <div class="form-group">
+
+        <label>
+          Availability
+        </label>
+
         <select id="availability">
-          <option value="">Select availability</option>
+
+          <option value="">
+            Select availability
+          </option>
+
           <option>Available</option>
           <option>Available Immediately</option>
           <option>Currently Working</option>
           <option>Available on Weekends</option>
+
         </select>
+
       </div>
+
+
+      <!-- CONTACT -->
 
       <div class="form-row">
 
         <div class="form-group">
-          <label>Contact Phone</label>
-          <input id="contactPhone" type="tel" placeholder="Phone number">
+
+          <label>
+            Contact Phone
+          </label>
+
+          <input
+            id="contactPhone"
+            type="tel"
+            placeholder="Phone number">
+
         </div>
 
+
         <div class="form-group">
-          <label>WhatsApp Number</label>
-          <input id="contactWhatsapp" type="tel" placeholder="WhatsApp number">
+
+          <label>
+            WhatsApp Number
+          </label>
+
+          <input
+            id="contactWhatsapp"
+            type="tel"
+            placeholder="WhatsApp number">
+
         </div>
 
       </div>
 
+
+      <!-- CONTACT PREFERENCE -->
+
       <div class="form-group">
-        <label>Contact Preference</label>
+
+        <label>
+          Contact Preference
+        </label>
+
         <select id="contactPreference">
-          <option value="">Select preference</option>
+
+          <option value="">
+            Select preference
+          </option>
+
           <option>Phone</option>
           <option>WhatsApp</option>
           <option>Both</option>
+
         </select>
+
       </div>
+
+
+      <!-- VERIFICATION -->
 
       <div class="form-group">
-        <label>Work Verification</label>
+
+        <label>
+          Work Verification
+        </label>
+
         <select id="verification">
-          <option>Not Verified</option>
-          <option>Pending</option>
-          <option>Verified</option>
+
+          <option value="Not Verified">
+            Not Verified
+          </option>
+
+          <option value="Pending">
+            Pending
+          </option>
+
+          <option value="Verified">
+            Verified
+          </option>
+
         </select>
+
+        <div class="location-help">
+
+          Work Verification is the trust status showing
+          whether the worker's work experience or proof
+          has been verified. It is separate from the
+          Work Portfolio.
+
+        </div>
+
       </div>
 
-      <div class="card" style="background:#faf9ff;margin-top:20px">
-        <strong style="display:block;margin-bottom:7px">📸 Work Portfolio</strong>
-        <p style="font-size:12px;color:#777;line-height:1.5">
-          Portfolio upload will be connected to KredVouch storage after
-          the profile saving system is working correctly.
+
+      <!-- PORTFOLIO -->
+
+      <div class="portfolio-box">
+
+        <strong>
+          📸 Work Portfolio
+        </strong>
+
+        <p>
+          Add real photos of work you have completed.
+          For example, painting work, electrical work,
+          construction, vehicle repair or other skilled work.
+          Portfolio photos help people understand your
+          practical experience.
         </p>
+
+        <input
+          id="portfolioFiles"
+          class="portfolio-input"
+          type="file"
+          accept="image/*"
+          multiple>
+
+        <div
+          id="portfolioPreview"
+          class="preview-grid">
+        </div>
+
+        <div
+          id="uploadStatus"
+          class="upload-status">
+        </div>
+
       </div>
 
-      <button id="saveWorkerBtn" type="submit" class="primary-btn">
+
+      <button
+        id="saveWorkerBtn"
+        type="submit"
+        class="primary-btn">
+
         Create Worker Profile
+
       </button>
 
     </form>
@@ -946,24 +2111,52 @@ footer{
 </section>
 
 
-<!-- EMPLOYER -->
+<!-- =====================================================
+     FIND WORKERS
+===================================================== -->
+
 <section id="employerScreen" class="screen">
 
-  <button class="back-btn" onclick="showScreen('homeScreen')">
+  <button
+    class="back-btn"
+    onclick="showScreen('accountScreen',true)">
+
     ← Back
+
   </button>
+
 
   <div class="card">
 
-    <div class="section-title">Find Skilled Workers</div>
-    <div class="section-sub">
-      Search workers by skill and district.
+    <div class="section-title">
+      Find Skilled Workers
     </div>
 
+    <div class="section-sub">
+      Search skilled people for your business,
+      project, home work or personal requirement.
+    </div>
+
+
+    <div class="section-note">
+      You don't need to be a company or formal employer
+      to use this feature. Anyone looking for skilled
+      help can search.
+    </div>
+
+
     <div class="form-group">
-      <label>Skill</label>
+
+      <label>
+        Skill
+      </label>
+
       <select id="searchSkill">
-        <option value="">All Skills</option>
+
+        <option value="">
+          All Skills
+        </option>
+
         <option>Painter</option>
         <option>Welder</option>
         <option>Plumber</option>
@@ -978,13 +2171,28 @@ footer{
         <option>Machine Operator</option>
         <option>CNC Operator</option>
         <option>Auto Painter</option>
+        <option>Cleaner</option>
+        <option>Gardener</option>
+        <option>Roofer</option>
+        <option>Maintenance Worker</option>
+
       </select>
+
     </div>
 
+
     <div class="form-group">
-      <label>District</label>
+
+      <label>
+        District
+      </label>
+
       <select id="searchDistrict">
-        <option value="">All Districts</option>
+
+        <option value="">
+          All Districts
+        </option>
+
         <option>Kasaragod</option>
         <option>Kannur</option>
         <option>Wayanad</option>
@@ -999,59 +2207,106 @@ footer{
         <option>Pathanamthitta</option>
         <option>Kollam</option>
         <option>Thiruvananthapuram</option>
+
       </select>
+
     </div>
 
-    <button id="searchBtn" class="primary-btn">
+
+    <button
+      id="searchBtn"
+      class="primary-btn">
+
       🔎 Find Skilled Workers
+
     </button>
 
   </div>
+
 
   <div id="results"></div>
 
 </section>
 
 
-<!-- PROFILE -->
+<!-- =====================================================
+     PROFILE
+===================================================== -->
+
 <section id="profileScreen" class="screen">
 
-  <button class="back-btn" onclick="showScreen('employerScreen')">
+  <button
+    class="back-btn"
+    onclick="showScreen('employerScreen',true)">
+
     ← Back to Workers
+
   </button>
+
 
   <div id="profileContent"></div>
 
 </section>
 
 
-<!-- CHAT -->
+<!-- =====================================================
+     CHAT
+===================================================== -->
+
 <section id="chatScreen" class="screen">
 
-  <button class="back-btn" onclick="backFromChat()">
+  <button
+    class="back-btn"
+    onclick="backFromChat()">
+
     ← Back
+
   </button>
 
+
   <div class="card">
-    <div class="section-title" id="chatTitle">Worker Chat</div>
+
+    <div
+      class="section-title"
+      id="chatTitle">
+
+      Worker Chat
+
+    </div>
+
     <div class="section-sub">
       Contact the worker directly.
     </div>
 
+
     <div class="chat-box">
 
-      <div id="chatMessages" class="chat-messages">
+      <div
+        id="chatMessages"
+        class="chat-messages">
+
         <div class="message">
           Hello! You can send a message to this worker.
         </div>
+
       </div>
 
+
       <div class="chat-input">
-        <input id="chatInput" type="text" placeholder="Type your message...">
-        <button onclick="sendChat()">➤</button>
+
+        <input
+          id="chatInput"
+          type="text"
+          placeholder="Type your message...">
+
+        <button onclick="sendChat()">
+          ➤
+        </button>
+
       </div>
 
     </div>
+
   </div>
 
 </section>
@@ -1060,10 +2315,116 @@ footer{
 
 
 <footer>
-  <div class="footer-brand">KredVouch</div>
-  <div>© 2026 KredVouch • Skills • Experience • Trust</div>
-  <div style="margin-top:4px">Created by Athul Raj</div>
+
+  <div class="footer-brand">
+    KredVouch
+  </div>
+
+  <div>
+    © 2026 KredVouch • Skills • Experience • Trust
+  </div>
+
+  <div style="margin-top:4px">
+    Built for skilled people and the people who need them.
+  </div>
+
 </footer>
+
+</div>
+
+
+<!-- =====================================================
+     LOCATION MODAL
+===================================================== -->
+
+<div
+  id="mapPanel"
+  class="map-panel">
+
+  <div class="map-card">
+
+    <h3>
+      📍 Select Location
+    </h3>
+
+    <p>
+      Use your current location for better accuracy,
+      or enter a place and search it.
+    </p>
+
+
+    <div class="form-group">
+
+      <input
+        id="mapSearchInput"
+        type="text"
+        placeholder="Example: Kasaragod, Kerala">
+
+    </div>
+
+
+    <div class="map-actions">
+
+      <button
+        class="secondary-btn"
+        type="button"
+        onclick="useCurrentLocation()">
+
+        📍 Use Current Location
+
+      </button>
+
+
+      <button
+        class="secondary-btn"
+        type="button"
+        onclick="searchMapLocation()">
+
+        🔎 Search Location
+
+      </button>
+
+    </div>
+
+
+    <iframe
+      id="mapPreview"
+      class="map-preview"
+      loading="lazy"
+      title="Location map">
+    </iframe>
+
+
+    <div
+      id="mapStatus"
+      class="status">
+    </div>
+
+
+    <div class="button-row">
+
+      <button
+        type="button"
+        class="secondary-btn"
+        onclick="closeLocationPicker()">
+
+        Cancel
+
+      </button>
+
+
+      <button
+        type="button"
+        class="primary-btn"
+        onclick="applySelectedLocation()">
+
+        Use This Location
+
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
@@ -1071,54 +2432,95 @@ footer{
 <script>
 
 /* =========================================================
-   KREDVOUCH — SUPABASE CONNECTION
-   ========================================================= */
+   KREDVOUCH — SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
   "https://ohpehdqjlvvqlihhgqgv.supabase.co";
 
 const SUPABASE_KEY =
-  sb_publishable_4vIhXmmLasNH_C18XYupwg_KyYpzopL
+  "sb_publishable_4vIhXmmLasNH_C18XYupwg_KyYpzopL";
 
 
 /* =========================================================
-   SUPABASE REST REQUEST
-   IMPORTANT:
-   Publishable key is sent through apikey ONLY.
-   It is NOT used as Authorization: Bearer.
-   ========================================================= */
+   STATE
+========================================================= */
 
-async function supabaseRequest(path, options = {}) {
+let authSession = null;
+let authUser = null;
+
+let loginMethod = "email";
+let pendingLoginValue = "";
+
+let currentWorkers = [];
+let currentWorker = null;
+let chatBackScreen = "profileScreen";
+
+let locationTarget = null;
+let selectedLocationText = "";
+let selectedLatitude = null;
+let selectedLongitude = null;
+
+
+/* =========================================================
+   SUPABASE REQUEST
+========================================================= */
+
+async function supabaseRequest(path, options = {}){
 
   const headers = {
     "apikey": SUPABASE_KEY,
     "Content-Type": "application/json",
-    "Prefer": "return=minimal",
     ...(options.headers || {})
   };
 
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/" + path,
-    {
-      ...options,
-      headers
-    }
-  );
 
-  const text = await response.text();
+  if(authSession && authSession.access_token){
 
-  if (!response.ok) {
+    headers["Authorization"] =
+      "Bearer " + authSession.access_token;
+
+  }else{
+
+    /*
+     * Keep the publishable key as the API key.
+     * Do not invent a user JWT when the user is logged out.
+     */
+
+  }
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL + "/rest/v1/" + path,
+      {
+        ...options,
+        headers
+      }
+    );
+
+
+  const text =
+    await response.text();
+
+
+  if(!response.ok){
 
     let message = text;
 
-    try {
-      const json = JSON.parse(text);
+    try{
+
+      const json =
+        JSON.parse(text);
+
       message =
         json.message ||
         json.error_description ||
         json.error ||
         text;
-    } catch(e) {}
+
+    }catch(e){}
+
 
     throw new Error(
       "Supabase " +
@@ -1126,269 +2528,1829 @@ async function supabaseRequest(path, options = {}) {
       ": " +
       message
     );
+
   }
 
-  if (!text) return null;
 
-  try {
+  if(!text) return null;
+
+
+  try{
+
     return JSON.parse(text);
-  } catch(e) {
+
+  }catch(e){
+
     return text;
+
   }
+
+}
+
+
+/* =========================================================
+   AUTH REQUEST
+========================================================= */
+
+async function authRequest(endpoint, options = {}){
+
+  const response =
+    await fetch(
+      SUPABASE_URL + "/auth/v1/" + endpoint,
+      {
+        ...options,
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Content-Type":"application/json",
+          ...(options.headers || {})
+        }
+      }
+    );
+
+
+  const text =
+    await response.text();
+
+
+  if(!response.ok){
+
+    let message = text;
+
+    try{
+
+      const json =
+        JSON.parse(text);
+
+      message =
+        json.msg ||
+        json.message ||
+        json.error_description ||
+        json.error ||
+        text;
+
+    }catch(e){}
+
+
+    throw new Error(message);
+
+  }
+
+
+  if(!text) return null;
+
+
+  try{
+
+    return JSON.parse(text);
+
+  }catch(e){
+
+    return text;
+
+  }
+
 }
 
 
 /* =========================================================
    SCREEN NAVIGATION
-   ========================================================= */
+========================================================= */
 
-function showScreen(id){
+let lastScreen = "homeScreen";
 
-  document.querySelectorAll(".screen")
-    .forEach(screen => screen.classList.remove("active"));
 
-  const screen = document.getElementById(id);
+function showScreen(id,isBack=false){
 
-  if(screen){
-    screen.classList.add("active");
+  const screens =
+    document.querySelectorAll(".screen");
+
+
+  screens.forEach(screen=>{
+    screen.classList.remove(
+      "active",
+      "back-enter"
+    );
+  });
+
+
+  const screen =
+    document.getElementById(id);
+
+
+  if(!screen) return;
+
+
+  screen.classList.add("active");
+
+
+  if(isBack){
+
+    screen.classList.add("back-enter");
+
   }
+
+
+  lastScreen = id;
+
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
+
 }
 
 
 /* =========================================================
-   SKILL OTHER FIELD
-   ========================================================= */
+   CREATE PROFILE FLOW
+========================================================= */
 
-document.getElementById("skill").addEventListener("change", function(){
+function startCreateProfile(){
 
-  const group =
-    document.getElementById("otherSkillGroup");
+  if(authSession){
 
-  if(this.value === "Other"){
-    group.style.display = "block";
+    updateAccountScreen();
+
+    showScreen("accountScreen");
+
   }else{
-    group.style.display = "none";
-    document.getElementById("otherSkill").value = "";
+
+    showScreen("loginScreen");
+
   }
 
-});
-
-
-/* =========================================================
-   STATUS MESSAGE
-   ========================================================= */
-
-function showStatus(type, message){
-
-  const status =
-    document.getElementById("saveStatus");
-
-  status.className =
-    "status " + type;
-
-  status.innerText = message;
-
-  status.scrollIntoView({
-    behavior:"smooth",
-    block:"center"
-  });
 }
 
 
 /* =========================================================
-   WORKER PROFILE SAVE
-   ========================================================= */
+   FIND WORKERS FLOW
+========================================================= */
 
-document.getElementById("workerForm")
-.addEventListener("submit", async function(event){
+function startFindWorkers(){
 
-  event.preventDefault();
+  if(authSession){
+
+    openEmployerSearch();
+
+  }else{
+
+    showScreen("loginScreen");
+
+  }
+
+}
+
+
+/* =========================================================
+   ACCOUNT SCREEN
+========================================================= */
+
+function updateAccountScreen(){
+
+  const box =
+    document.getElementById("loggedUserBox");
+
+
+  if(authUser){
+
+    const identity =
+      authUser.email ||
+      authUser.phone ||
+      "Verified account";
+
+    box.innerText =
+      "✓ Signed in: " + identity;
+
+  }else{
+
+    box.innerText =
+      "✓ Signed in securely.";
+
+  }
+
+
+  document.getElementById(
+    "headerAccountBadge"
+  ).innerText =
+    "Account Active";
+
+}
+
+
+function openWorkerProfile(){
+
+  if(!requireLogin()) return;
+
+  showScreen("workerScreen");
+
+}
+
+
+function openEmployerSearch(){
+
+  if(!requireLogin()) return;
+
+  showScreen("employerScreen");
+
+}
+
+
+function requireLogin(){
+
+  if(!authSession){
+
+    showScreen("loginScreen");
+
+    showAuthStatus(
+      "info",
+      "Please sign in to continue."
+    );
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+/* =========================================================
+   LOGIN METHOD
+========================================================= */
+
+function selectLoginMethod(method){
+
+  loginMethod = method;
+
+
+  document
+    .getElementById("emailMethodBtn")
+    .classList.toggle(
+      "active",
+      method === "email"
+    );
+
+
+  document
+    .getElementById("phoneMethodBtn")
+    .classList.toggle(
+      "active",
+      method === "phone"
+    );
+
+
+  const label =
+    document.getElementById("loginLabel");
+
+  const input =
+    document.getElementById("loginInput");
+
+
+  if(method === "email"){
+
+    label.innerText = "Email";
+
+    input.type = "email";
+
+    input.placeholder =
+      "Enter your email";
+
+  }else{
+
+    label.innerText = "Phone";
+
+    input.type = "tel";
+
+    input.placeholder =
+      "+91 98765 43210";
+
+  }
+
+
+  input.value = "";
+
+}
+
+
+/* =========================================================
+   AUTH STATUS
+========================================================= */
+
+function showAuthStatus(type,message){
+
+  const box =
+    document.getElementById("authStatus");
+
+  box.className =
+    "status " + type;
+
+  box.innerText =
+    message;
+
+}
+
+
+/* =========================================================
+   SEND OTP
+========================================================= */
+
+async function sendOTP(){
+
+  const input =
+    document
+      .getElementById("loginInput")
+      .value
+      .trim();
+
+
+  if(!input){
+
+    showAuthStatus(
+      "error",
+      "Please enter your email or phone number."
+    );
+
+    return;
+
+  }
+
+
+  if(loginMethod === "email"){
+
+    if(!input.includes("@")){
+
+      showAuthStatus(
+        "error",
+        "Please enter a valid email address."
+      );
+
+      return;
+
+    }
+
+  }else{
+
+    const digits =
+      input.replace(/\D/g,"");
+
+    if(digits.length < 10){
+
+      showAuthStatus(
+        "error",
+        "Please enter a valid phone number."
+      );
+
+      return;
+
+    }
+
+  }
+
 
   const button =
-    document.getElementById("saveWorkerBtn");
+    document.getElementById("sendOtpBtn");
+
 
   button.disabled = true;
-  button.innerText = "Saving Profile...";
 
-  showStatus(
-    "success",
-    "Saving your worker profile..."
-  );
+  button.innerText =
+    "Sending Code...";
+
 
   try{
 
-    const selectedSkill =
-      document.getElementById("skill").value;
-
-    const otherSkill =
-      document.getElementById("otherSkill").value.trim();
-
-    const finalSkill =
-      selectedSkill === "Other"
-        ? otherSkill
-        : selectedSkill;
-
-    const workerData = {
-
-      full_name:
-        document.getElementById("fullName").value.trim(),
-
-      skills:
-        finalSkill,
-
-      company_name:
-        document.getElementById("companyName").value.trim(),
-
-      job_role:
-        document.getElementById("jobRole").value.trim(),
-
-      duration:
-        document.getElementById("duration").value.trim(),
-
-      location:
-        document.getElementById("location").value.trim(),
-
-      district:
-        document.getElementById("district").value,
-
-      verification:
-        document.getElementById("verification").value,
-
-      work_location:
-        document.getElementById("workLocation").value.trim(),
-
-      preferred_location:
-        document.getElementById("preferredLocation").value.trim(),
-
-      language:
-        document.getElementById("language").value.trim(),
-
-      availability:
-        document.getElementById("availability").value,
-
-      contact_phone:
-        document.getElementById("contactPhone").value.trim(),
-
-      contact_whatsapp:
-        document.getElementById("contactWhatsapp").value.trim(),
-
-      contact_prefferance:
-        document.getElementById("contactPreference").value,
-
-      other_skill:
-        selectedSkill === "Other"
-          ? otherSkill
-          : ""
-    };
+    const body =
+      loginMethod === "email"
+      ? {
+          email:input,
+          create_user:true
+        }
+      : {
+          phone:normalizePhone(input),
+          create_user:true
+        };
 
 
-    await supabaseRequest(
-      "workers",
+    await authRequest(
+      "otp",
       {
         method:"POST",
-        body:JSON.stringify(workerData)
+        body:JSON.stringify(body)
       }
     );
 
 
-    showStatus(
+    pendingLoginValue =
+      input;
+
+
+    document
+      .getElementById("otpBox")
+      .style.display =
+      "block";
+
+
+    showAuthStatus(
       "success",
-      "✅ Worker profile created successfully!"
+      "✓ Verification code sent. Check your " +
+      (loginMethod === "email"
+        ? "email."
+        : "phone.")
     );
 
-    document.getElementById("workerForm").reset();
-
-    document.getElementById("otherSkillGroup")
-      .style.display = "none";
 
   }catch(error){
 
-    console.error("KredVouch save error:", error);
+    console.error(error);
 
-    showStatus(
+    showAuthStatus(
       "error",
-      "❌ Could not save profile.\n\n" +
+      "Could not send verification code.\n\n" +
       error.message
     );
 
   }finally{
 
     button.disabled = false;
-    button.innerText = "Create Worker Profile";
+
+    button.innerText =
+      "Send Verification Code";
 
   }
 
-});
+}
+
+
+/* =========================================================
+   VERIFY OTP
+========================================================= */
+
+async function verifyOTP(){
+
+  const token =
+    document
+      .getElementById("otpInput")
+      .value
+      .trim();
+
+
+  if(!token){
+
+    showAuthStatus(
+      "error",
+      "Enter the verification code."
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById("verifyOtpBtn");
+
+
+  button.disabled = true;
+
+  button.innerText =
+    "Verifying...";
+
+
+  try{
+
+    const body =
+      loginMethod === "email"
+      ? {
+          type:"email",
+          email:pendingLoginValue,
+          token,
+          verify_type:"email"
+        }
+      : {
+          type:"sms",
+          phone:normalizePhone(pendingLoginValue),
+          token,
+          verify_type:"sms"
+        };
+
+
+    const result =
+      await authRequest(
+        "verify",
+        {
+          method:"POST",
+          body:JSON.stringify(body)
+        }
+      );
+
+
+    if(!result || !result.access_token){
+
+      throw new Error(
+        "Verification succeeded but no login session was returned."
+      );
+
+    }
+
+
+    authSession = result;
+
+    authUser =
+      result.user || null;
+
+
+    localStorage.setItem(
+      "kredvouch_session",
+      JSON.stringify(result)
+    );
+
+
+    updateAccountScreen();
+
+
+    document
+      .getElementById("otpBox")
+      .style.display =
+      "none";
+
+
+    document
+      .getElementById("otpInput")
+      .value = "";
+
+
+    showScreen("accountScreen");
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showAuthStatus(
+      "error",
+      "Verification failed.\n\n" +
+      error.message
+    );
+
+  }finally{
+
+    button.disabled = false;
+
+    button.innerText =
+      "Verify & Continue";
+
+  }
+
+}
+
+
+/* =========================================================
+   RESTORE SESSION
+========================================================= */
+
+function restoreSession(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(
+        "kredvouch_session"
+      );
+
+
+    if(!saved) return;
+
+
+    const session =
+      JSON.parse(saved);
+
+
+    if(
+      session &&
+      session.access_token
+    ){
+
+      authSession = session;
+
+      authUser =
+        session.user || null;
+
+      updateAccountScreen();
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Session restore error:",
+      error
+    );
+
+    localStorage.removeItem(
+      "kredvouch_session"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logoutUser(){
+
+  try{
+
+    if(authSession){
+
+      await authRequest(
+        "logout",
+        {
+          method:"POST",
+          headers:{
+            "Authorization":
+              "Bearer " +
+              authSession.access_token
+          }
+        }
+      );
+
+    }
+
+  }catch(error){
+
+    console.warn(
+      "Logout request:",
+      error
+    );
+
+  }
+
+
+  authSession = null;
+  authUser = null;
+
+
+  localStorage.removeItem(
+    "kredvouch_session"
+  );
+
+
+  document.getElementById(
+    "headerAccountBadge"
+  ).innerText =
+    "Trusted Skills";
+
+
+  showScreen(
+    "homeScreen",
+    true
+  );
+
+}
+
+
+/* =========================================================
+   PHONE NORMALIZER
+========================================================= */
+
+function normalizePhone(number){
+
+  let clean =
+    String(number)
+      .replace(/[^\d+]/g,"");
+
+
+  if(clean.startsWith("+")){
+
+    return clean;
+
+  }
+
+
+  if(clean.length === 10){
+
+    return "+91" + clean;
+
+  }
+
+
+  if(clean.startsWith("91")){
+
+    return "+" + clean;
+
+  }
+
+
+  return "+" + clean;
+
+}
+
+
+/* =========================================================
+   SKILL OTHER FIELD
+========================================================= */
+
+document
+  .getElementById("skill")
+  .addEventListener(
+    "change",
+    function(){
+
+      const group =
+        document.getElementById(
+          "otherSkillGroup"
+        );
+
+
+      const other =
+        document.getElementById(
+          "otherSkill"
+        );
+
+
+      if(this.value === "Other"){
+
+        group.style.display =
+          "block";
+
+        other.required = true;
+
+      }else{
+
+        group.style.display =
+          "none";
+
+        other.required = false;
+
+        other.value = "";
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function showStatus(type,message){
+
+  const status =
+    document.getElementById(
+      "saveStatus"
+    );
+
+
+  status.className =
+    "status " + type;
+
+
+  status.innerText =
+    message;
+
+
+  status.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+}
+
+
+/* =========================================================
+   LOCATION PICKER
+========================================================= */
+
+function openLocationPicker(targetId){
+
+  locationTarget =
+    targetId;
+
+
+  selectedLocationText =
+    document.getElementById(
+      targetId
+    ).value.trim();
+
+
+  selectedLatitude = null;
+  selectedLongitude = null;
+
+
+  const input =
+    document.getElementById(
+      "mapSearchInput"
+    );
+
+
+  input.value =
+    selectedLocationText;
+
+
+  document.getElementById(
+    "mapStatus"
+  ).className =
+    "status";
+
+
+  document.getElementById(
+    "mapStatus"
+  ).innerText = "";
+
+
+  document
+    .getElementById("mapPanel")
+    .classList.add("show");
+
+
+  if(selectedLocationText){
+
+    searchMapLocation();
+
+  }else{
+
+    setDefaultMap();
+
+  }
+
+}
+
+
+function closeLocationPicker(){
+
+  document
+    .getElementById("mapPanel")
+    .classList.remove("show");
+
+}
+
+
+function setDefaultMap(){
+
+  const map =
+    document.getElementById(
+      "mapPreview"
+    );
+
+
+  map.src =
+    "https://www.openstreetmap.org/export/embed.html?bbox=74.8%2C11.7%2C76.5%2C12.8&layer=mapnik";
+
+}
+
+
+function showMapStatus(type,message){
+
+  const box =
+    document.getElementById(
+      "mapStatus"
+    );
+
+
+  box.className =
+    "status " + type;
+
+
+  box.innerText =
+    message;
+
+}
+
+
+/* =========================================================
+   CURRENT GPS LOCATION
+========================================================= */
+
+function useCurrentLocation(){
+
+  if(!navigator.geolocation){
+
+    showMapStatus(
+      "error",
+      "Location services are not supported on this device/browser."
+    );
+
+    return;
+
+  }
+
+
+  showMapStatus(
+    "info",
+    "Getting your current location..."
+  );
+
+
+  navigator.geolocation.getCurrentPosition(
+    async position=>{
+
+      const lat =
+        position.coords.latitude;
+
+      const lon =
+        position.coords.longitude;
+
+
+      selectedLatitude = lat;
+
+      selectedLongitude = lon;
+
+
+      try{
+
+        const address =
+          await reverseGeocode(
+            lat,
+            lon
+          );
+
+
+        selectedLocationText =
+          address ||
+          `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+
+
+        document.getElementById(
+          "mapSearchInput"
+        ).value =
+          selectedLocationText;
+
+
+        updateMap(lat,lon);
+
+
+        showMapStatus(
+          "success",
+          "✓ Current location found."
+        );
+
+
+      }catch(error){
+
+        selectedLocationText =
+          `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+
+
+        document.getElementById(
+          "mapSearchInput"
+        ).value =
+          selectedLocationText;
+
+
+        updateMap(lat,lon);
+
+
+        showMapStatus(
+          "success",
+          "✓ GPS location found."
+        );
+
+      }
+
+    },
+    error=>{
+
+      let message =
+        "Could not access your location.";
+
+
+      if(error.code === 1){
+
+        message =
+          "Location permission was denied. Please allow location access in your browser.";
+
+      }
+
+
+      showMapStatus(
+        "error",
+        message
+      );
+
+    },
+    {
+      enableHighAccuracy:true,
+      timeout:15000,
+      maximumAge:0
+    }
+  );
+
+}
+
+
+/* =========================================================
+   GEOCODING
+========================================================= */
+
+async function searchMapLocation(){
+
+  const query =
+    document
+      .getElementById(
+        "mapSearchInput"
+      )
+      .value
+      .trim();
+
+
+  if(!query){
+
+    showMapStatus(
+      "error",
+      "Enter a location to search."
+    );
+
+    return;
+
+  }
+
+
+  showMapStatus(
+    "info",
+    "Searching location..."
+  );
+
+
+  try{
+
+    const url =
+      "https://nominatim.openstreetmap.org/search" +
+      "?format=jsonv2" +
+      "&limit=1" +
+      "&q=" +
+      encodeURIComponent(query);
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          headers:{
+            "Accept":
+              "application/json"
+          }
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "Location search failed."
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if(!data.length){
+
+      throw new Error(
+        "Location not found. Try a more specific place."
+      );
+
+    }
+
+
+    const result =
+      data[0];
+
+
+    selectedLatitude =
+      Number(result.lat);
+
+    selectedLongitude =
+      Number(result.lon);
+
+
+    selectedLocationText =
+      result.display_name;
+
+
+    document.getElementById(
+      "mapSearchInput"
+    ).value =
+      selectedLocationText;
+
+
+    updateMap(
+      selectedLatitude,
+      selectedLongitude
+    );
+
+
+    showMapStatus(
+      "success",
+      "✓ Location found. Tap “Use This Location” to apply it."
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMapStatus(
+      "error",
+      error.message
+    );
+
+  }
+
+}
+
+
+async function reverseGeocode(lat,lon){
+
+  const url =
+    "https://nominatim.openstreetmap.org/reverse" +
+    "?format=jsonv2" +
+    "&lat=" +
+    encodeURIComponent(lat) +
+    "&lon=" +
+    encodeURIComponent(lon);
+
+
+  const response =
+    await fetch(
+      url,
+      {
+        headers:{
+          "Accept":
+            "application/json"
+        }
+      }
+    );
+
+
+  if(!response.ok){
+
+    throw new Error(
+      "Reverse geocoding failed."
+    );
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  return data.display_name || "";
+
+}
+
+
+function updateMap(lat,lon){
+
+  const delta = .025;
+
+
+  const left =
+    lon - delta;
+
+  const right =
+    lon + delta;
+
+  const bottom =
+    lat - delta;
+
+  const top =
+    lat + delta;
+
+
+  const bbox =
+    `${left}%2C${bottom}%2C${right}%2C${top}`;
+
+
+  document.getElementById(
+    "mapPreview"
+  ).src =
+    "https://www.openstreetmap.org/export/embed.html" +
+    "?bbox=" +
+    bbox +
+    "&layer=mapnik" +
+    "&marker=" +
+    lat +
+    "%2C" +
+    lon;
+
+}
+
+
+function applySelectedLocation(){
+
+  if(!locationTarget){
+
+    closeLocationPicker();
+
+    return;
+
+  }
+
+
+  const text =
+    document
+      .getElementById(
+        "mapSearchInput"
+      )
+      .value
+      .trim();
+
+
+  if(!text){
+
+    showMapStatus(
+      "error",
+      "Please select or search a location first."
+    );
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    locationTarget
+  ).value =
+    selectedLocationText || text;
+
+
+  closeLocationPicker();
+
+}
+
+
+/* =========================================================
+   PORTFOLIO PREVIEW
+========================================================= */
+
+document
+  .getElementById("portfolioFiles")
+  .addEventListener(
+    "change",
+    function(){
+
+      const preview =
+        document.getElementById(
+          "portfolioPreview"
+        );
+
+
+      preview.innerHTML = "";
+
+
+      const files =
+        Array.from(this.files || []);
+
+
+      files.forEach(file=>{
+
+        if(!file.type.startsWith("image/")){
+          return;
+        }
+
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          event=>{
+
+            const item =
+              document.createElement(
+                "div"
+              );
+
+            item.className =
+              "preview-item";
+
+
+            const img =
+              document.createElement(
+                "img"
+              );
+
+
+            img.src =
+              event.target.result;
+
+
+            item.appendChild(img);
+
+            preview.appendChild(item);
+
+          };
+
+
+        reader.readAsDataURL(file);
+
+      });
+
+    }
+  );
+
+
+/* =========================================================
+   WORKER PROFILE SAVE
+========================================================= */
+
+document
+  .getElementById("workerForm")
+  .addEventListener(
+    "submit",
+    async function(event){
+
+      event.preventDefault();
+
+
+      if(!requireLogin()){
+
+        return;
+
+      }
+
+
+      const button =
+        document.getElementById(
+          "saveWorkerBtn"
+        );
+
+
+      button.disabled = true;
+
+      button.innerText =
+        "Saving Profile...";
+
+
+      showStatus(
+        "info",
+        "Saving your worker profile..."
+      );
+
+
+      try{
+
+        const selectedSkill =
+          document.getElementById(
+            "skill"
+          ).value;
+
+
+        const otherSkill =
+          document.getElementById(
+            "otherSkill"
+          ).value.trim();
+
+
+        const finalSkill =
+          selectedSkill === "Other"
+          ? otherSkill
+          : selectedSkill;
+
+
+        if(
+          selectedSkill === "Other" &&
+          !otherSkill
+        ){
+
+          throw new Error(
+            "Please enter your skill."
+          );
+
+        }
+
+
+        const workerData = {
+
+          full_name:
+            document.getElementById(
+              "fullName"
+            ).value.trim(),
+
+          skills:
+            finalSkill,
+
+          company_name:
+            document.getElementById(
+              "companyName"
+            ).value.trim(),
+
+          job_role:
+            document.getElementById(
+              "jobRole"
+            ).value.trim(),
+
+          duration:
+            document.getElementById(
+              "duration"
+            ).value.trim(),
+
+          location:
+            document.getElementById(
+              "location"
+            ).value.trim(),
+
+          district:
+            document.getElementById(
+              "district"
+            ).value,
+
+          verification:
+            document.getElementById(
+              "verification"
+            ).value,
+
+          work_location:
+            document.getElementById(
+              "workLocation"
+            ).value.trim(),
+
+          preferred_location:
+            document.getElementById(
+              "preferredLocation"
+            ).value.trim(),
+
+          language:
+            document.getElementById(
+              "language"
+            ).value,
+
+          availability:
+            document.getElementById(
+              "availability"
+            ).value,
+
+          contact_phone:
+            document.getElementById(
+              "contactPhone"
+            ).value.trim(),
+
+          contact_whatsapp:
+            document.getElementById(
+              "contactWhatsapp"
+            ).value.trim(),
+
+          contact_prefferance:
+            document.getElementById(
+              "contactPreference"
+            ).value,
+
+          other_skill:
+            selectedSkill === "Other"
+            ? otherSkill
+            : ""
+
+        };
+
+
+        /*
+         * We request the inserted row back so we can
+         * use its ID for the portfolio storage path.
+         */
+
+        const inserted =
+          await supabaseRequest(
+            "workers",
+            {
+              method:"POST",
+              headers:{
+                "Prefer":
+                  "return=representation"
+              },
+              body:
+                JSON.stringify(
+                  workerData
+                )
+            }
+          );
+
+
+        let workerId = null;
+
+
+        if(
+          Array.isArray(inserted) &&
+          inserted[0]
+        ){
+
+          workerId =
+            inserted[0].id;
+
+        }
+
+
+        /*
+         * Upload portfolio photos only after
+         * the worker profile has been successfully saved.
+         */
+
+        const portfolioFiles =
+          Array.from(
+            document
+              .getElementById(
+                "portfolioFiles"
+              )
+              .files || []
+          );
+
+
+        if(
+          portfolioFiles.length &&
+          workerId
+        ){
+
+          await uploadPortfolio(
+            workerId,
+            portfolioFiles
+          );
+
+        }
+
+
+        showStatus(
+          "success",
+          portfolioFiles.length
+          ? "✅ Worker profile created and portfolio photos uploaded successfully!"
+          : "✅ Worker profile created successfully!"
+        );
+
+
+        document
+          .getElementById(
+            "workerForm"
+          )
+          .reset();
+
+
+        document
+          .getElementById(
+            "otherSkillGroup"
+          )
+          .style.display =
+          "none";
+
+
+        document
+          .getElementById(
+            "portfolioPreview"
+          )
+          .innerHTML = "";
+
+
+        document
+          .getElementById(
+            "uploadStatus"
+          )
+          .innerText = "";
+
+
+      }catch(error){
+
+        console.error(
+          "KredVouch save error:",
+          error
+        );
+
+
+        showStatus(
+          "error",
+          "❌ Could not save profile.\n\n" +
+          error.message
+        );
+
+      }finally{
+
+        button.disabled = false;
+
+        button.innerText =
+          "Create Worker Profile";
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   PORTFOLIO STORAGE UPLOAD
+========================================================= */
+
+async function uploadPortfolio(
+  workerId,
+  files
+){
+
+  const status =
+    document.getElementById(
+      "uploadStatus"
+    );
+
+
+  status.innerText =
+    "Uploading portfolio photos...";
+
+
+  let uploaded = 0;
+
+
+  for(const file of files){
+
+    if(!file.type.startsWith("image/")){
+      continue;
+    }
+
+
+    const safeName =
+      file.name
+        .replace(/[^a-zA-Z0-9._-]/g,"_");
+
+
+    const path =
+      workerId +
+      "/" +
+      Date.now() +
+      "_" +
+      Math.random()
+        .toString(36)
+        .slice(2,8) +
+      "_" +
+      safeName;
+
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/storage/v1/object/portfolio/" +
+        path,
+        {
+          method:"POST",
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              authSession.access_token,
+
+            "Content-Type":
+              file.type,
+
+            "x-upsert":
+              "false"
+          },
+          body:file
+        }
+      );
+
+
+    if(!response.ok){
+
+      const text =
+        await response.text();
+
+
+      throw new Error(
+        "Portfolio upload failed: " +
+        text
+      );
+
+    }
+
+
+    uploaded++;
+
+
+    status.innerText =
+      `Uploaded ${uploaded} of ${files.length} portfolio photo(s)...`;
+
+  }
+
+
+  status.innerText =
+    `✓ ${uploaded} portfolio photo(s) uploaded.`;
+
+}
 
 
 /* =========================================================
    EMPLOYER SEARCH
-   ========================================================= */
+========================================================= */
 
-document.getElementById("searchBtn")
-.addEventListener("click", searchWorkers);
+document
+  .getElementById("searchBtn")
+  .addEventListener(
+    "click",
+    searchWorkers
+  );
 
 
 async function searchWorkers(){
 
+  if(!requireLogin()){
+
+    return;
+
+  }
+
+
   const results =
-    document.getElementById("results");
+    document.getElementById(
+      "results"
+    );
+
 
   const skill =
-    document.getElementById("searchSkill").value;
+    document.getElementById(
+      "searchSkill"
+    ).value;
+
 
   const district =
-    document.getElementById("searchDistrict").value;
+    document.getElementById(
+      "searchDistrict"
+    ).value;
+
 
   results.innerHTML =
     '<div class="card loading">Searching skilled workers...</div>';
+
 
   try{
 
     let query =
       "workers?select=*";
 
+
     if(skill){
 
       query +=
         "&skills=eq." +
-        encodeURIComponent(skill);
+        encodeURIComponent(
+          skill
+        );
 
     }
+
 
     if(district){
 
       query +=
         "&district=eq." +
-        encodeURIComponent(district);
+        encodeURIComponent(
+          district
+        );
 
     }
+
 
     query +=
       "&order=created_at.desc";
 
 
     const workers =
-      await supabaseRequest(query);
+      await supabaseRequest(
+        query
+      );
 
 
-    renderWorkers(workers || []);
+    currentWorkers =
+      workers || [];
+
+
+    renderWorkers(
+      currentWorkers
+    );
 
 
   }catch(error){
 
-    console.error("Search error:", error);
+    console.error(
+      "Search error:",
+      error
+    );
+
 
     results.innerHTML = `
       <div class="card">
-        <div class="status error" style="display:block">
+        <div
+          class="status error"
+          style="display:block">
+
           Could not load workers.<br><br>
-          ${escapeHtml(error.message)}
+
+          ${escapeHtml(
+            error.message
+          )}
+
         </div>
       </div>
     `;
@@ -1400,69 +4362,106 @@ async function searchWorkers(){
 
 /* =========================================================
    RENDER WORKERS
-   ========================================================= */
+========================================================= */
 
 function renderWorkers(workers){
 
   const results =
-    document.getElementById("results");
+    document.getElementById(
+      "results"
+    );
+
 
   if(!workers.length){
 
     results.innerHTML = `
       <div class="card empty">
-        <div class="empty-icon">🔍</div>
-        <strong>No workers found</strong>
-        <p style="margin-top:7px;font-size:12px">
+
+        <div class="empty-icon">
+          🔍
+        </div>
+
+        <strong>
+          No workers found
+        </strong>
+
+        <p
+          style="margin-top:7px;font-size:12px">
+
           Try another skill or district.
+
         </p>
+
       </div>
     `;
 
     return;
+
   }
 
 
   let html = `
     <div class="results-count">
-      ${workers.length} worker${workers.length === 1 ? "" : "s"} found
+      ${workers.length}
+      worker${workers.length === 1 ? "" : "s"}
+      found
     </div>
   `;
 
 
-  workers.forEach((worker,index)=>{
+  workers.forEach(
+    (worker,index)=>{
 
-    html += workerCardHtml(worker,index);
+      html +=
+        workerCardHtml(
+          worker,
+          index
+        );
 
-  });
+    }
+  );
 
 
-  results.innerHTML = html;
+  results.innerHTML =
+    html;
 
 }
 
 
-function workerCardHtml(worker,index){
+function workerCardHtml(
+  worker,
+  index
+){
 
   const verified =
-    worker.verification === "Verified";
+    worker.verification ===
+    "Verified";
+
 
   const available =
     worker.availability &&
     worker.availability
       .toLowerCase()
-      .includes("available");
+      .includes(
+        "available"
+      );
 
 
   return `
-    <div class="worker-card">
+    <div
+      class="worker-card"
+      style="animation-delay:${index * 45}ms">
 
       <div class="worker-top">
 
         <div>
 
           <div class="worker-name">
-            ${escapeHtml(worker.full_name || "Worker")}
+
+            ${escapeHtml(
+              worker.full_name ||
+              "Worker"
+            )}
 
             ${
               verified
@@ -1473,10 +4472,16 @@ function workerCardHtml(worker,index){
           </div>
 
           <div class="worker-skill">
-            ${escapeHtml(worker.skills || "Skilled Worker")}
+
+            ${escapeHtml(
+              worker.skills ||
+              "Skilled Worker"
+            )}
+
           </div>
 
         </div>
+
 
         ${
           available
@@ -1491,31 +4496,69 @@ function workerCardHtml(worker,index){
 
         ${
           worker.location
-          ? `<div class="meta">📍 ${escapeHtml(worker.location)}</div>`
+          ? `
+          <div class="meta">
+            📍
+            ${escapeHtml(
+              worker.location
+            )}
+          </div>
+          `
           : ''
         }
+
 
         ${
           worker.district
-          ? `<div class="meta">${escapeHtml(worker.district)}</div>`
+          ? `
+          <div class="meta">
+            ${escapeHtml(
+              worker.district
+            )}
+          </div>
+          `
           : ''
         }
+
 
         ${
           worker.duration
-          ? `<div class="meta">⏱ ${escapeHtml(worker.duration)}</div>`
+          ? `
+          <div class="meta">
+            ⏱
+            ${escapeHtml(
+              worker.duration
+            )}
+          </div>
+          `
           : ''
         }
+
 
         ${
           worker.job_role
-          ? `<div class="meta">💼 ${escapeHtml(worker.job_role)}</div>`
+          ? `
+          <div class="meta">
+            💼
+            ${escapeHtml(
+              worker.job_role
+            )}
+          </div>
+          `
           : ''
         }
 
+
         ${
           worker.company_name
-          ? `<div class="meta">🏢 ${escapeHtml(worker.company_name)}</div>`
+          ? `
+          <div class="meta">
+            🏢
+            ${escapeHtml(
+              worker.company_name
+            )}
+          </div>
+          `
           : ''
         }
 
@@ -1527,28 +4570,40 @@ function workerCardHtml(worker,index){
         <button
           class="action-btn"
           onclick="openProfile(${index})">
+
           View Profile
+
         </button>
+
 
         ${
           worker.contact_whatsapp
           ? `
           <button
             class="action-btn whatsapp"
-            onclick="openWhatsApp('${escapeAttribute(worker.contact_whatsapp)}')">
+            onclick="openWhatsApp('${escapeAttribute(
+              worker.contact_whatsapp
+            )}')">
+
             WhatsApp
+
           </button>
           `
           : ''
         }
+
 
         ${
           worker.contact_phone
           ? `
           <button
             class="action-btn"
-            onclick="callWorker('${escapeAttribute(worker.contact_phone)}')">
+            onclick="callWorker('${escapeAttribute(
+              worker.contact_phone
+            )}')">
+
             Call
+
           </button>
           `
           : ''
@@ -1564,85 +4619,36 @@ function workerCardHtml(worker,index){
 
 /* =========================================================
    PROFILE
-   ========================================================= */
-
-let currentWorkers = [];
-let currentWorker = null;
-let chatBackScreen = "employerScreen";
-
+========================================================= */
 
 function openProfile(index){
 
-  const results =
-    document.getElementById("results");
+  if(!requireLogin()){
 
-  currentWorkers =
-    Array.from(
-      results.querySelectorAll(".worker-card")
-    );
-
-  /*
-   * Search results are rebuilt from the last response.
-   * The worker object is stored separately below.
-   */
-  const skill =
-    document.getElementById("searchSkill").value;
-
-  const district =
-    document.getElementById("searchDistrict").value;
-
-  loadWorkerForProfile(skill,district,index);
-
-}
-
-
-async function loadWorkerForProfile(skill,district,index){
-
-  try{
-
-    let query =
-      "workers?select=*";
-
-    if(skill){
-
-      query +=
-        "&skills=eq." +
-        encodeURIComponent(skill);
-
-    }
-
-    if(district){
-
-      query +=
-        "&district=eq." +
-        encodeURIComponent(district);
-
-    }
-
-    query +=
-      "&order=created_at.desc";
-
-
-    const workers =
-      await supabaseRequest(query);
-
-    currentWorker =
-      workers[index];
-
-    if(!currentWorker){
-
-      return;
-    }
-
-    renderProfile(currentWorker);
-
-    showScreen("profileScreen");
-
-  }catch(error){
-
-    console.error(error);
+    return;
 
   }
+
+
+  currentWorker =
+    currentWorkers[index];
+
+
+  if(!currentWorker){
+
+    return;
+
+  }
+
+
+  renderProfile(
+    currentWorker
+  );
+
+
+  showScreen(
+    "profileScreen"
+  );
 
 }
 
@@ -1650,54 +4656,115 @@ async function loadWorkerForProfile(skill,district,index){
 function renderProfile(worker){
 
   const profile =
-    document.getElementById("profileContent");
+    document.getElementById(
+      "profileContent"
+    );
+
 
   const verified =
-    worker.verification === "Verified";
+    worker.verification ===
+    "Verified";
+
 
   profile.innerHTML = `
 
     <div class="profile-header">
 
-      <div style="font-size:38px;margin-bottom:10px">👷</div>
+      <div
+        style="font-size:38px;margin-bottom:10px">
+
+        👷
+
+      </div>
+
 
       <div class="profile-name">
-        ${escapeHtml(worker.full_name || "Worker")}
+
+        ${escapeHtml(
+          worker.full_name ||
+          "Worker"
+        )}
+
         ${
           verified
           ? '<span class="verified">✓</span>'
           : ''
         }
+
       </div>
+
 
       <div class="profile-role">
-        ${escapeHtml(worker.job_role || worker.skills || "Skilled Worker")}
+
+        ${escapeHtml(
+          worker.job_role ||
+          worker.skills ||
+          "Skilled Worker"
+        )}
+
       </div>
 
-      <div style="margin-top:10px;font-size:12px;opacity:.9">
-        📍 ${escapeHtml(worker.location || worker.district || "Location not provided")}
+
+      <div
+        style="margin-top:10px;font-size:12px;opacity:.9">
+
+        📍
+        ${escapeHtml(
+          worker.location ||
+          worker.district ||
+          "Location not provided"
+        )}
+
       </div>
+
 
       <div class="profile-stats">
 
         <div class="stat">
-          <strong>${escapeHtml(worker.duration || "—")}</strong>
-          <span>Experience</span>
+          <strong>
+            ${escapeHtml(
+              worker.duration || "—"
+            )}
+          </strong>
+          <span>
+            Experience
+          </span>
         </div>
 
-        <div class="stat">
-          <strong>${escapeHtml(worker.skills || "—")}</strong>
-          <span>Skill</span>
-        </div>
 
         <div class="stat">
-          <strong>${escapeHtml(worker.district || "—")}</strong>
-          <span>District</span>
+          <strong>
+            ${escapeHtml(
+              worker.skills || "—"
+            )}
+          </strong>
+          <span>
+            Skill
+          </span>
         </div>
 
+
         <div class="stat">
-          <strong>${escapeHtml(worker.verification || "—")}</strong>
-          <span>Verification</span>
+          <strong>
+            ${escapeHtml(
+              worker.district || "—"
+            )}
+          </strong>
+          <span>
+            District
+          </span>
+        </div>
+
+
+        <div class="stat">
+          <strong>
+            ${escapeHtml(
+              worker.verification || "—"
+            )}
+          </strong>
+          <span>
+            Verification
+          </span>
         </div>
 
       </div>
@@ -1707,24 +4774,41 @@ function renderProfile(worker){
 
     <div class="detail-section">
 
-      <h3>💼 Work Experience</h3>
+      <h3>
+        💼 Work Experience
+      </h3>
 
       <p>
+
         ${
           worker.job_role
-          ? "Role: " + escapeHtml(worker.job_role)
+          ? "Role: " +
+            escapeHtml(
+              worker.job_role
+            )
           : ""
         }
+
+
         ${
           worker.company_name
-          ? "<br>Company: " + escapeHtml(worker.company_name)
+          ? "<br>Company: " +
+            escapeHtml(
+              worker.company_name
+            )
           : ""
         }
+
+
         ${
           worker.duration
-          ? "<br>Duration: " + escapeHtml(worker.duration)
+          ? "<br>Duration: " +
+            escapeHtml(
+              worker.duration
+            )
           : ""
         }
+
       </p>
 
     </div>
@@ -1732,19 +4816,34 @@ function renderProfile(worker){
 
     <div class="detail-section">
 
-      <h3>🛠️ Skills</h3>
+      <h3>
+        🛠️ Skills
+      </h3>
 
       <div class="tags">
 
         ${
           worker.skills
-          ? `<div class="tag">${escapeHtml(worker.skills)}</div>`
+          ? `
+          <div class="tag">
+            ${escapeHtml(
+              worker.skills
+            )}
+          </div>
+          `
           : ''
         }
 
+
         ${
           worker.other_skill
-          ? `<div class="tag">${escapeHtml(worker.other_skill)}</div>`
+          ? `
+          <div class="tag">
+            ${escapeHtml(
+              worker.other_skill
+            )}
+          </div>
+          `
           : ''
         }
 
@@ -1755,36 +4854,51 @@ function renderProfile(worker){
 
     <div class="detail-section">
 
-      <h3>📍 Work Preferences</h3>
+      <h3>
+        📍 Work Preferences
+      </h3>
 
       <p>
+
         ${
           worker.work_location
           ? "Work Location: " +
-            escapeHtml(worker.work_location)
+            escapeHtml(
+              worker.work_location
+            )
           : "Work location not provided."
         }
+
 
         ${
           worker.preferred_location
           ? "<br>Preferred Location: " +
-            escapeHtml(worker.preferred_location)
+            escapeHtml(
+              worker.preferred_location
+            )
           : ""
         }
+
 
         ${
           worker.language
           ? "<br>Language: " +
-            escapeHtml(worker.language)
+            escapeHtml(
+              worker.language
+            )
           : ""
         }
+
 
         ${
           worker.availability
           ? "<br>Availability: " +
-            escapeHtml(worker.availability)
+            escapeHtml(
+              worker.availability
+            )
           : ""
         }
+
       </p>
 
     </div>
@@ -1792,14 +4906,20 @@ function renderProfile(worker){
 
     <div class="detail-section">
 
-      <h3>🛡️ Verification</h3>
+      <h3>
+        🛡️ Work Verification
+      </h3>
 
       <p>
+
         ${
           worker.verification
-          ? escapeHtml(worker.verification)
+          ? escapeHtml(
+              worker.verification
+            )
           : "Not specified"
         }
+
       </p>
 
     </div>
@@ -1807,7 +4927,18 @@ function renderProfile(worker){
 
     <div class="detail-section">
 
-      <h3>📞 Contact</h3>
+      <h3>
+        📞 Contact
+      </h3>
+
+      <p
+        style="font-size:11px;color:#8a8f9c;margin-bottom:10px">
+
+        Contact details are available only to
+        authenticated KredVouch users.
+
+      </p>
+
 
       <div class="button-row">
 
@@ -1816,20 +4947,29 @@ function renderProfile(worker){
           ? `
           <button
             class="action-btn"
-            onclick="callWorker('${escapeAttribute(worker.contact_phone)}')">
+            onclick="callWorker('${escapeAttribute(
+              worker.contact_phone
+            )}')">
+
             📞 Call
+
           </button>
           `
           : ''
         }
+
 
         ${
           worker.contact_whatsapp
           ? `
           <button
             class="action-btn whatsapp"
-            onclick="openWhatsApp('${escapeAttribute(worker.contact_whatsapp)}')">
+            onclick="openWhatsApp('${escapeAttribute(
+              worker.contact_whatsapp
+            )}')">
+
             💬 WhatsApp
+
           </button>
           `
           : ''
@@ -1837,11 +4977,17 @@ function renderProfile(worker){
 
       </div>
 
+
       <button
         class="secondary-btn"
         style="margin-top:10px"
-        onclick="openChat('${escapeAttribute(worker.full_name || "Worker")}')">
+        onclick="openChat('${escapeAttribute(
+          worker.full_name ||
+          "Worker"
+        )}')">
+
         💬 Contact / Chat
+
       </button>
 
     </div>
@@ -1853,11 +4999,19 @@ function renderProfile(worker){
 
 /* =========================================================
    CONTACT
-   ========================================================= */
+========================================================= */
 
 function callWorker(number){
 
+  if(!requireLogin()){
+
+    return;
+
+  }
+
+
   if(!number) return;
+
 
   window.location.href =
     "tel:" + number;
@@ -1867,21 +5021,40 @@ function callWorker(number){
 
 function openWhatsApp(number){
 
+  if(!requireLogin()){
+
+    return;
+
+  }
+
+
   if(!number) return;
 
+
   let clean =
-    String(number).replace(/[^\d+]/g,"");
+    String(number)
+      .replace(/[^\d+]/g,"");
+
 
   if(clean.startsWith("+")){
-    clean = clean.substring(1);
+
+    clean =
+      clean.substring(1);
+
   }
+
 
   if(clean.length === 10){
-    clean = "91" + clean;
+
+    clean =
+      "91" + clean;
+
   }
 
+
   window.open(
-    "https://wa.me/" + clean,
+    "https://wa.me/" +
+    clean,
     "_blank"
   );
 
@@ -1890,58 +5063,108 @@ function openWhatsApp(number){
 
 /* =========================================================
    LOCAL CHAT
-   ========================================================= */
+========================================================= */
 
 function openChat(workerName){
 
-  chatBackScreen = "profileScreen";
+  if(!requireLogin()){
 
-  document.getElementById("chatTitle").innerText =
-    "Chat with " + workerName;
+    return;
 
-  document.getElementById("chatMessages").innerHTML = `
+  }
+
+
+  chatBackScreen =
+    "profileScreen";
+
+
+  document.getElementById(
+    "chatTitle"
+  ).innerText =
+    "Chat with " +
+    workerName;
+
+
+  document.getElementById(
+    "chatMessages"
+  ).innerHTML = `
+
     <div class="message">
-      Hello! You can send a message to ${escapeHtml(workerName)}.
+
+      Hello! You can send a message to
+      ${escapeHtml(workerName)}.
+
     </div>
+
   `;
 
-  showScreen("chatScreen");
+
+  showScreen(
+    "chatScreen"
+  );
 
 }
 
 
 function backFromChat(){
 
-  showScreen(chatBackScreen);
+  showScreen(
+    chatBackScreen,
+    true
+  );
 
 }
 
 
 function sendChat(){
 
+  if(!requireLogin()){
+
+    return;
+
+  }
+
+
   const input =
-    document.getElementById("chatInput");
+    document.getElementById(
+      "chatInput"
+    );
+
 
   const text =
     input.value.trim();
 
+
   if(!text) return;
 
+
   const messages =
-    document.getElementById("chatMessages");
+    document.getElementById(
+      "chatMessages"
+    );
+
 
   const message =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   message.className =
     "message me";
 
+
   message.innerText =
     text;
 
-  messages.appendChild(message);
+
+  messages.appendChild(
+    message
+  );
+
 
   input.value = "";
+
 
   messages.scrollTop =
     messages.scrollHeight;
@@ -1950,58 +5173,125 @@ function sendChat(){
 
 
 /* =========================================================
-   SAFE TEXT HELPERS
-   ========================================================= */
+   SAFE TEXT
+========================================================= */
 
 function escapeHtml(value){
 
-  if(value === null || value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
+
     return "";
+
   }
 
+
   return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
 function escapeAttribute(value){
 
-  if(value === null || value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
+
     return "";
+
   }
 
+
   return String(value)
-    .replace(/\\/g,"\\\\")
-    .replace(/'/g,"\\'");
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    );
+
 }
 
 
 /* =========================================================
-   ENTER KEY FOR CHAT
-   ========================================================= */
+   CHAT ENTER KEY
+========================================================= */
 
-document.getElementById("chatInput")
-.addEventListener("keydown",function(event){
+document
+  .getElementById("chatInput")
+  .addEventListener(
+    "keydown",
+    function(event){
 
-  if(event.key === "Enter"){
-    sendChat();
-  }
+      if(event.key === "Enter"){
 
-});
+        sendChat();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   MAP ESCAPE
+========================================================= */
+
+document
+  .getElementById("mapPanel")
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target ===
+        this
+      ){
+
+        closeLocationPicker();
+
+      }
+
+    }
+  );
 
 
 /* =========================================================
    INITIAL STATE
-   ========================================================= */
+========================================================= */
 
-showScreen("homeScreen");
+restoreSession();
+
+showScreen(
+  "homeScreen"
+);
 
 </script>
 
 </body>
-</html>
+</html> 
